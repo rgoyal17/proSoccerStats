@@ -11,7 +11,7 @@
     crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="https://img.icons8.com/officel/16/000000/football.png">
-    <title>Home Page</title>
+    <title>Player Statistics</title>
 </head>
 <body>
     <header>
@@ -28,7 +28,7 @@
             </button>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Home</a>
+                    <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Create Team</a>
@@ -45,17 +45,18 @@
 
     <main>
         <div class="row">
-            <div class="col-lg-3 search-feature">
+            <div class="col-lg-4 col-xl-3 search-feature">
+                <p id="searchtext">Enter values here to search for a player!</p>
                 <form>
                     <div class="form-group row">
-                        <label for="name" class="col-3 col-form-label">Name:</label>
-                        <div class="col-9">
+                        <label for="name" class="col-lg-4 col-form-label">Name:</label>
+                        <div class="col-lg-8">
                             <input type="name" class="form-control" id="name" placeholder="Enter Name">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="nationality" class="col-3 col-form-label">Nationality:</label>
-                        <div class="col-9">
+                        <label for="nationality" class="col-lg-4 col-form-label">Nationality:</label>
+                        <div class="col-lg-8">
                             <select class="form-control" id="nationality">
                                 <option selected>Choose Country...</option>
                                 <option value="Afganistan">Afghanistan</option>
@@ -308,8 +309,8 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="league" class="col-3 col-form-label">League:</label>
-                        <div class="col-9">
+                        <label for="league" class="col-lg-4 col-form-label">League:</label>
+                        <div class="col-lg-8">
                             <select class="form-control" id="league">
                                 <option selected>Choose League...</option>
                                 <option value="La Liga">Spain's La Liga</option>
@@ -326,8 +327,8 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="club" class="col-3 col-form-label">Club:</label>
-                        <div class="col-9">
+                        <label for="club" class="col-lg-4 col-form-label">Club:</label>
+                        <div class="col-lg-8">
                             <select class="form-control" id="club">
                                 <option selected>Choose Club...</option>
                                 <option value="FCB">FC Barcelona</option>
@@ -344,8 +345,8 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="position" class="col-3 col-form-label">Position:</label>
-                        <div class="col-9">
+                        <label for="position" class="col-lg-4 col-form-label">Position:</label>
+                        <div class="col-lg-8">
                             <select class="form-control" id="position">
                                 <option selected>Choose Position...</option>
                                 <option value="CF">Centre Forward</option>
@@ -365,157 +366,151 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="age" class="col-3 col-form-label">Age:</label>
-                        <div class="col-9">
+                        <label for="age" class="col-lg-4 col-form-label">Age:</label>
+                        <div class="col-lg-8">
                             <input type="number" class="form-control" min="1" max="100" placeholder="Enter Age">
                         </div>
                     </div>
                     <button class="btn" type="submit">Search</button>
                 </form>
-
             </div>
-            <div class="col-lg-9 results">
-                <div class="row">
-                    <div class="col">
-                        <p id="searchresults">Search Results:</p>
-                    </div>
-                    <div class="col entries">
-                        <label for="entries">Limit Entries Per Page:</label>
-                        <select entries="club">
-                            <option selected>10 Entries</option>
-                            <option value="25">25 Entries</option>
-                            <option value="50">50 Entries</option>
-                            <option value="75">75 Entries</option>
-                            <option value="100">100 Entries</option>
-                            <option value="All">All</option>
-                        </select>
-                    </div>
-                </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Country</th>
-                        <th scope="col">Club</th>
-                        <th scope="col">Position(s)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td><img src="img/messi.png" alt="Lionel Messi"></th>
-                            <td><a href="#">Lionel Messi</a></td>
-                            <td>Argentina</td>
-                            <td>FC Barcelona</td>
-                            <td>
+
+            <div class="col-lg-8 col-xl-9 player-card">
+                <div class="card">
+                    <img src="img/messi.png" class="card-img-top" alt="Lionel Messi">
+                    <h5 class="card-header">Lionel Messi</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col field">
+                                <p>Nationality:</p>
+                            </div>
+                            <div class="col">
+                                <p>Argentina</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Club:</p>
+                            </div>
+                            <div class="col">
+                                <p>FC Barcelona</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Preferred Position(s):</p>
+                            </div>
+                            <div class="col">
                                 <span class="badge striker-badge">RW</span>
                                 <span class="badge striker-badge">CF</span>
                                 <span class="badge striker-badge">ST</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td><img src="img/ronaldo.png" alt="Cristiano Ronaldo"></th>
-                            <td><a href="#">Cristiano Ronaldo</a></td>
-                            <td>Portugal</td>
-                            <td>Juventus</td>
-                            <td>
-                                <span class="badge striker-badge">ST</span>
-                                <span class="badge striker-badge">LW</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td><img src="img/neymar.png" alt="Neymar Jr"></th>
-                            <td><a href="#">Neymar Jr</a></td>
-                            <td>Brazil</td>
-                            <td>Paris Saint-Germain</td>
-                            <td>
-                                <span class="badge striker-badge">LW</span>
-                                <span class="badge mid-badge">CAM</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td><img src="img/van djik.png" alt="Virgil van Dijk"></th>
-                            <td><a href="#">Virgil van Dijk</a></td>
-                            <td>Netherlands</td>
-                            <td>Liverpool FC</td>
-                            <td>
-                                <span class="badge def-badge">CB</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td><img src="img/hazard.png" alt="Eden Hazard"></th>
-                            <td><a href="#">Eden Hazard</a></td>
-                            <td>Belgium</td>
-                            <td>Real Madrid</td>
-                            <td>
-                                <span class="badge striker-badge">LW</span>
-                                <span class="badge striker-badge">CF</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td><img src="img/mbappe.png" alt="Kylian Mbappé"></th>
-                            <td><a href="#"></a>Kylian Mbappé</a></td>
-                            <td>France</td>
-                            <td>Paris Saint-Germain</td>
-                            <td>
-                                <span class="badge striker-badge">ST</span>
-                                <span class="badge striker-badge">LW</span>
-                                <span class="badge striker-badge">RW</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">7</th>
-                            <td><img src="img/suarez.png" alt="Luis Suárez"></th>
-                            <td><a href="#">Luis Suárez</a></td>
-                            <td>Uruguay</td>
-                            <td>FC Barcelona</td>
-                            <td>
-                                <span class="badge striker-badge">ST</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">8</th>
-                            <td><img src="img/marcelo.png" alt="Marcelo"></th>
-                            <td><a href="#">Marcelo</a></td>
-                            <td>Brazil</td>
-                            <td>Real Madrid</td>
-                            <td>
-                                <span class="badge def-badge">LB</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">9</th>
-                            <td><img src="img/salah.png" alt="Mohamed Salah"></th>
-                            <td><a href="#">Mohamed Salah</a></td>
-                            <td>Egypt</td>
-                            <td>Liverpool FC</td>
-                            <td>
-                                <span class="badge striker-badge">RW</span>
-                                <span class="badge striker-badge">ST</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">10</th>
-                            <td><img src="img/de bruyne.png" alt="Kevin De Bruyne"></th>
-                            <td><a href="#">Kevin De Bruyne</a></td>
-                            <td>Belgium</td>
-                            <td>Manchester City</td>
-                            <td>
-                                <span class="badge mid-badge">CAM</span>
-                                <span class="badge mid-badge">CM</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="flex-container">
-                    <button class="btn" type="button">Next 20</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Age:</p>
+                            </div>
+                            <div class="col">
+                                <p>32</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Birth Date:</p>
+                            </div>
+                            <div class="col">
+                                <p>June 24, 1987</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Height:</p>
+                            </div>
+                            <div class="col">
+                                <p>5' 7''</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Weight:</p>
+                            </div>
+                            <div class="col">
+                                <p>159 lbs</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Matches played:</p>
+                            </div>
+                            <div class="col">
+                                <p>721</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Minutes played:</p>
+                            </div>
+                            <div class="col">
+                                <p>40,000 minutes</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Goals Scored:</p>
+                            </div>
+                            <div class="col">
+                                <p>600</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Passes(Completed):</p>
+                            </div>
+                            <div class="col">
+                                <p>1570(1300)</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Tackles:</p>
+                            </div>
+                            <div class="col">
+                                <p>3420</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Shots(On Target):</p>
+                            </div>
+                            <div class="col">
+                                <p>980(770)</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Duels(Won):</p>
+                            </div>
+                            <div class="col">
+                                <p>60(45)</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Fouls:</p>
+                            </div>
+                            <div class="col">
+                                <p>90</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Cards:</p>
+                            </div>
+                            <div class="col">
+                                <p>54</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

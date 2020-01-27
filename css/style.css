@@ -1,5 +1,18 @@
+/* home page */
+
 * {
     box-sizing: border-box;
+}
+
+main {
+    margin-top: 75px;
+    background-color: #fffff5;
+}
+
+.navbar {
+    background-color: #ffedc2;
+    padding: 0;
+    border: 1px solid #cbba83;
 }
 
 .navbar-toggler {
@@ -7,8 +20,20 @@
     border: 1px solid black;
 }
 
-main {
-    margin-top: 75px;
+.navbar-brand {
+    padding: 0;
+}
+
+.navbar-brand img {
+    padding: 10px;
+    height: 75px;
+    width: 75px;
+}
+
+.navbar-text {
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 .navbar-nav {
@@ -23,13 +48,28 @@ main {
     padding: 10px 0px;
 }
 
-footer {
-    margin-top: 10px;
-    text-align: center;
-    line-height: 5px;
+.results {
+    padding: 15px;
 }
 
-img {
+.results-entries {
+    display: none;
+}
+
+.result-table {
+    border: 1px solid #cbba83;
+    overflow-x:auto
+}
+
+thead {
+    background-color: #cbba83;
+}
+
+td a {
+    color: black;
+}
+
+.player-img {
     height: 75px;
     width: 75px;
 }
@@ -49,64 +89,69 @@ img {
     color: white;
 }
 
-#searchresults {
-    font-weight: 600;
-    font-size: larger;
-    margin-bottom: 20px;
-}
-
-.entries {
-    text-align: right;
-}
-
-.navbar {
-    background-color: #ffedc2;
-    padding: 0;
-    border: 1px solid #cbba83;
-}
-
-.navbar-brand {
-    padding: 0;
-}
-
-.navbar-brand img {
-    padding: 10px;
-}
-
-.navbar-text {
-    color: black;
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
-.results {
-    padding: 15px;
-    background-color: #fffff5;
-}
-
-thead {
-    background-color: #cbba83;
-}
-
 .btn {
     background-color: #cbba83;
     color: black;
 }
 
-td a {
-    color: black;
-}
-
-table {
+.btn:hover {
+    background-color: #fffff5;
     border: 1px solid #cbba83;
 }
 
 .flex-container {
     display: flex;
     justify-content: flex-end;
+    margin-top: 10px;
 }
 
-@media (min-width: 598px) {     
+footer {
+    display: none;
+}
+
+/* player page */
+
+.player-card {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.card {
+    width: 400px;
+    margin: auto;
+}
+
+.card-header {
+    text-align: center;
+}
+
+.field {
+    font-weight: 600;
+}
+
+@media (min-width: 598px) {
+    .results-entries {
+        display: flex;
+    }
+
+    #searchresults {
+        font-weight: 600;
+        font-size: larger;
+        margin-bottom: 20px;
+    }
+    
+    .entries {
+        text-align: right;
+    }
+}
+
+@media (min-width: 768px) {
+    footer {
+        display: block;
+        margin-top: 10px;
+        text-align: center;
+        line-height: 5px;
+    }
 }
 
 @media (min-width: 992px) {
@@ -137,9 +182,16 @@ table {
     }
 
     .search-feature {
-        display: flex;
-        padding: 70px 10px 10px 50px;
+        display: block;
+        padding: 50px 10px 10px 40px;
         background-color: #ffedc2;
         border: 1px solid #cbba83;
+    }
+
+    #searchtext {
+        margin-bottom: 40px;
+        font-weight: 600;
+        font-size: 18px;
+        color: #72602a;
     }
 }
