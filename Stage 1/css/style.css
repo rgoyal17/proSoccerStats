@@ -129,6 +129,114 @@ footer {
     font-weight: 600;
 }
 
+/* team formation page */
+
+.logo-img {
+    border: 1px solid #cbba83;
+    height: 80px;
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.team-setup {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.team-logo {
+    text-align: center;
+}
+
+.team-name {
+    text-align: center;
+}
+
+.team-name-text {
+    font-weight: 600;
+    font-size: 20px;
+    margin-left: 120px;
+    margin-right: 120px;
+    border: 1px solid #cbba83;
+}
+
+.team-img {
+    text-align: center;
+}
+
+/* .Name {
+    background-color: green;
+    color: white;
+} */
+
+/* .col-2 {
+    background-color: white;
+} */
+
+.empty {
+    background-color: white;
+}
+
+.formation {
+    background-color: #cbba83;
+    margin: 10px;
+    text-align: center;
+}
+
+.form-img {
+    display: block;
+    max-width: 100%;
+    max-height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.selected-formation {
+    background-color: #cbba83;
+    padding: 10px;
+    margin: 10px;
+}
+
+.select-position {
+    background-color: lightgray;
+    color: black;
+    padding: 10px;
+    text-align: center;
+    margin: 30px;
+    display: block;
+    width: 50%;
+    max-height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.position {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.lb-name {
+    border: 1px solid black;
+    margin: 0;
+}
+
+.search-bar {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.strategy {
+    background-color: #cbba83;
+    font-size: 24px;
+    text-align: left;
+    padding: 20px;
+}
+
+.team-strategy {
+    background-color: #cbba83;
+    padding: 10px;
+    margin: 10px;
+}
+
 @media (min-width: 598px) {
     .results-entries {
         display: flex;
@@ -151,6 +259,10 @@ footer {
         margin-top: 10px;
         text-align: center;
         line-height: 5px;
+    }
+
+    .team-name-text {
+        font-size: 40px;
     }
 }
 
