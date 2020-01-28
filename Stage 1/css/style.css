@@ -163,21 +163,8 @@ footer {
     text-align: center;
 }
 
-/* .Name {
-    background-color: green;
-    color: white;
-} */
-
-/* .col-2 {
-    background-color: white;
-} */
-
-.empty {
-    background-color: white;
-}
-
 .formation {
-    background-color: #cbba83;
+    background: linear-gradient(#ffedc2, #cbba83);
     margin: 10px;
     text-align: center;
 }
@@ -188,6 +175,18 @@ footer {
     max-height: auto;
     margin-left: auto;
     margin-right: auto;
+}
+
+.formt-img {
+    display: block;
+    margin-top: 10px;
+    height: 5em;
+    width: 7em;
+}
+
+.formation-img {
+    height: 40%;
+    width: auto;
 }
 
 .selected-formation {
@@ -237,6 +236,22 @@ footer {
     margin: 10px;
 }
 
+#more {display: none;}
+
+.entries2 {
+    text-align: end;
+}
+
+h1 {
+    padding-top: 15px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.table-top {
+    padding: 10px;
+}
+
 @media (min-width: 598px) {
     .results-entries {
         display: flex;
@@ -263,6 +278,14 @@ footer {
 
     .team-name-text {
         font-size: 40px;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+
+    .table-top {
+        padding: 10px;
     }
 }
 
@@ -305,5 +328,17 @@ footer {
         font-weight: 600;
         font-size: 18px;
         color: #72602a;
+    }
+
+    #myBtn {
+        display: none;
+    }
+
+    #dots {
+        display: none;
+    }
+
+    #more {
+        display: inline;
     }
 }
