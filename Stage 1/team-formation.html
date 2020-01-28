@@ -1,112 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="author" content="Rishabh Goyal and Mehul Goel">
-    <meta name="description" content="INFO340 project">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="icon" 
-      type="image/png" 
-      href="https://img.icons8.com/officel/16/000000/football.png">
- 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-    crossorigin="anonymous">
-    <link href="css/style3.css" rel="stylesheet">
-    <title>Home Page</title>
-</head>
-
-<body>
-    <nav></nav>
-    <header>
-<!--         <nav class="navbar navbar-expand-lg fixed-top">
-            <button class="navbar-toggler" type="button">
-                <i class="fas fa-search"></i>
-            </button>
-            <a class="navbar-brand" href="#">
-                <img src="img/logo.png" alt="site logo">
-                <span class="navbar-text">PRO TEAM SOCCER</span>
-            </a>
-            <button class="navbar-toggler">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Create Team</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Team Standing</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Sign In</a>
-                </li>
-            </ul>
-        </nav> -->
-    </header>
+    <head>
+        <meta charset="utf-8">
+        <meta name="author" content="Rishabh Goyal and Mehul Goel">
+        <meta name="description" content="INFO340 project">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="icon" type="image/png" href="https://img.icons8.com/officel/16/000000/football.png">
+        <title>Team Formation</title>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg fixed-top">
+                <button class="navbar-toggler" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img src="img/logo.png" alt="site logo">
+                    <span class="navbar-text">PRO TEAM SOCCER</span>
+                </a>
+                <button class="navbar-toggler">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="team-formation.html">Create Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="leaderboard.html">Team Standing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sign In</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
 
 	<main>
-        <section> 
-            <div class="col-lg-9 Team-Setup">
-                <div class="row">
-                    <div class="col">
-                        <p class="Team-Name">2020 Decade Winners</p>
+        <section>
+            <div class="row team-setup">
+                <div class="col team-logo">
+                    <div>
+                        <img src="img/uw-logo.png" alt="Team Logo" class="logo-img">
                     </div>
-                    <div class="col-logo">
-                        <label for="logo"> <img src="img/team-logo.PNG" alt="Team Logo" class="team"></label>
-                    </div>
+                    <button type="button" class="btn">Change Team Logo</button>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <p class="empty"></p>
-                    </div>
-                    <div class="change-logo">
-                        <label for="change-team-logo">Change Team Logo</label>
-                    </div>
+                <div class="col team-name">
+                    <p class="team-name-text">UW Football Club</p>
+                    <button type="button" class="btn">Change Team Name</button>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="formation">
-                <img src="img/formation_field.PNG" alt="Current Team" class="team">
-            </div>
             <div class="badge selected-formation">Current Formation: 4-3-3</div>
+            <div class="formation">
+                <img src="img/formation_field.PNG" alt="Current Team" class="form-img">
+            </div>
         </section>
 
         <section>
-            <div class="select-position"> Left-back Position
+            <div class="select-position">
+                <p class="position">Left-back Position</p>
                 <div class="search-bar">
-                    <img src="img/icons8-search-64.png" alt="Search Logo"> Search Here
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="player" placeholder="Search Player Here...">
                 </div>
-                <table class="position-results">
-                    <thead></thead>
-                    <tbody >
-                        <tr>
-                            <td>Andrew Robertson</td>
-                        </tr>
-                        <tr>
-                            <td>Jordi Alba</td>
-                        </tr>
-                        <tr>
-                            <td>David Alaba</td>
-                        </tr>
-                        <tr>
-                            <td>Alex Sandro</td>
-                        </tr>
-                        <tr>
-                            <td>Saul</td>
-                        </tr>
-                        <tr>
-                            <td>Jan Vertonghen</td>
-                        </tr>
-                        <tr>
-                            <td>Lucan Hernandez</td>
-                        </tr>
-                    </tbody >
-                </table>
+                <P class="lb-name">Andrew Robertson</P>
+                <P class="lb-name">Jordi Alba</Pclass="lb-name">
+                <P class="lb-name">David Alaba</P>
+                <P class="lb-name">Alex Sandro</P>
+                <P class="lb-name">Saul</P>
+                <P class="lb-name">Jan Vertonghen</P>
+                <p class="lb-name">Lucan Hernandez</p>
             </div>
     	</section>
 
