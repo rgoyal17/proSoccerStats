@@ -311,38 +311,10 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="league" class="col-md-5 col-lg-4 col-form-label">League:</label>
-                        <div class="col-md-7 col-lg-8">
-                            <select class="form-control" id="league">
-                                <option selected>Choose League...</option>
-                                <option value="La Liga">Spain's La Liga</option>
-                                <option value="EPL">Barclays English Premier League</option>
-                                <option value="Bundesliga">German Bundesliga</option>
-                                <option value="Serie A">Italian Serie A</option>
-                                <option value="Ligue 1">France's Ligue 1</option>
-                                <option value="Brasileirão">Brasileirão</option>
-                                <option value="Primera Division">Argentina's Primera Division</option>
-                                <option value="Eredivisie">Dutch Eredivisie</option>
-                                <option value="Liga ZON Sagres">Portugal's Liga ZON Sagres</option>
-                                <option value="Russian Premier League">Russian Premier League</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label for="club" class="col-md-5 col-lg-4 col-form-label">Club:</label>
                         <div class="col-md-7 col-lg-8">
                             <select class="form-control" id="club">
                                 <option selected>Choose Club...</option>
-                                <option value="FCB">FC Barcelona</option>
-                                <option value="Liverpool">Liverpool FC</option>
-                                <option value="Manchester City">Manchester City</option>
-                                <option value="Bayern München">Bayern München</option>
-                                <option value="Juventus">Juventus</option>
-                                <option value="PSG">Paris Saint-Germain</option>
-                                <option value="Real Madrid">Real Madrid</option>
-                                <option value="Ajax">Ajax Amsterdam</option>
-                                <option value="Chelsea">Chelsea FC</option>
-                                <option value="Arsenal">Arenal</option>
                             </select>
                         </div>
                     </div>
@@ -352,18 +324,42 @@
                             <select class="form-control" id="position">
                                 <option selected>Choose Position...</option>
                                 <option value="CF">Centre Forward</option>
-                                <option value="SS">Second Striker</option>
+                                <option value="RF">Right Forward</option>
+                                <option value="LF">Left Forward</option>
+                                <option value="ST">Striker</option>
+                                <option value="RS">Right Striker</option>
+                                <option value="LS">Left Striker</option>
                                 <option value="RW">Right Winger</option>
                                 <option value="LW">Left Winger</option>
-                                <option value="CMF">Centre Midfielder</option>
-                                <option value="DMF">Defensive Midfielder</option>
-                                <option value="AMF">Attacking Midfielder</option>
-                                <option value="RMF">Right Midfielder</option>
-                                <option value="LMF">Left Midfielder</option>
+                                <option value="CAM">Centre Attacking Midfielder</option>
+                                <option value="RAM">Right Attacking Midfielder</option>
+                                <option value="LAM">Left Attacking Midfielder</option>
+                                <option value="CM">Centre Midfielder</option>
+                                <option value="RCM">Right Centre Midfielder</option>
+                                <option value="LCM">Left Centre Midfielder</option>
+                                <option value="RM">Right Midfielder</option>
+                                <option value="LM">Left Midfielder</option>
+                                <option value="CDM">Centre Defensive Midfielder</option>
+                                <option value="RDM">Right Defensive Midfielder</option>
+                                <option value="LDM">Left Defensive Midfielder</option>
                                 <option value="CB">Centre Back</option>
+                                <option value="RCB">Right Centre Back</option>
+                                <option value="LCB">Left Centre Back</option>
                                 <option value="RB">Right Back</option>
                                 <option value="LB">Left Back</option>
+                                <option value="RWB">Right Wing Back</option>
+                                <option value="LWB">Left Wing Back</option>
                                 <option value="GK">Goalkeeper</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="league" class="col-md-5 col-lg-4 col-form-label">Preferred Foot:</label>
+                        <div class="col-md-7 col-lg-8">
+                            <select class="form-control" id="foot">
+                                <option selected>Choose Foot...</option>
+                                <option value="right">Right</option>
+                                <option value="left">Left</option>
                             </select>
                         </div>
                     </div>
@@ -384,7 +380,7 @@
                     </div>
                     <div class="col entries">
                         <label for="entries">Limit Entries Per Page:</label>
-                        <select id="club">
+                        <select id="entries">
                             <option selected>10 Entries</option>
                             <option value="25">25 Entries</option>
                             <option value="50">50 Entries</option>
@@ -396,6 +392,12 @@
                 </div>
                 <div class="result-table">
                     <table class="table">
+                        <col width="5%">
+                        <col width="19%">
+                        <col width="19%">
+                        <col width="19%">
+                        <col width="19%">
+                        <col width="19%">
                         <thead>
                             <tr>
                             <th scope="col">#</th>
@@ -406,10 +408,10 @@
                             <th scope="col">Position(s)</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="table-body">
+                            <!-- <tr>
                                 <th scope="row">1</th>
-                                <td><img src="img/messi.png" alt="Lionel Messi" class="player-img"></th>
+                                <td><img src="https://cdn.sofifa.org/players/10/20/158023.png" alt="Lionel Messi" class="player-img"></th>
                                 <td><a href="player.html" target="_blank">Lionel Messi</a></td>
                                 <td>Argentina</td>
                                 <td>FC Barcelona</td>
@@ -421,7 +423,7 @@
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
-                                <td><img src="img/ronaldo.png" alt="Cristiano Ronaldo" class="player-img"></th>
+                                <td><img src="https://cdn.sofifa.org/players/4/19/20801.png" alt="Cristiano Ronaldo" class="player-img"></th>
                                 <td><a href="player.html" target="_blank">Cristiano Ronaldo</a></td>
                                 <td>Portugal</td>
                                 <td>Juventus</td>
@@ -515,7 +517,7 @@
                                     <span class="badge mid-badge">CAM</span>
                                     <span class="badge mid-badge">CM</span>
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -544,6 +546,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+    <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+    <script src="js/index.js"></script>
     
 </body>
 </html>
