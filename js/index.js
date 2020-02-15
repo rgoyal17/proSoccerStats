@@ -64,7 +64,7 @@ function addRows(arrayData) {
   }
 }
 
-d3.csv("../data.csv").then(function(data) {
+d3.csv("data.csv").then(function(data) {
   clubValues(data);
   addRows(data);
 });
