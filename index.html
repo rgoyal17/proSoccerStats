@@ -53,7 +53,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-md-5 col-lg-4 col-form-label">Name:</label>
                         <div class="col-md-7 col-lg-8">
-                            <input type="name" class="form-control" id="name" placeholder="Enter Name">
+                            <input type="text" class="form-control" id="name" placeholder="Enter Name">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -358,18 +358,18 @@
                         <div class="col-md-7 col-lg-8">
                             <select class="form-control" id="foot">
                                 <option selected>Choose Foot...</option>
-                                <option value="right">Right</option>
-                                <option value="left">Left</option>
+                                <option value="Right">Right</option>
+                                <option value="Left">Left</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="age" class="col-md-5 col-lg-4 col-form-label">Age:</label>
                         <div class="col-md-7 col-lg-8">
-                            <input type="number" class="form-control" min="1" max="100" placeholder="Enter Age">
+                            <input type="number" class="form-control" min="1" max="100" placeholder="Enter Age" id="age">
                         </div>
                     </div>
-                    <button class="btn" type="submit">Search</button>
+                    <button class="btn" type="submit" id="search-btn">Search</button>
                 </form>
             </div>
 
@@ -409,120 +409,11 @@
                             </tr>
                         </thead>
                         <tbody id="table-body">
-                            <!-- <tr>
-                                <th scope="row">1</th>
-                                <td><img src="https://cdn.sofifa.org/players/10/20/158023.png" alt="Lionel Messi" class="player-img"></th>
-                                <td><a href="player.html" target="_blank">Lionel Messi</a></td>
-                                <td>Argentina</td>
-                                <td>FC Barcelona</td>
-                                <td>
-                                    <span class="badge striker-badge">RW</span>
-                                    <span class="badge striker-badge">CF</span>
-                                    <span class="badge striker-badge">ST</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td><img src="https://cdn.sofifa.org/players/4/19/20801.png" alt="Cristiano Ronaldo" class="player-img"></th>
-                                <td><a href="player.html" target="_blank">Cristiano Ronaldo</a></td>
-                                <td>Portugal</td>
-                                <td>Juventus</td>
-                                <td>
-                                    <span class="badge striker-badge">ST</span>
-                                    <span class="badge striker-badge">LW</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td><img src="img/neymar.png" alt="Neymar Jr" class="player-img"></th>
-                                <td><a href="player.html" target="_blank">Neymar Jr</a></td>
-                                <td>Brazil</td>
-                                <td>Paris Saint-Germain</td>
-                                <td>
-                                    <span class="badge striker-badge">LW</span>
-                                    <span class="badge mid-badge">CAM</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td><img src="img/van djik.png" alt="Virgil van Dijk" class="player-img"></th>
-                                <td><a href="player.html" target="_blank">Virgil van Dijk</a></td>
-                                <td>Netherlands</td>
-                                <td>Liverpool FC</td>
-                                <td>
-                                    <span class="badge def-badge">CB</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td><img src="img/hazard.png" alt="Eden Hazard" class="player-img"></th>
-                                <td><a href="player.html" target="_blank">Eden Hazard</a></td>
-                                <td>Belgium</td>
-                                <td>Real Madrid</td>
-                                <td>
-                                    <span class="badge striker-badge">LW</span>
-                                    <span class="badge striker-badge">CF</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">6</th>
-                                <td><img src="img/mbappe.png" alt="Kylian Mbappé" class="player-img"></th>
-                                <td><a href="player.html" target="_blank">Kylian Mbappé</a></td>
-                                <td>France</td>
-                                <td>Paris Saint-Germain</td>
-                                <td>
-                                    <span class="badge striker-badge">ST</span>
-                                    <span class="badge striker-badge">LW</span>
-                                    <span class="badge striker-badge">RW</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">7</th>
-                                <td><img src="img/suarez.png" alt="Luis Suárez" class="player-img"></th>
-                                <td><a href="player.html" target="_blank">Luis Suárez</a></td>
-                                <td>Uruguay</td>
-                                <td>FC Barcelona</td>
-                                <td>
-                                    <span class="badge striker-badge">ST</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">8</th>
-                                <td><img src="img/marcelo.png" alt="Marcelo" class="player-img"></th>
-                                <td><a href="player.html" target="_blank">Marcelo</a></td>
-                                <td>Brazil</td>
-                                <td>Real Madrid</td>
-                                <td>
-                                    <span class="badge def-badge">LB</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">9</th>
-                                <td><img src="img/salah.png" alt="Mohamed Salah" class="player-img"></th>
-                                <td><a href="player.html" target="_blank">Mohamed Salah</a></td>
-                                <td>Egypt</td>
-                                <td>Liverpool FC</td>
-                                <td>
-                                    <span class="badge striker-badge">RW</span>
-                                    <span class="badge striker-badge">ST</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">10</th>
-                                <td><img src="img/de bruyne.png" alt="Kevin De Bruyne" class="player-img"></th>
-                                <td><a href="player.html" target="_blank">Kevin De Bruyne</a></td>
-                                <td>Belgium</td>
-                                <td>Manchester City</td>
-                                <td>
-                                    <span class="badge mid-badge">CAM</span>
-                                    <span class="badge mid-badge">CM</span>
-                                </td>
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>
                 <div class="flex-container">
-                    <button class="btn" type="button">Next 20</button>
+                    <button class="btn" type="button">Next 10</button>
                 </div>
             </div>
         </div>

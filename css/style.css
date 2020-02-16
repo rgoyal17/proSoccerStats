@@ -91,29 +91,25 @@ td a {
 .striker-badge {
     background-color: #4b89dc;
     color: white;
-    margin-top: 10%;
-    margin-left: 30%;
+    margin: 10%;
 }
 
 .mid-badge {
     background-color: #8dc153;
     color: white;
-    margin-top: 10%;
-    margin-left: 30%;
+    margin: 10%;
 }
 
 .def-badge {
     background-color: #f6bb43;
     color: white;
-    margin-top: 10%;
-    margin-left: 30%;
+    margin: 10%;
 }
 
 .gk-badge {
     background-color: #e9573e;
     color: white;
-    margin-top: 10%;
-    margin-left: 30%;
+    margin: 10%;
 }
 
 .btn {
