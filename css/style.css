@@ -128,18 +128,12 @@ td a {
     margin-top: 10px;
 }
 
-footer {
+#spinner {
+    text-align: center;
+}
+
+#card-div {
     display: none;
-}
-
-/* player page */
-
-.player-card {
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-.card {
     width: 400px;
     margin: auto;
 }
@@ -150,6 +144,10 @@ footer {
 
 .field {
     font-weight: 600;
+}
+
+footer {
+    display: none;
 }
 
 /* team formation page */
@@ -163,8 +161,6 @@ footer {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     height: 850px;
-    /* max-width: 100%;
-    height: auto; */
 }
 
 .team-table {
@@ -177,68 +173,68 @@ footer {
 
 #pos-1 {
     position: absolute;
-    left: 46%;
-    top: 14%;
+    left: 37%;
+    top: 8%;
 }
 
 #pos-2 {
     position: absolute;
-    left: 73%;
-    top: 18%;
+    left: 64%;
+    top: 12%;
 }
 
 #pos-3 {
     position: absolute;
-    left: 21%;
-    top: 18%;
+    left: 12%;
+    top: 12%;
 }
 
 #pos-4 {
     position: absolute;
-    left: 29%;
-    top: 40%;
+    left: 20%;
+    top: 34%;
 }
 
 #pos-5 {
     position: absolute;
-    left: 62%;
-    top: 40%;
+    left: 53%;
+    top: 34%;
 }
 
 #pos-6 {
     position: absolute;
-    left: 45%;
-    top: 43%;
+    left: 36%;
+    top: 37%;
 }
 
 #pos-7 {
     position: absolute;
-    left: 14%;
-    top: 65%;
+    left: 5%;
+    top: 59%;
 }
 
 #pos-8 {
     position: absolute;
-    left: 77%;
-    top: 65%;
+    left: 68%;
+    top: 59%;
 }
 
 #pos-9 {
     position: absolute;
-    left: 33%;
-    top: 70%;
+    left: 24%;
+    top: 64%;
 }
 
 #pos-10 {
     position: absolute;
-    left: 58%;
-    top: 70%;
+    left: 49%;
+    top: 64%;
 }
 
 #pos-11 {
     position: absolute;
-    left: 46%;
-    top: 80%;
+    left: 37%;
+    top: 74%;
 }
 
 .team-badge {

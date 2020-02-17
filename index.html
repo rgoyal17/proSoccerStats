@@ -381,7 +381,7 @@
                     <div class="col entries">
                         <label for="entries">Limit Entries Per Page:</label>
                         <select id="entries">
-                            <option selected>10 Entries</option>
+                            <option value="10">10 Entries</option>
                             <option value="25">25 Entries</option>
                             <option value="50">50 Entries</option>
                             <option value="75">75 Entries</option>
@@ -412,8 +412,194 @@
                         </tbody>
                     </table>
                 </div>
+                <div id="navigate"></div>
                 <div class="flex-container">
-                    <button class="btn" type="button">Next 10</button>
+                    <button class="btn" id="next-btn" type="button">Next 10</button>
+                </div>
+                <div id="spinner">
+                    <i class="d-none fa-2x fa fa-spinner fa-spin" aria-hidden="true"></i>
+                </div>
+                <div class="card" id="card-div">
+                    <img id="player-image" class="card-img-top">
+                    <h5 class="card-header"></h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col field">
+                                <p>Age:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-age"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Birth Date:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-birth"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Nationality:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-nationality"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Preferred Position(s):</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-position"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>League:</p>
+                            </div>
+                            <div class="col">
+                                <p id="current-league"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Club:</p>
+                            </div>
+                            <div class="col">
+                                <p id="current-club"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Height:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-height"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Weight:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-weight"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Season:</p>
+                            </div>
+                            <div class="col">
+                                <p id="current-season"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Season Rating:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-rating"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Matches played:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-games"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Minutes played:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-minutes"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Goals Scored:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-goals"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Assists:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-assists"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Shots(On Target):</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-shots"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Passes:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-passes"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Tackles:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-tackles"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Duels(Won):</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-duels"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Dribbles(Success):</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-dribbles"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Fouls:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-fouls"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Cards(Red):</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-booked"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col field">
+                                <p>Captain:</p>
+                            </div>
+                            <div class="col">
+                                <p id="player-captain"></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
