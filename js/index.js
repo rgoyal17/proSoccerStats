@@ -1,9 +1,13 @@
 'use strict';
 
+let numRows = document.querySelector('#entries').value;
+document.querySelector("#next-btn").textContent = "Next " + numRows;
+
 // fill options for clubs and show initial values in the table
 d3.csv("data.csv").then(function(data) {
   clubValues(data);
-  renderRows(data);
+  renderRows(data, numRows);
+  entries(data);
 })
 
 // add option values for Club in the search form
@@ -24,12 +28,12 @@ function clubValues(arrayData) {
 }
 
 // add rows for the data table
-function renderRows(arrayData) {
+function renderRows(arrayData, numRows) {
   let tableBodyElement = document.querySelector('#table-body');
   tableBodyElement.innerHTML = '';
   let end = arrayData.length;
-  if (arrayData.length >= 10) {
-    end = 10;
+  if (arrayData.length >= numRows) {
+    end = numRows;
   }
   for (let i = 0; i < end; i++) {
     let rowElement = document.createElement('tr');
@@ -88,10 +92,36 @@ function renderRows(arrayData) {
   }
 }
 
-// add functionality for the search button
+// functionality for number of entries in the data table
+function entries(data) {
+  document.querySelector('#entries').addEventListener('input', function() {
+    document.querySelector("#next-btn").style.display = "inline-block";
+    numRows = document.querySelector('#entries').value;
+    if (numRows == "All") {
+      numRows = data.length;
+      document.querySelector("#next-btn").style.display = "none";
+    }
+    document.querySelector("#next-btn").textContent = "Next " + numRows;
+    renderRows(data, numRows);
+  })
+}
+
+// functionality for the search button
 document.querySelector('#search-btn').addEventListener('click', function(event) {
   event.preventDefault();
   document.querySelector('#card-div').style.display = "none";
+  
+  // create a reset button
+  let clearButton = document.createElement('button');
+  clearButton.classList.add('btn');
+  clearButton.type = "reset";
+  let btnText = document.createElement('a');
+  btnText.href = 'index.html';
+  btnText.id = 'top-text';
+  btnText.textContent = "Reset";
+  clearButton.appendChild(btnText);
+  document.querySelector('form').appendChild(clearButton);
+  
   let nameValue = document.querySelector('#name').value;
   let nationalityValue = document.querySelector('#nationality').value;
   let clubValue = document.querySelector('#club').value;
@@ -135,15 +165,16 @@ function filterData(nameValue, nationalityValue, clubValue, positionValue, footV
         return item.Age.includes(ageValue);
       });
     }
-    renderRows(filteredArray);
+    renderRows(filteredArray, numRows);
+    entries(filteredArray);
   })
 }
 
 // As I am using another api for player statistics, this function will link both my data sources
 function findPlayer(name, nationality, image, age, position) {
-  let uri_template = "https://api-football-v1.p.rapidapi.com/v2/players/search/{searchTerm}";
+  let uriTemplate = "https://api-football-v1.p.rapidapi.com/v2/players/search/{searchTerm}";
   name = name.replace(" Jr", "");
-  let uri = uri_template.replace("{searchTerm}", name);
+  let uri = uriTemplate.replace("{searchTerm}", name);
   fetch(uri, {
     "method": "GET",
     "headers": {
@@ -156,9 +187,6 @@ function findPlayer(name, nationality, image, age, position) {
   })
   .then(function(data) {
     getPlayerID(data.api.players);
-  })
-  .catch(function() {
-    renderError();
   });
 
   // finds player id which will be used to extract that player's statistics
@@ -186,8 +214,8 @@ function findPlayer(name, nationality, image, age, position) {
 
 // get statistics of a player
 function getStats(id, image) {
-  let uri_temp = "https://api-football-v1.p.rapidapi.com/v2/players/player/{id}";
-  let uri = uri_temp.replace("{id}", id);
+  let uriTemplate = "https://api-football-v1.p.rapidapi.com/v2/players/player/{id}";
+  let uri = uriTemplate.replace("{id}", id);
   fetch(uri, {
     "method": "GET",
     "headers": {
@@ -287,14 +315,13 @@ function createCard(playerObj, photo) {
   p23.textContent = playerObj.captain + " times";
 }
 
+// toggles the loading spinner
 function toggleSpinner() {
   let spinner = document.querySelector('.fa-spinner');
   spinner.classList.toggle('d-none');
 }
 
+// renders the error message
 function renderError() {
-  let alert = document.createElement('p');
-  alert.classList.add('alert', 'alert-danger');
-  alert.textContent = "Sorry! Stats for this player are not available currently.";
-  document.querySelector('#navigate').appendChild(alert);
+  alert("Sorry! Stats for this player are not available currently.");
 }

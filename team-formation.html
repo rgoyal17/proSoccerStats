@@ -43,114 +43,116 @@
         </header>
 
 	<main>
-        <div class="row field-team">
-            <div class="col-md-6">
-                <div class="column">
-                    <form>
+        <section>
+            <div class="row field-team">
+                <div class="col-md-6">
+                    <div class="column">
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <label class="col-form-label">Formation:</label>
+                                    <select class="form-control">
+                                        <option value="4-4-2">4-4-2</option>
+                                        <option value="4-4-1-1">4-4-1-1</option>
+                                        <option value="4-3-3" selected>4-3-3</option>
+                                        <option value="4-5-1">4-5-1</option>
+                                        <option value="4-2-3-1">4-2-3-1</option>
+                                        <option value="3-4-3">3-4-3</option>
+                                        <option value="3-5-2">3-5-2</option>
+                                        <option value="3-5-1-1">3-5-1-1</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label class="col-form-label">Team Name:</label>
+                                    <input type="text" class="form-control" placeholder="Enter Name">
+                                </div>
+                            </div>
+                        </form>
                         <div class="row">
-                            <div class="col">
-                                <label class="col-form-label">Formation:</label>
-                                <select class="form-control">
-                                    <option value="4-4-2">4-4-2</option>
-                                    <option value="4-4-1-1">4-4-1-1</option>
-                                    <option value="4-3-3" selected>4-3-3</option>
-                                    <option value="4-5-1">4-5-1</option>
-                                    <option value="4-2-3-1">4-2-3-1</option>
-                                    <option value="3-4-3">3-4-3</option>
-                                    <option value="3-5-2">3-5-2</option>
-                                    <option value="3-5-1-1">3-5-1-1</option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label class="col-form-label">Team Name:</label>
-                                <input type="text" class="form-control" placeholder="Enter Name">
-                            </div>
+                            <table class="table team-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Position</th>
+                                        <th scope="col">Search Player</th>
+                                        <th scope="col">Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="badge striker-badge team-badge">ST</td>
+                                        <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
+                                        <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="badge striker-badge team-badge">RF</td>
+                                        <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
+                                        <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="badge striker-badge team-badge">LW</td>
+                                        <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
+                                        <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="badge mid-badge team-badge">CM</td>
+                                        <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
+                                        <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="badge mid-badge team-badge">CM</td>
+                                        <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
+                                        <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="badge mid-badge team-badge">CM</td>
+                                        <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
+                                        <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="badge def-badge team-badge">LB</td>
+                                        <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
+                                        <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="badge def-badge team-badge">RB</td>
+                                        <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
+                                        <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="badge def-badge team-badge">CB</td>
+                                        <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
+                                        <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="badge def-badge team-badge">CB</td>
+                                        <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
+                                        <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="badge gk-badge team-badge">GK</td>
+                                        <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
+                                        <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                    </form>
-                    <div class="row">
-                        <table class="table team-table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Position</th>
-                                    <th scope="col">Search Player</th>
-                                    <th scope="col">Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="badge striker-badge team-badge">ST</td>
-                                    <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
-                                    <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="badge striker-badge team-badge">RF</td>
-                                    <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
-                                    <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="badge striker-badge team-badge">LW</td>
-                                    <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
-                                    <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="badge mid-badge team-badge">CM</td>
-                                    <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
-                                    <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="badge mid-badge team-badge">CM</td>
-                                    <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
-                                    <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="badge mid-badge team-badge">CM</td>
-                                    <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
-                                    <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="badge def-badge team-badge">LB</td>
-                                    <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
-                                    <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="badge def-badge team-badge">RB</td>
-                                    <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
-                                    <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="badge def-badge team-badge">CB</td>
-                                    <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
-                                    <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="badge def-badge team-badge">CB</td>
-                                    <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
-                                    <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="badge gk-badge team-badge">GK</td>
-                                    <td><input type="text" class="form-control" placeholder="Search for a player..."></td>
-                                    <td class="remove-icon"><i class="fas fa-minus-circle fa-lg"></i></td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
+                <div class="col-md-6 soccer-field">
+                    <h2><span class="badge striker-badge rounded-circle" id="pos-1">ST</span></h2>
+                    <h2><span class="badge striker-badge rounded-circle" id="pos-2">RF</span></h2>
+                    <h2><span class="badge striker-badge rounded-circle" id="pos-3">LW</span></h2>
+                    <h2><span class="badge mid-badge rounded-circle" id="pos-4">CM</span></h2>
+                    <h2><span class="badge mid-badge rounded-circle" id="pos-5">CM</span></h2>
+                    <h2><span class="badge mid-badge rounded-circle" id="pos-6">CM</span></h2>
+                    <h2><span class="badge def-badge rounded-circle" id="pos-7">LB</span></h2>
+                    <h2><span class="badge def-badge rounded-circle" id="pos-8">RB</span></h2>
+                    <h2><span class="badge def-badge rounded-circle" id="pos-9">CB</span></h2>
+                    <h2><span class="badge def-badge rounded-circle" id="pos-10">CB</span></h2>
+                    <h2><span class="badge gk-badge rounded-circle" id="pos-11">GK</span></h2>
+                </div>
             </div>
-            <div class="col-md-6 soccer-field">
-                <h2><span class="badge striker-badge rounded-circle" id="pos-1">ST</span></h2>
-                <h2><span class="badge striker-badge rounded-circle" id="pos-2">RF</span></h2>
-                <h2><span class="badge striker-badge rounded-circle" id="pos-3">LW</span></h2>
-                <h2><span class="badge mid-badge rounded-circle" id="pos-4">CM</span></h2>
-                <h2><span class="badge mid-badge rounded-circle" id="pos-5">CM</span></h2>
-                <h2><span class="badge mid-badge rounded-circle" id="pos-6">CM</span></h2>
-                <h2><span class="badge def-badge rounded-circle" id="pos-7">LB</span></h2>
-                <h2><span class="badge def-badge rounded-circle" id="pos-8">RB</span></h2>
-                <h2><span class="badge def-badge rounded-circle" id="pos-9">CB</span></h2>
-                <h2><span class="badge def-badge rounded-circle" id="pos-10">CB</span></h2>
-                <h2><span class="badge gk-badge rounded-circle" id="pos-11">GK</span></h2>
-            </div>
-        </div>
+        </section>
     </main>
 
     <footer>
@@ -158,6 +160,8 @@
             <p>Posted by: Rishabh Goyal and Mehul Goel</p>
             <p>Contact information: <a href="mailto:rishabhgoyal555@gmail.com">rishabhgoyal555@gmail.com</a> /
             <a href="mailto:mgoel.mehul@gmail.com">mgoel.mehul@gmail.com</a></p>
+            <cite>Data taken from two sources: <a href="https://www.kaggle.com/karangadiya/fifa19">FIFA 2019 dataset from Kaggle</a>
+            and <a href="https://rapidapi.com/api-sports/api/api-football">Football Player API</a></cite>
         </address>
         <p>2020 &copy; INFO340</p>
     </footer>

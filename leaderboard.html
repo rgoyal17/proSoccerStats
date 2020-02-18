@@ -43,153 +43,156 @@
     </header>
     
     <main>
-        <h1>Most Liked Soccer Teams and Strategies</h1>
+        <section>
+            <h1>Most Liked Soccer Teams and Strategies</h1>
 
-        <div class="row table-top">
-            <div class="col">
-                <label for="time">Time Period:</label>
-                <select id="time">
-                    <option selected>All Time</option>
-                    <option value="daily">Daily</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>
-                    <option value="yearly">Yearly</option>
-                    <option value="alltime">All Time</option>
-                </select>
+            <div class="row table-top">
+                <div class="col">
+                    <label for="time">Time Period:</label>
+                    <select id="time">
+                        <option selected>All Time</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="yearly">Yearly</option>
+                        <option value="alltime">All Time</option>
+                    </select>
+                </div>
+                <div class="col entries2">
+                    <label for="entries">Limit Entries Per Page:</label>
+                    <select id="club">
+                        <option selected>5 Entries</option>
+                        <option value="10">10 Entries</option>
+                        <option value="25">25 Entries</option>
+                        <option value="50">50 Entries</option>
+                        <option value="100">100 Entries</option>
+                        <option value="All">All</option>
+                    </select>
+                </div>
             </div>
-            <div class="col entries2">
-                <label for="entries">Limit Entries Per Page:</label>
-                <select id="club">
-                    <option selected>5 Entries</option>
-                    <option value="10">10 Entries</option>
-                    <option value="25">25 Entries</option>
-                    <option value="50">50 Entries</option>
-                    <option value="100">100 Entries</option>
-                    <option value="All">All</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="result-table">
-            <table class="table">
-                <col width="3%">
-                <col width="10%">
-                <col width="10%">
-                <col width="40%">
-                <col width="27%">
-                <col width="10%">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Team Details</th>
-                        <th scope="col">Player Username</th>
-                        <th scope="col">Team Strategy</th>
-                        <th scope="col">Team</th>
-                        <th scope="col">Total Likes</th>
+        </section>
+        <section>
+            <div class="result-table">
+                <table class="table">
+                    <col width="3%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="40%">
+                    <col width="27%">
+                    <col width="10%">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Team Details</th>
+                            <th scope="col">Player Username</th>
+                            <th scope="col">Team Strategy</th>
+                            <th scope="col">Team</th>
+                            <th scope="col">Total Likes</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>UW Football Club<img src="img/uw-logo.png" alt="Team Logo" class="formt-img"></th>
+                            <td>Megagon008</td>
+                            <td>My team is strategically built so that they can handle every gameplan. The team
+                                has a 4-3-3 formation <span id="dots">...</span><span id="more">which allows players
+                                to attack and defend both from the enter and the wings. The team consists of three
+                                of the best strikers in the game that can surely score goals in any situation. My
+                                team's captain would be Sergio Ramos. He is one of the most experiences players in
+                                this team and has already led Real Madrid to Champions League victory many times.</span>
+                                <button onclick="myFunction()" id="myBtn">Read more</button></td>
+                            <td><img src="img/team.PNG" alt="Team Picture" class="formation-img"></td>
+                            <td>
+                                <p>2133 Likes</p> 
+                                <div class="center-image">
+                                    <img src="https://img.icons8.com/wired/64/000000/facebook-like.png">
+                                </div>
+                            </td>
                         </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>UW Football Club<img src="img/uw-logo.png" alt="Team Logo" class="formt-img"></th>
-                        <td>Megagon008</td>
-                        <td>My team is strategically built so that they can handle every gameplan. The team
-                            has a 4-3-3 formation <span id="dots">...</span><span id="more">which allows players
-                            to attack and defend both from the enter and the wings. The team consists of three
-                            of the best strikers in the game that can surely score goals in any situation. My
-                            team's captain would be Sergio Ramos. He is one of the most experiences players in
-                            this team and has already led Real Madrid to Champions League victory many times.</span>
-                            <button onclick="myFunction()" id="myBtn">Read more</button></td>
-                        <td><img src="img/team.PNG" alt="Team Picture" class="formation-img"></td>
-                        <td>
-                            <p>2133 Likes</p> 
-                            <div class="center-image">
-                                <img src="https://img.icons8.com/wired/64/000000/facebook-like.png">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>2020 Decade Winner<img src="img/Capture_3565900b.jpg" alt="Team Logo" class="formt-img"></th>
-                        <td>ThousandSunny1000</td>
-                        <td>My team is strategically built so that they can handle every gameplan. The team
-                            has a 4-3-3 formation <span id="dots">...</span><span id="more">which allows players
-                            to attack and defend both from the enter and the wings. The team consists of three
-                            of the best strikers in the game that can surely score goals in any situation. My
-                            team's captain would be Sergio Ramos. He is one of the most experiences players in
-                            this team and has already led Real Madrid to Champions League victory many times.</span>
-                            <button onclick="myFunction()" id="myBtn">Read more</button></td>
-                        <td><img src="img/team.PNG" alt="Team Picture" class="formation-img"></td>
-                        <td>
-                            <p>2020 Likes</p> 
-                            <div class="center-image">
-                                <img src="https://img.icons8.com/wired/64/000000/facebook-like.png">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Team Rocket<img src="img/294-2940776_pokemon-evil-team-logos-clipart.png" alt="Team Logo" class="formt-img"></th>
-                        <td>TheGoat007</td>
-                        <td>My team is strategically built so that they can handle every gameplan. The team
-                            has a 4-3-3 formation <span id="dots">...</span><span id="more">which allows players
-                            to attack and defend both from the enter and the wings. The team consists of three
-                            of the best strikers in the game that can surely score goals in any situation. My
-                            team's captain would be Sergio Ramos. He is one of the most experiences players in
-                            this team and has already led Real Madrid to Champions League victory many times.</span>
-                            <button onclick="myFunction()" id="myBtn">Read more</button></td>
-                        <td><img src="img/team.PNG" alt="Team Picture" class="formation-img"></td>
-                        <td>
-                            <p>1987 Likes</p> 
-                            <div class="center-image">
-                                <img src="https://img.icons8.com/wired/64/000000/facebook-like.png">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Micheal Scott FC<img src="img/team-logo.PNG" alt="Team Logo" class="formt-img"></th>
-                        <td>KingRaptor999</td>
-                        <td>My team is strategically built so that they can handle every gameplan. The team
-                            has a 4-3-3 formation <span id="dots">...</span><span id="more">which allows players
-                            to attack and defend both from the enter and the wings. The team consists of three
-                            of the best strikers in the game that can surely score goals in any situation. My
-                            team's captain would be Sergio Ramos. He is one of the most experiences players in
-                            this team and has already led Real Madrid to Champions League victory many times.</span>
-                            <button onclick="myFunction()" id="myBtn">Read more</button></td>
-                        <td><img src="img/team.PNG" alt="Team Picture" class="formation-img"></td>
-                        <td>
-                            <p>1890 Likes</p> 
-                            <div class="center-image">
-                                <img src="https://img.icons8.com/wired/64/000000/facebook-like.png">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>INFO FC<img src="img/Franklin-Pierce-Ravens-Logo1.jpg" alt="Team Logo" class="formt-img"></th>
-                        <td>PirateKing11</td>
-                        <td>My team is strategically built so that they can handle every gameplan. The team
-                            has a 4-3-3 formation <span id="dots">...</span><span id="more">which allows players
-                            to attack and defend both from the enter and the wings. The team consists of three
-                            of the best strikers in the game that can surely score goals in any situation. My
-                            team's captain would be Sergio Ramos. He is one of the most experiences players in
-                            this team and has already led Real Madrid to Champions League victory many times.</span>
-                            <div class="read-more">
-                                <button onclick="myFunction()" id="myBtn">Read more</button>
-                            </div>
-                        </td>
-                        <td><img src="img/team.PNG" alt="Team Picture" class="formation-img"></td>
-                        <td>
-                            <p>1509 Likes</p> 
-                            <div class="center-image">
-                                <img src="https://img.icons8.com/wired/64/000000/facebook-like.png">
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>2020 Decade Winner<img src="img/Capture_3565900b.jpg" alt="Team Logo" class="formt-img"></th>
+                            <td>ThousandSunny1000</td>
+                            <td>My team is strategically built so that they can handle every gameplan. The team
+                                has a 4-3-3 formation <span id="dots">...</span><span id="more">which allows players
+                                to attack and defend both from the enter and the wings. The team consists of three
+                                of the best strikers in the game that can surely score goals in any situation. My
+                                team's captain would be Sergio Ramos. He is one of the most experiences players in
+                                this team and has already led Real Madrid to Champions League victory many times.</span>
+                                <button onclick="myFunction()" id="myBtn">Read more</button></td>
+                            <td><img src="img/team.PNG" alt="Team Picture" class="formation-img"></td>
+                            <td>
+                                <p>2020 Likes</p> 
+                                <div class="center-image">
+                                    <img src="https://img.icons8.com/wired/64/000000/facebook-like.png">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Team Rocket<img src="img/294-2940776_pokemon-evil-team-logos-clipart.png" alt="Team Logo" class="formt-img"></th>
+                            <td>TheGoat007</td>
+                            <td>My team is strategically built so that they can handle every gameplan. The team
+                                has a 4-3-3 formation <span id="dots">...</span><span id="more">which allows players
+                                to attack and defend both from the enter and the wings. The team consists of three
+                                of the best strikers in the game that can surely score goals in any situation. My
+                                team's captain would be Sergio Ramos. He is one of the most experiences players in
+                                this team and has already led Real Madrid to Champions League victory many times.</span>
+                                <button onclick="myFunction()" id="myBtn">Read more</button></td>
+                            <td><img src="img/team.PNG" alt="Team Picture" class="formation-img"></td>
+                            <td>
+                                <p>1987 Likes</p> 
+                                <div class="center-image">
+                                    <img src="https://img.icons8.com/wired/64/000000/facebook-like.png">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>Micheal Scott FC<img src="img/team-logo.PNG" alt="Team Logo" class="formt-img"></th>
+                            <td>KingRaptor999</td>
+                            <td>My team is strategically built so that they can handle every gameplan. The team
+                                has a 4-3-3 formation <span id="dots">...</span><span id="more">which allows players
+                                to attack and defend both from the enter and the wings. The team consists of three
+                                of the best strikers in the game that can surely score goals in any situation. My
+                                team's captain would be Sergio Ramos. He is one of the most experiences players in
+                                this team and has already led Real Madrid to Champions League victory many times.</span>
+                                <button onclick="myFunction()" id="myBtn">Read more</button></td>
+                            <td><img src="img/team.PNG" alt="Team Picture" class="formation-img"></td>
+                            <td>
+                                <p>1890 Likes</p> 
+                                <div class="center-image">
+                                    <img src="https://img.icons8.com/wired/64/000000/facebook-like.png">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>INFO FC<img src="img/Franklin-Pierce-Ravens-Logo1.jpg" alt="Team Logo" class="formt-img"></th>
+                            <td>PirateKing11</td>
+                            <td>My team is strategically built so that they can handle every gameplan. The team
+                                has a 4-3-3 formation <span id="dots">...</span><span id="more">which allows players
+                                to attack and defend both from the enter and the wings. The team consists of three
+                                of the best strikers in the game that can surely score goals in any situation. My
+                                team's captain would be Sergio Ramos. He is one of the most experiences players in
+                                this team and has already led Real Madrid to Champions League victory many times.</span>
+                                <div class="read-more">
+                                    <button onclick="myFunction()" id="myBtn">Read more</button>
+                                </div>
+                            </td>
+                            <td><img src="img/team.PNG" alt="Team Picture" class="formation-img"></td>
+                            <td>
+                                <p>1509 Likes</p> 
+                                <div class="center-image">
+                                    <img src="https://img.icons8.com/wired/64/000000/facebook-like.png">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
     
     <footer>
@@ -197,6 +200,8 @@
             <p>Posted by: Rishabh Goyal and Mehul Goel</p>
             <p>Contact information: <a href="mailto:rishabhgoyal555@gmail.com">rishabhgoyal555@gmail.com</a> /
             <a href="mailto:mgoel.mehul@gmail.com">mgoel.mehul@gmail.com</a></p>
+            <cite>Data taken from two sources: <a href="https://www.kaggle.com/karangadiya/fifa19">FIFA 2019 dataset from Kaggle</a>
+            and <a href="https://rapidapi.com/api-sports/api/api-football">Football Player API</a></cite>
         </address>
         <p>2020 &copy; INFO340</p>
     </footer>
