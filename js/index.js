@@ -29,6 +29,11 @@ function clubValues(arrayData) {
 
 // add rows for the data table
 function renderRows(arrayData, numRows) {
+
+  // will have to hide the error message
+  let message = document.querySelector('#error-message');
+  message.style.display = 'none';
+
   let tableBodyElement = document.querySelector('#table-body');
   tableBodyElement.innerHTML = '';
   let end = arrayData.length;
@@ -58,6 +63,9 @@ function renderRows(arrayData, numRows) {
     link.href = "#navigate";
     link.textContent = arrayData[i].Name;
     link.addEventListener('click', function() {
+      // will have to hide the error message
+      let message = document.querySelector('#error-message');
+      message.style.display = 'none';
       toggleSpinner();
       findPlayer(arrayData[i].Name, arrayData[i].Nationality, arrayData[i].Photo,
         arrayData[i].Age, arrayData[i].Position);
@@ -323,5 +331,10 @@ function toggleSpinner() {
 
 // renders the error message
 function renderError() {
-  alert("Sorry! Stats for this player are not available currently.");
+  let alert = document.createElement('p');
+  alert.classList.add('alert', 'alert-danger');
+  alert.textContent = "Sorry! Stats for this player are not currrently available.";
+  let message = document.querySelector('#error-message');
+  message.style.display = 'block';
+  message.appendChild(alert);
 }
