@@ -1,0 +1,179 @@
+* {
+    box-sizing: border-box;
+}
+
+
+/* home page */
+
+main {
+    margin-top: 75px;
+    background-color: #fffff5;;
+}
+
+#navbar {
+    background-color: #ffedc2;
+    padding: 0;
+    border: 1px solid #cbba83;
+}
+
+#logo-img {
+    padding: 10px;
+    height: 75px;
+    width: 75px;
+}
+
+.navbar-text {
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.eachtab {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 1.2rem;
+}
+
+.nav-item {
+    padding-left: 10px;
+}
+
+#navbar-brand {
+    padding: 0;
+}
+
+.activeLink {
+    font-weight: bold;
+}
+
+.eachtab:hover {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+#search-feature {
+    padding: 20px 10px 10px 40px;
+    background-color: #ffedc2;
+    border: 1px solid #cbba83;
+}
+
+#searchtext {
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #72602a;
+}
+
+#search-btn {
+    margin-right: 5%;
+}
+
+#my-btn {
+    background-color: #cbba83;
+    border: 1px solid #cbba83;
+    color: black;
+}
+
+#my-btn:hover {
+    background-color: #fffff5;
+    border: 1px solid #cbba83;
+}
+
+.results {
+    padding: 15px;
+}
+
+.entries {
+    text-align: right;
+}
+
+.result-table {
+    border: 1px solid #cbba83;
+    overflow-x:auto
+}
+
+thead {
+    background-color: #cbba83;
+}
+
+td a {
+    color: black;
+}
+
+.player-img {
+    height: 75px;
+    width: 75px;
+}
+
+#striker-badge {
+    background-color: #4b89dc;
+    color: white;
+    margin: 5%;
+    font-size: medium;
+}
+
+#mid-badge {
+    background-color: #8dc153;
+    color: white;
+    margin: 5%;
+    font-size: medium;
+}
+
+#def-badge {
+    background-color: #f6bb43;
+    color: white;
+    margin: 5%;
+    font-size: medium;
+}
+
+#gk-badge {
+    background-color: #e9573e;
+    color: white;
+    margin: 5%;
+    font-size: medium;
+}
+
+footer {
+    display: none;
+}
+
+@media (min-width: 598px) {
+
+    #searchresults {
+        font-weight: 600;
+        font-size: larger;
+        margin-bottom: 20px;
+    }
+}
+
+@media (min-width: 768px) {
+
+    footer {
+        display: block;
+        margin-top: 10px;
+        text-align: center;
+        line-height: 5px;
+    }
+}
+
+@media (min-width: 992px) {
+    
+    .nav-item {
+        padding: 15px;
+    }
+
+    .nav-item:hover {
+        background-color: #fffff5;
+    }
+
+    #search-feature {
+        padding: 50px 10px 10px 40px;
+    }
+    
+    #searchtext {
+        margin-bottom: 40px;
+    }
+    
+    .form-group {
+        padding: 10px 0px;
+    }
+}

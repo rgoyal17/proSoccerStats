@@ -1,42 +1,43 @@
 {
-  "name": "info340-project",
-  "version": "1.0.0",
+  "name": "project-rgoyal17",
+  "version": "0.1.0",
   "private": true,
-  "description": "",
-  "scripts": {
-    "test": "jest"
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.27",
+    "@fortawesome/free-solid-svg-icons": "^5.12.1",
+    "@fortawesome/react-fontawesome": "^0.1.8",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.1",
+    "@testing-library/user-event": "^7.2.1",
+    "bootstrap": "^4.4.1",
+    "d3": "^5.15.0",
+    "d3-fetch": "^1.1.2",
+    "react": "^16.13.0",
+    "react-csv-reader": "^2.0.2",
+    "react-dom": "^16.13.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0",
+    "reactstrap": "^8.4.1"
   },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "jest-style-matchers": "^0.1.2"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "parserOptions": {
-      "ecmaVersion": 6
-    },
-    "env": {
-      "browser": true,
-      "node": true,
-      "shared-node-browser": true,
-      "jquery": true
-    },
-    "extends": "eslint:recommended",
-    "rules": {
-      "no-console": "off",
-      "semi": [
-        "off",
-        "always",
-        {
-          "omitLastInOneLineBlock": true
-        }
-      ],
-      "camelcase": [
-        "error"
-      ]
-    }
+    "extends": "react-app"
   },
-  "dependencies": {
-    "d3-fetch": "^1.1.2"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
