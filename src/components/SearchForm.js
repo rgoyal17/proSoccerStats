@@ -1,21 +1,52 @@
 import React, { Component } from 'react';
 import { Col, Form, FormGroup, Label, Input } from 'reactstrap';
-import MyButton from './utils/Button'
 
 class SearchForm extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {name: '', nationality: 'DEFAULT', club: 'DEFAULT', position: 'DEFAULT', foot: 'DEFAULT', age: ''};
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.callback(this.state);
+        this.setState({name: '', nationality: 'DEFAULT', club: 'DEFAULT', position: 'DEFAULT', foot: 'DEFAULT', age: '' });
+    }
+
+    handleChange = (event) => {
+        let elem = event.target;
+        let value = elem.value;
+        let id = elem.id;
+
+        this.setState(() => {
+            if (id === "name") {
+                return {name: value};
+            } else if (id === "nationality") {
+                return {nationality: value};
+            } else if (id === "club") {
+                return {club: value};
+            } else if (id === "position") {
+                return {position: value};
+            } else if (id === "foot") {
+                return {foot: value};
+            } else if (id === "age") {
+                return {age: value};
+            }
+        });
+    }
 
     render() {
-        
+
         // this will create soccer club options for the form
         let clubOptions = [];
-        this.props.data.map( (item) => {
+        this.props.data.map((item) => {
             if (!clubOptions.includes(item.club)) {
                 clubOptions.push(item.club);
             }
         })
 
-        let allOptions = clubOptions.map( (item) => {
+        let allOptions = clubOptions.map((item) => {
             return <option key={item} value={item}>{item}</option>;
         })
 
@@ -24,13 +55,13 @@ class SearchForm extends Component {
                 <FormGroup row>
                     <Label for="name" className="col-md-5 col-lg-4">Name:</Label>
                     <Col className="col-md-7 col-lg-8">
-                        <Input type="text" name="name" id="name" placeholder="Enter Name" />
+                        <Input type="text" name="name" id="name" placeholder="Enter Name" value={this.state.name} onChange={this.handleChange} />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label for="nationality" className="col-md-5 col-lg-4">Nationality:</Label>
                     <Col className="col-md-7 col-lg-8">
-                        <Input type="select" name="nationality" id="nationality" defaultValue={'DEFAULT'}>
+                        <Input type="select" name="nationality" id="nationality" value={this.state.nationality} onChange={this.handleChange}>
                             <option value="DEFAULT">Choose Country...</option>
                             <option value="Afganistan">Afghanistan</option>
                             <option value="Albania">Albania</option>
@@ -284,7 +315,7 @@ class SearchForm extends Component {
                 <FormGroup row>
                     <Label for="club" className="col-md-5 col-lg-4">Club:</Label>
                     <Col className="col-md-7 col-lg-8">
-                        <Input type="select" name="club" id="club" defaultValue={'DEFAULT'}>
+                        <Input type="select" name="club" id="club" value={this.state.club} onChange={this.handleChange}>
                             <option value="DEFAULT">Choose Club...</option>
                             {allOptions}
                         </Input>
@@ -293,7 +324,7 @@ class SearchForm extends Component {
                 <FormGroup row>
                     <Label for="position" className="col-md-5 col-lg-4">Position:</Label>
                     <Col className="col-md-7 col-lg-8">
-                        <Input type="select" name="position" id="position" defaultValue={'DEFAULT'}>
+                        <Input type="select" name="position" id="position" value={this.state.position} onChange={this.handleChange}>
                             <option value="DEFAULT">Choose Position...</option>
                             <option value="CF">Centre Forward</option>
                             <option value="RF">Right Forward</option>
@@ -328,18 +359,21 @@ class SearchForm extends Component {
                 <FormGroup row>
                     <Label for="foot" className="col-md-5 col-lg-4">Preferred Foot:</Label>
                     <Col className="col-md-7 col-lg-8">
-                        <Input type="select" name="foot" id="foot" defaultValue={'DEFAULT'}>
+                        <Input type="select" name="foot" id="foot" value={this.state.foot} onChange={this.handleChange}>
                             <option value="DEFAULT">Choose Foot...</option>
+                            <option value="Right">Right</option>
+                            <option value="Left">Left</option>
                         </Input>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label for="age" className="col-md-5 col-lg-4">Age:</Label>
                     <Col className="col-md-7 col-lg-8">
-                        <Input type="number" name="age" id="age" placeholder="Enter Age" />
+                        <Input type="number" name="age" id="age" placeholder="Enter Age" value={this.state.age} onChange={this.handleChange} />
                     </Col>
                 </FormGroup>
-                <MyButton text="Submit" />
+                <button className="btn" onClick={this.handleSubmit}>Search</button>
+                <button className="btn" id="reset-btn">Reset</button>
             </Form>
         );
     }

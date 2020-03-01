@@ -7,7 +7,8 @@
 
 main {
     margin-top: 75px;
-    background-color: #fffff5;;
+    background-color: #fffff5;
+    padding-right: 1%;
 }
 
 #navbar {
@@ -67,15 +68,21 @@ main {
     margin-right: 5%;
 }
 
-#my-btn {
+form .btn {
     background-color: #cbba83;
     border: 1px solid #cbba83;
     color: black;
+    transition: none;
 }
 
-#my-btn:hover {
+#reset-btn {
+    margin-left: 5%;
+}
+
+form .btn:hover {
     background-color: #fffff5;
     border: 1px solid #cbba83;
+    color: black;
 }
 
 .results {
@@ -130,6 +137,12 @@ td a {
     color: white;
     margin: 5%;
     font-size: medium;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
 }
 
 footer {
