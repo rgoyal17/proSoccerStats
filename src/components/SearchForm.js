@@ -40,7 +40,7 @@ class SearchForm extends Component {
 
         // this will create soccer club options for the form
         let clubOptions = [];
-        this.props.data.map((item) => {
+        this.props.data.forEach(function(item) {
             if (!clubOptions.includes(item.club)) {
                 clubOptions.push(item.club);
             }

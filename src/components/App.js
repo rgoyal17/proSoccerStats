@@ -28,10 +28,8 @@ class App extends Component {
                 <footer>
                     <address>
                         <p>Posted by: Rishabh Goyal and Mehul Goel</p>
-                        <p>Contact information: <a href="mailto:rishabhgoyal555@gmail.com">rishabhgoyal555@gmail.com</a> /
-                        <a href="mailto:mgoel.mehul@gmail.com">mgoel.mehul@gmail.com</a></p>
-                        <cite>Data taken from two sources: <a href="https://www.kaggle.com/karangadiya/fifa19">FIFA 2019 dataset from Kaggle </a>
-                        and <a href="https://rapidapi.com/api-sports/api/api-football">Football Player API</a></cite>
+                        <p>Contact information: <a href="mailto:rishabhgoyal555@gmail.com">rishabhgoyal555@gmail.com</a> / <a href="mailto:mgoel.mehul@gmail.com">mgoel.mehul@gmail.com</a></p>
+                        <cite>Data taken from two sources: <a href="https://www.kaggle.com/stefanoleone992/fifa-20-complete-player-dataset">FIFA 2020 dataset from Kaggle </a>and <a href="https://rapidapi.com/api-sports/api/api-football">Football Player API</a></cite>
                     </address>
                     <p>2020 &copy; INFO340</p>
                 </footer>

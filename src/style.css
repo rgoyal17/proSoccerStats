@@ -93,6 +93,10 @@ form .btn:hover {
     text-align: right;
 }
 
+#info {
+    font-size: large;
+}
+
 .result-table {
     border: 1px solid #cbba83;
     overflow-x:auto
@@ -106,9 +110,18 @@ td a {
     color: black;
 }
 
+.data-row:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
 .player-img {
     height: 75px;
     width: 75px;
+}
+
+.card-form {
+    margin: 2%;
 }
 
 #striker-badge {
@@ -139,10 +152,23 @@ td a {
     font-size: medium;
 }
 
+.card-header {
+    text-align: center;
+    font-size: x-large;
+}
+
+.field {
+    font-weight: 600;
+}
+
 .flex-container {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
+}
+
+#prev-btn {
+    margin-right: 1%;
 }
 
 footer {
