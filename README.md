@@ -4,4 +4,4 @@ This repository contains code for an interactive web app, created for the _Clien
 
 The app proposal can be viewed at <https://info340b-wi20.github.io/project-rgoyal17/proposal.html>
 
-The app can be viewed at <https://info340b-wi20.github.io/project-rgoyal17>
+The app can be viewed at <https://prosoccerstats-bb26e.firebaseapp.com/>

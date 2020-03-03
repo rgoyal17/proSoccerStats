@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import SearchForm from './SearchForm';
 import * as d3 from 'd3';
 import { Badge, Form, FormGroup, Label, Input, Button, Modal, ModalBody, ModalFooter, Card, CardImg, CardHeader, CardBody } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import 'd3';
 
 class HomePage extends Component {
     constructor(props) {
@@ -65,7 +68,7 @@ class HomePage extends Component {
                 return n - Number(item.dob.substring(item.dob.length - 4, item.dob.length)) === Number(info.age);
             });
         }
-        this.setState({ filteredPlayerData: filteredArray });
+        this.setState({ filteredPlayerData: filteredArray, numEntries: 10, start: 0 });
     }
 
     handleEntries = (event) => {
@@ -86,6 +89,14 @@ class HomePage extends Component {
     handlePrev = (event) => {
         event.preventDefault();
         this.setState({ start: Number(this.state.start) - Number(this.state.numEntries) });
+    }
+
+    handleTop = (event) => {
+        event.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     }
 
     render() {
@@ -127,9 +138,10 @@ class HomePage extends Component {
                         <div className="result-table">
                             <ResultTable rowData={this.state.filteredPlayerData} entries={this.state.numEntries} begin={this.state.start} />
                         </div>
+                        <Form id="top-btn"><button className="btn" onClick={this.handleTop}>Back to Top</button></Form>
                         <Form className="flex-container">
-                            <button className="btn" id="prev-btn" onClick={this.handlePrev} disabled={prevDisable}>{"Prev " + this.state.numEntries}</button>
-                            <button className="btn" onClick={this.handleNext} disabled={nextDisable}>{"Next " + this.state.numEntries}</button>
+                            <button className="btn" id="prev-btn" onClick={this.handlePrev} disabled={prevDisable}>{"Prev "}{this.state.numEntries === this.state.filteredPlayerData.length ? null : this.state.numEntries}</button>
+                            <button className="btn" onClick={this.handleNext} disabled={nextDisable}>{"Next "}{this.state.numEntries === this.state.filteredPlayerData.length ? null : this.state.numEntries}</button>
                         </Form>
                     </div>
                 </div>
@@ -146,7 +158,9 @@ class ResultTable extends Component {
             requestFailed: false,
             modelOpen: false,
             playerStat: [],
-            picture: ''
+            picture: '',
+            playerId: '',
+            showToggle: false
         };
     }
 
@@ -166,9 +180,10 @@ class ResultTable extends Component {
         return allBadges;
     }
 
-    findPlayer = (name, dob, image) => {
+    findPlayer = (name, dob, image, id) => {
 
-        this.setState({ modelOpen: true, picture: image });
+        this.setState({ modelOpen: true, picture: image, playerId: id });
+        this.toggleSpinner();
 
         name = name.replace(/Jr/gi, "");
         name = name.replace(/ć/gi, "c");
@@ -243,10 +258,17 @@ class ResultTable extends Component {
             .catch((error) => {
                 this.setState({ requestFailed: true });
             })
+            .then(() => {
+                this.toggleSpinner();
+            })
     }
 
     toggleModal = () => {
         this.setState({ modelOpen: false, playerStat: [], requestFailed: false })
+    }
+
+    toggleSpinner = () => {
+        this.setState({ showToggle: !this.state.showToggle });
     }
 
     render() {
@@ -279,13 +301,14 @@ class ResultTable extends Component {
 
         let allRows = this.props.rowData.map((item) => {
             return (
-                <tr className="data-row" key={item.sofifa_id} onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png")}>
+                <tr className="data-row" key={item.sofifa_id} onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}>
                     <th>{this.props.rowData.indexOf(item) + 1}</th>
                     <td><img src={"https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png"} alt={item.short_name} className="player-img" /></td>
-                    <td>{item.long_name}</td>
+                    <td>{item.long_name + "  "}{this.state.showToggle && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className="fa-lg" /> : null}</td>
                     <td>{item.nationality}</td>
                     <td>{item.club}</td>
                     <td>{this.playerPosition(item.player_positions)}</td>
+                    <td className="compare-icon"><FontAwesomeIcon icon={faPlusCircle} className="fa-lg" /></td>
                 </tr>
             );
         })
@@ -300,7 +323,8 @@ class ResultTable extends Component {
                             <th scope="col">Name</th>
                             <th scope="col">Country</th>
                             <th scope="col">Club</th>
-                            <th scope="col">Position(s)</th>
+                            <th scope="col">Preferred Position(s)</th>
+                            <th scope="col">Add to Compare</th>
                         </tr>
                     </thead>
                     <tbody id="table-body">

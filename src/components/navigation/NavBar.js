@@ -15,7 +15,7 @@ class NavBar extends Component {
                     </NavbarToggler>
                     <NavbarBrand id="navbar-brand">
                         <img src="./img/logo.png" alt="site logo" id="logo-img" />
-                        <NavbarText>PRO TEAM SOCCER</NavbarText>
+                        <NavbarText>PRO SOCCER STATS</NavbarText>
                     </NavbarBrand>
                     <NavbarToggler data-target="#navbarNav" data-toggle="collapse">
                         <FontAwesomeIcon icon={faBars} className="fa-lg" />
@@ -26,10 +26,10 @@ class NavBar extends Component {
                                 <NavLink exact to="/" activeClassName="activeLink" className="eachtab">Home</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink to="/createteam" activeClassName="activeLink" className="eachtab">Create Team</NavLink>
+                                <NavLink to="/compare" activeClassName="activeLink" className="eachtab">Compare Players</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink to="/leaderboard" activeClassName="activeLink" className="eachtab">Team Standing</NavLink>
+                                <NavLink to="/favorites" activeClassName="activeLink" className="eachtab">Favorite Players</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink to="/signin" activeClassName="activeLink" className="eachtab">Sign In</NavLink>

@@ -79,7 +79,7 @@ form .btn {
     margin-left: 5%;
 }
 
-form .btn:hover {
+form .btn:hover:enabled {
     background-color: #fffff5;
     border: 1px solid #cbba83;
     color: black;
@@ -118,6 +118,10 @@ td a {
 .player-img {
     height: 75px;
     width: 75px;
+}
+
+.compare-icon {
+    text-align: center;
 }
 
 .card-form {
@@ -161,6 +165,12 @@ td a {
     font-weight: 600;
 }
 
+#top-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 .flex-container {
     display: flex;
     justify-content: flex-end;
@@ -175,6 +185,91 @@ footer {
     display: none;
 }
 
+/* compare player page */
+
+.better {
+    color: green;
+    font-weight: 700;
+}
+ 
+.worse {
+    color: red;
+    font-weight: 700;
+}
+ 
+.equal {
+    color: black;
+    font-weight: 400;
+}
+ 
+.headings {
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+    padding-top: 1%;
+}
+ 
+.subheading {
+    font-size: large;
+    font-weight: 500;
+}
+
+.compare-table {
+    border: 1px solid #cbba83;
+    overflow-x:auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cross1 {
+    position: absolute;
+    top: 5%;
+    right: 60%;
+}
+
+.cross2 {
+    position: absolute;
+    top: 5%;
+    right: 25%;
+}
+
+/* sign in page */
+
+.sign-in {
+    text-align: center;
+    background-color: wheat;
+    border-radius: 10px;
+    padding: 1%;
+    margin-top: 1%;
+}
+ 
+.log-in {
+    text-align: center;
+    margin-left: 30%;
+    margin-right: 30%;
+    border-radius: 10px;
+}
+ 
+.option {
+    text-align: center;
+    margin-top: 20px;
+}
+ 
+.sign-in-helper {
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 1%;
+    text-align: left;
+}
+
+#signin-btn {
+    margin-top: 2%;
+}
+
+#account {
+    margin-bottom: 2%;
+}
+
 @media (min-width: 598px) {
 
     #searchresults {
@@ -182,6 +277,12 @@ footer {
         font-size: larger;
         margin-bottom: 20px;
     }
+
+    .sign-in {
+        margin-left: 30%;
+        margin-right: 30%;
+    }
+
 }
 
 @media (min-width: 768px) {

@@ -11,7 +11,7 @@ class SearchForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.callback(this.state);
-        this.setState({name: '', nationality: 'DEFAULT', club: 'DEFAULT', position: 'DEFAULT', foot: 'DEFAULT', age: '' });
+        //this.setState({name: '', nationality: 'DEFAULT', club: 'DEFAULT', position: 'DEFAULT', foot: 'DEFAULT', age: '' });
     }
 
     handleChange = (event) => {

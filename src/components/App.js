@@ -1,11 +1,9 @@
-import React, { Component } from 'react'; //import React Component
-import './../style.css';
+import React, { Component } from 'react';
 import NavBar from './navigation/NavBar';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from './HomePage';
-import CreateTeamPage from './CreateTeamPage';
-import TeamStandingPage from './TeamStandingPage';
+import ComparePlayersPage from './ComparePlayersPage';
+import FavoritePlayesPage from './FavoritePlayesPage';
 import SignInPage from './SignInPage';
 
 class App extends Component {
@@ -19,8 +17,8 @@ class App extends Component {
                 <div>
                     <Switch>
                         <Route exact path='/' component={HomePage} />
-                        <Route path='/createteam' component={CreateTeamPage} />
-                        <Route path='/leaderboard' component={TeamStandingPage} />
+                        <Route path='/compare' component={ComparePlayersPage} />
+                        <Route path='/favorites' component={FavoritePlayesPage} />
                         <Route path='/signin' component={SignInPage} />
                         <Redirect to='/' />
                     </Switch>
