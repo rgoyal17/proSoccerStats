@@ -1,38 +1,67 @@
 import React, { Component } from 'react';
-import { Label, Input, Button, Form } from 'reactstrap';
- 
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import firebase from 'firebase/app';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+
 class SignInPage extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { user: null };
+    }
+
+    uiConfig = {
+        signInOptions: [
+            {
+                provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                requireDisplayName: false
+            },
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID
+        ],
+        credentialHelper: 'none',
+        signInFlow: 'popup'
+    }
+
+    componentDidMount() {
+        this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if (firebaseUser) {
+                this.props.toggleSignIn();
+                this.setState({ user: firebaseUser });
+            }
+        })
+    }
+
+    componentWillUnmount () {
+        this.authUnRegFunc();
+    }
+
     render() {
+
+        let content = <div>hi</div>;
+        if (this.state.user === null) {
+            content = (
+                <div>
+                <Modal isOpen={this.props.open} toggle={this.props.callback}>
+                    <div className="change-pointer close" onClick={this.props.callback}>&times;</div>
+                    <div id="signin-modal">
+                        <ModalHeader>Sign In</ModalHeader>
+                        <ModalBody>
+                            <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()} />
+                        </ModalBody>
+                    </div>
+                </Modal>
+                </div>
+            );
+        }
+
         return (
-            <main>
-                <div className="headings">
-                    Sign in to your Account
-                </div>
-                <div className="sign-in">
-                    <div className="sign-in-helper">
-                        <Label>Email Address:</Label>
-                        <Input type="text" placeholder="Enter Your Email Address..."></Input>
-                    </div>
-                    <div className="sign-in-helper">
-                        <div className="row">
-                            <Label className="col">Password:</Label>
-                            <span className="entries col"><a href="#">Forgot Password</a></span>
-                        </div>
-                        <Input type="text" placeholder="Enter Your Password..."></Input>
-                    </div>
-                    <div>
-                        <Form><Button id="signin-btn">Sign In</Button></Form>
-                    </div>
-                </div>
-                <p className="option">------------ OR ------------</p>
-                <div className="log-in">
-                    <Form><Button id="account">New User? Create an account</Button></Form>
-                </div>
- 
-            </main>
+            <div>
+            {content}
+            </div>
+            
             
         );
     }
 }
- 
+
 export default SignInPage;

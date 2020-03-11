@@ -68,7 +68,7 @@ main {
     margin-right: 5%;
 }
 
-form .btn {
+.btn {
     background-color: #cbba83;
     border: 1px solid #cbba83;
     color: black;
@@ -79,7 +79,7 @@ form .btn {
     margin-left: 5%;
 }
 
-form .btn:hover:enabled {
+.btn:hover:enabled {
     background-color: #fffff5;
     border: 1px solid #cbba83;
     color: black;
@@ -112,16 +112,15 @@ td a {
 
 .data-row:hover {
     background-color: white;
+}
+
+.change-pointer:hover {
     cursor: pointer;
 }
 
 .player-img {
     height: 75px;
     width: 75px;
-}
-
-.compare-icon {
-    text-align: center;
 }
 
 .card-form {
@@ -163,6 +162,10 @@ td a {
 
 .field {
     font-weight: 600;
+}
+
+.liked {
+    color:lightgray;
 }
 
 #top-btn {
@@ -235,40 +238,28 @@ footer {
 
 /* sign in page */
 
-.sign-in {
-    text-align: center;
-    background-color: wheat;
-    border-radius: 10px;
-    padding: 1%;
-    margin-top: 1%;
-}
- 
-.log-in {
-    text-align: center;
-    margin-left: 30%;
-    margin-right: 30%;
-    border-radius: 10px;
-}
- 
-.option {
-    text-align: center;
-    margin-top: 20px;
-}
- 
-.sign-in-helper {
-    margin-left: 10%;
-    margin-right: 10%;
-    padding: 1%;
-    text-align: left;
+#signin-modal {
+    margin-bottom: 5%;
 }
 
-#signin-btn {
-    margin-top: 2%;
+.modal-header {
+    display: flex;
+    justify-content: center;
+    padding-top: 0;
 }
 
-#account {
-    margin-bottom: 2%;
+.modal-title {
+    font-size: xx-large;
 }
+
+.close {
+    text-align: right;
+    padding-right: 3%;
+    padding-top: 3%;
+    font-size: xx-large;
+}
+
+
 
 @media (min-width: 598px) {
 

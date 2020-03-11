@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import SearchForm from './SearchForm';
 import * as d3 from 'd3';
-import { Badge, Form, FormGroup, Label, Input, Button, Modal, ModalBody, ModalFooter, Card, CardImg, CardHeader, CardBody } from 'reactstrap';
+import { Badge, Form, FormGroup, Label, Input, Modal, ModalBody, ModalFooter, Card, CardImg, CardHeader, CardBody} from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faHeart } from '@fortawesome/free-solid-svg-icons';
 import 'd3';
 
 class HomePage extends Component {
@@ -32,9 +32,37 @@ class HomePage extends Component {
             let searchName = info.name.toLowerCase();
             let words = searchName.split(" ");
             filteredArray = filteredArray.filter((item) => {
+                let name = item.long_name;
+
+                name = name.replace(/á/gi, "a");
+                name = name.replace(/à/gi, "a");
+                name = name.replace(/ã/gi, "a");
+                name = name.replace(/â/gi, "a");
+                name = name.replace(/ä/gi, "a");
+                name = name.replace(/ć/gi, "c");
+                name = name.replace(/ç/gi, "c");
+                name = name.replace(/č/gi, "c");
+                name = name.replace(/é/gi, "e");
+                name = name.replace(/è/gi, "e");
+                name = name.replace(/ê/gi, "e");
+                name = name.replace(/ę/gi, "e");
+                name = name.replace(/ë/gi, "e");
+                name = name.replace(/í/gi, "i");
+                name = name.replace(/î/gi, "i");
+                name = name.replace(/ï/gi, "i");
+                name = name.replace(/ñ/gi, "n");
+                name = name.replace(/ó/gi, "o");
+                name = name.replace(/ô/gi, "o");
+                name = name.replace(/ö/gi, "o");
+                name = name.replace(/š/gi, "s");
+                name = name.replace(/ü/gi, "u");
+                name = name.replace(/ú/gi, "u");
+                name = name.replace(/ú/gi, "u");
+                name = name.replace(/ù/gi, "u");
+
                 let containsAllWords = true;
                 for (let i = 0; i < words.length; i++) {
-                    if (!item.long_name.toLowerCase().includes(words[i])) {
+                    if (!name.toLowerCase().includes(words[i])) {
                         return false;
                     }
                 }
@@ -100,7 +128,6 @@ class HomePage extends Component {
     }
 
     render() {
-
         const nextDisable = Number(this.state.start) + Number(this.state.numEntries) >= Number(this.state.filteredPlayerData.length);
         const prevDisable = Number(this.state.start) - Number(this.state.numEntries) < 0;
 
@@ -136,7 +163,7 @@ class HomePage extends Component {
                         </div>
                         <p id="info">Click on any row of the table to view additional inforamtion about that player!</p>
                         <div className="result-table">
-                            <ResultTable rowData={this.state.filteredPlayerData} entries={this.state.numEntries} begin={this.state.start} />
+                            <ResultTable rowData={this.state.filteredPlayerData} entries={this.state.numEntries} begin={this.state.start} signedIn={this.props.signedIn} callback1={this.props.callback} checkedPlayer={this.props.checkedPlayer} />
                         </div>
                         <Form id="top-btn"><button className="btn" onClick={this.handleTop}>Back to Top</button></Form>
                         <Form className="flex-container">
@@ -156,7 +183,7 @@ class ResultTable extends Component {
         super(props);
         this.state = {
             requestFailed: false,
-            modelOpen: false,
+            modalOpen: false,
             playerStat: [],
             picture: '',
             playerId: '',
@@ -182,22 +209,36 @@ class ResultTable extends Component {
 
     findPlayer = (name, dob, image, id) => {
 
-        this.setState({ modelOpen: true, picture: image, playerId: id });
+        this.setState({ modalOpen: true, picture: image, playerId: id });
         this.toggleSpinner();
 
         name = name.replace(/Jr/gi, "");
-        name = name.replace(/ć/gi, "c");
-        name = name.replace(/é/gi, "e");
-        name = name.replace(/ü/gi, "u");
         name = name.replace(/á/gi, "a");
-        name = name.replace(/č/gi, "c");
-        name = name.replace(/í/gi, "i");
-        name = name.replace(/š/gi, "s");
-        name = name.replace(/ę/gi, "e");
-        name = name.replace(/ú/gi, "u");
-        name = name.replace(/ó/gi, "o");
+        name = name.replace(/à/gi, "a");
         name = name.replace(/ã/gi, "a");
-
+        name = name.replace(/â/gi, "a");
+        name = name.replace(/ä/gi, "a");
+        name = name.replace(/ć/gi, "c");
+        name = name.replace(/ç/gi, "c");
+        name = name.replace(/č/gi, "c");
+        name = name.replace(/é/gi, "e");
+        name = name.replace(/è/gi, "e");
+        name = name.replace(/ê/gi, "e");
+        name = name.replace(/ę/gi, "e");
+        name = name.replace(/ë/gi, "e");
+        name = name.replace(/í/gi, "i");
+        name = name.replace(/î/gi, "i");
+        name = name.replace(/ï/gi, "i");
+        name = name.replace(/ñ/gi, "n");
+        name = name.replace(/ó/gi, "o");
+        name = name.replace(/ô/gi, "o");
+        name = name.replace(/ö/gi, "o");
+        name = name.replace(/š/gi, "s");
+        name = name.replace(/ü/gi, "u");
+        name = name.replace(/ú/gi, "u");
+        name = name.replace(/ú/gi, "u");
+        name = name.replace(/ù/gi, "u");
+        
         if (dob.length === 9) {
             if (dob.charAt(1) === '/') {
                 dob = "0" + dob;
@@ -234,8 +275,11 @@ class ResultTable extends Component {
                 }
                 this.getPlayerStats(players[0]);
             })
-            .catch((error) => {
+            .catch(() => {
                 this.setState({ requestFailed: true });
+            })
+            .then(() => {
+                this.toggleSpinner();
             })
     }
 
@@ -255,20 +299,27 @@ class ResultTable extends Component {
             .then((data) => {
                 this.setState({ playerStat: data.api.players });
             })
-            .catch((error) => {
+            .catch(() => {
                 this.setState({ requestFailed: true });
-            })
-            .then(() => {
-                this.toggleSpinner();
             })
     }
 
     toggleModal = () => {
-        this.setState({ modelOpen: false, playerStat: [], requestFailed: false })
+        this.setState({ modalOpen: false, playerStat: [], requestFailed: false })
     }
 
     toggleSpinner = () => {
         this.setState({ showToggle: !this.state.showToggle });
+    }
+
+    handleHeart = () => {
+        if(!this.props.signedIn) {
+            this.props.callback1();
+        }
+    }
+
+    handleCheck = (name, dob, image, id) => {
+        this.props.checkedPlayer({[id]: {name: name, dob: dob, image: image}});
     }
 
     render() {
@@ -276,24 +327,24 @@ class ResultTable extends Component {
         let modal = <div></div>;
         if (this.state.requestFailed) {
             modal = (
-                <Modal isOpen={this.state.modelOpen} toggle={this.toggleModal}>
+                <Modal isOpen={this.state.modalOpen} toggle={this.toggleModal}>
                     <ModalBody>
                         Sorry! Stats for this player are currently not available.
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="secondary" onClick={this.toggleModal}>Close</Button>
+                        <button className="btn" onClick={this.toggleModal}>Close</button>
                     </ModalFooter>
                 </Modal>
             )
         }
         if (this.state.playerStat.length !== 0) {
             modal = (
-                <Modal isOpen={this.state.modelOpen} toggle={this.toggleModal}>
+                <Modal isOpen={this.state.modalOpen} toggle={this.toggleModal}>
                     <ModalBody>
                         <PlayerCard stats={this.state.playerStat} picture={this.state.picture} />
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="secondary" onClick={this.toggleModal}>Close</Button>
+                    <button className="btn" onClick={this.toggleModal}>Close</button>
                     </ModalFooter>
                 </Modal>
             )
@@ -301,14 +352,17 @@ class ResultTable extends Component {
 
         let allRows = this.props.rowData.map((item) => {
             return (
-                <tr className="data-row" key={item.sofifa_id} onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}>
-                    <th>{this.props.rowData.indexOf(item) + 1}</th>
-                    <td><img src={"https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png"} alt={item.short_name} className="player-img" /></td>
-                    <td>{item.long_name + "  "}{this.state.showToggle && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className="fa-lg" /> : null}</td>
-                    <td>{item.nationality}</td>
-                    <td>{item.club}</td>
-                    <td>{this.playerPosition(item.player_positions)}</td>
-                    <td className="compare-icon"><FontAwesomeIcon icon={faPlusCircle} className="fa-lg" /></td>
+                <tr className="data-row" key={item.sofifa_id}>
+                    <th className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}>{this.props.rowData.indexOf(item) + 1}</th>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}><img src={"https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png"} alt={item.short_name} className="player-img" /></td>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}>{item.long_name + "  "}{this.state.showToggle && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className="fa-lg" /> : null}</td>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}>{item.nationality}</td>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}>{item.club}</td>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}>{this.playerPosition(item.player_positions)}</td>
+                    <td>
+                        <div><input type="checkbox" onChange={() => this.handleCheck(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)} /> Add to Compare</div>
+                        <div><FontAwesomeIcon icon={faHeart} className="fa-lg liked change-pointer" onClick={this.handleHeart} /> Mark Favorite</div>
+                    </td>
                 </tr>
             );
         })
@@ -324,7 +378,7 @@ class ResultTable extends Component {
                             <th scope="col">Country</th>
                             <th scope="col">Club</th>
                             <th scope="col">Preferred Position(s)</th>
-                            <th scope="col">Add to Compare</th>
+                            <th scope="col">Features</th>
                         </tr>
                     </thead>
                     <tbody id="table-body">
@@ -389,7 +443,6 @@ class PlayerCard extends Component {
 
     //handle league change
     handleLeague = (event) => {
-        console.log('here');
         let elem = event.target;
         let value = elem.value;
 

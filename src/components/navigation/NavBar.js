@@ -32,7 +32,7 @@ class NavBar extends Component {
                                 <NavLink to="/favorites" activeClassName="activeLink" className="eachtab">Favorite Players</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink to="/signin" activeClassName="activeLink" className="eachtab">Sign In</NavLink>
+                                <div className="eachtab change-pointer" onClick={this.props.callback}>{this.props.signedIn ? "Log Out" : "Sign In"}</div>
                             </NavItem>
                         </Nav>
                     </Collapse>

@@ -19,6 +19,8 @@
     "react-back-to-top-button": "0.0.14",
     "react-csv-reader": "^2.0.2",
     "react-dom": "^16.13.0",
+    "react-firebase": "^2.2.8",
+    "react-firebaseui": "^4.1.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
     "reactstrap": "^8.4.1",
