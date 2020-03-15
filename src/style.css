@@ -2,12 +2,14 @@
     box-sizing: border-box;
 }
 
-
-/* home page */
-
 main {
     margin-top: 75px;
     background-color: #fffff5;
+}
+
+/* home page */
+
+#home-main {
     padding-right: 1%;
 }
 
@@ -190,6 +192,26 @@ footer {
 
 /* compare player page */
 
+#compare-error {
+    text-align: center;
+    padding: 1%;
+    font-size: larger;
+    /* font-weight: bold; */
+}
+
+.remove-player {
+    font-size: xx-large;
+    vertical-align: 100%;
+}
+
+#first-row {
+    padding-top: 0;
+}
+
+.compare-input {
+    margin-right: 50%;
+}
+
 .better {
     color: green;
     font-weight: 700;
@@ -259,6 +281,12 @@ footer {
     font-size: xx-large;
 }
 
+/* favorite player page */
+
+.addition {
+    margin-left: 40%;
+    margin-right: 40%;
+}
 
 
 @media (min-width: 598px) {

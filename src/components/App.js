@@ -14,7 +14,8 @@ class App extends Component {
         this.state = {
             showSignInModal: false,
             signedIn: false,
-            playersToCompare: []
+            checkedIds: [],
+            compareStats: []
         };
     }
 
@@ -32,21 +33,25 @@ class App extends Component {
     }
 
     updateCheckedPlayers = (playerObj) => {
-        let copy = this.state.playersToCompare;
+        let copy = this.state.compareStats;
+        let copy1 = this.state.checkedIds;
         let exists = false;
         let index = -1;
         for (let i = 0; i < copy.length; i++) {
             if (Object.keys(copy[i])[0] === Object.keys(playerObj)[0]) {
                 exists = true;
                 index = i;
+                break;
             }
         }
         if (exists) {
             copy.splice(index, 1);
+            copy1.splice(index, 1);
         } else {
             copy.push(playerObj);
+            copy1.push(Object.keys(playerObj)[0]);
         }
-        this.setState({ playersToCompare: copy });
+        this.setState({ compareStats: copy, checkedIds: copy1 });
     }
 
     render() {
@@ -63,14 +68,12 @@ class App extends Component {
                 <header>
                     <NavBar callback={this.state.signedIn ? this.handleLogOut : this.toggleSignInModal} signedIn={this.state.signedIn} />
                 </header>
-                <div>
-                    <Switch>
-                        <Route exact path='/' render={(props) => <HomePage {...props} signedIn={this.state.signedIn} callback={this.toggleSignInModal} checkedPlayer={this.updateCheckedPlayers} />} />
-                        <Route path='/compare' render={(props) => <ComparePlayersPage {...props} playersToCompare={this.state.playersToCompare} />} />
-                        <Route path='/favorites' component={FavoritePlayesPage} />
-                        <Redirect to='/' />
-                    </Switch>
-                </div>
+                <Switch>
+                    <Route exact path='/' render={(props) => <HomePage {...props} signedIn={this.state.signedIn} callback={this.toggleSignInModal} checkedPlayer={this.updateCheckedPlayers} checkedIds={this.state.checkedIds} statsArr={this.state.compareStats} />} />
+                    <Route path='/compare' render={(props) => <ComparePlayersPage {...props} playersToCompare={this.state.compareStats} />} />
+                    <Route path='/favorites' component={FavoritePlayesPage} />
+                    <Redirect to='/' />
+                </Switch>
                 {signinModal}
                 <footer>
                     <address>

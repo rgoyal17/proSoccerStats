@@ -23,6 +23,9 @@ class HomePage extends Component {
                 allPlayerData: data,
                 filteredPlayerData: data
             })
+        })
+        .catch((error) => {
+            console.log(error);
         });
     }
 
@@ -132,7 +135,7 @@ class HomePage extends Component {
         const prevDisable = Number(this.state.start) - Number(this.state.numEntries) < 0;
 
         return (
-            <main id="top">
+            <main id="home-main">
                 <div className="row">
                     <div className="col-lg-4 col-xl-3 collapse show" id="search-feature">
                         <p id="searchtext">Enter values here to search for a player!</p>
@@ -163,7 +166,7 @@ class HomePage extends Component {
                         </div>
                         <p id="info">Click on any row of the table to view additional inforamtion about that player!</p>
                         <div className="result-table">
-                            <ResultTable rowData={this.state.filteredPlayerData} entries={this.state.numEntries} begin={this.state.start} signedIn={this.props.signedIn} callback1={this.props.callback} checkedPlayer={this.props.checkedPlayer} />
+                            <ResultTable rowData={this.state.filteredPlayerData} entries={this.state.numEntries} begin={this.state.start} signedIn={this.props.signedIn} callback1={this.props.callback} checkedPlayer={this.props.checkedPlayer} checkedIds={this.props.checkedIds} statsArr={this.props.statsArr} />
                         </div>
                         <Form id="top-btn"><button className="btn" onClick={this.handleTop}>Back to Top</button></Form>
                         <Form className="flex-container">
@@ -187,7 +190,9 @@ class ResultTable extends Component {
             playerStat: [],
             picture: '',
             playerId: '',
-            showToggle: false
+            showToggle1: false,
+            showToggle2: false,
+            maxPlayers: false
         };
     }
 
@@ -207,83 +212,94 @@ class ResultTable extends Component {
         return allBadges;
     }
 
-    findPlayer = (name, dob, image, id) => {
+    findPlayer = (name, dob, image, id, isCompare) => {
 
-        this.setState({ modalOpen: true, picture: image, playerId: id });
-        this.toggleSpinner();
-
-        name = name.replace(/Jr/gi, "");
-        name = name.replace(/á/gi, "a");
-        name = name.replace(/à/gi, "a");
-        name = name.replace(/ã/gi, "a");
-        name = name.replace(/â/gi, "a");
-        name = name.replace(/ä/gi, "a");
-        name = name.replace(/ć/gi, "c");
-        name = name.replace(/ç/gi, "c");
-        name = name.replace(/č/gi, "c");
-        name = name.replace(/é/gi, "e");
-        name = name.replace(/è/gi, "e");
-        name = name.replace(/ê/gi, "e");
-        name = name.replace(/ę/gi, "e");
-        name = name.replace(/ë/gi, "e");
-        name = name.replace(/í/gi, "i");
-        name = name.replace(/î/gi, "i");
-        name = name.replace(/ï/gi, "i");
-        name = name.replace(/ñ/gi, "n");
-        name = name.replace(/ó/gi, "o");
-        name = name.replace(/ô/gi, "o");
-        name = name.replace(/ö/gi, "o");
-        name = name.replace(/š/gi, "s");
-        name = name.replace(/ü/gi, "u");
-        name = name.replace(/ú/gi, "u");
-        name = name.replace(/ú/gi, "u");
-        name = name.replace(/ù/gi, "u");
-        
-        if (dob.length === 9) {
-            if (dob.charAt(1) === '/') {
-                dob = "0" + dob;
-            } else {
-                dob = dob.substring(0, 3) + '0' + dob.substring(3);
+        if (isCompare && !this.props.checkedIds.includes(id) && this.props.statsArr.length >= 4) {
+            this.setState({ maxPlayers: true, modalOpen: true});
+        } else {
+            if (!isCompare) {
+                this.setState({ modalOpen: true, picture: image, playerId: id });
+                this.toggleSpinner1();
+            } else if (!this.props.checkedIds.includes(id)) {
+                this.setState({ playerId: id });
+                this.toggleSpinner2();
             }
-        } else if (dob.length === 8) {
-            dob = "0" + dob;
-            dob = dob.substring(0, 3) + '0' + dob.substring(3);
-        }
 
-        let uriTemplate = "https://api-football-v1.p.rapidapi.com/v2/players/search/{searchTerm}";
-        let uri = uriTemplate.replace("{searchTerm}", name);
-        fetch(uri, {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-                "x-rapidapi-key": "1dabf1c3d7msh55afa5567b7c88cp15c795jsn3e75701730e9"
-            }
-        })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                let players = data.api.players;
-                if (players.length > 0) {
-                    players = players.filter((item) => {
-                        let itemDob = item.birth_date;
-                        if (itemDob !== null) {
-                            itemDob = itemDob.substring(3, 6) + itemDob.substring(0, 3) + itemDob.substring(6, 10);
-                        }
-                        return dob === itemDob;
-                    })
+            if (!isCompare || !this.props.checkedIds.includes(id)) {
+
+                name = name.replace(/Jr/gi, "");
+                name = name.replace(/á/gi, "a");
+                name = name.replace(/à/gi, "a");
+                name = name.replace(/ã/gi, "a");
+                name = name.replace(/â/gi, "a");
+                name = name.replace(/ä/gi, "a");
+                name = name.replace(/ć/gi, "c");
+                name = name.replace(/ç/gi, "c");
+                name = name.replace(/č/gi, "c");
+                name = name.replace(/é/gi, "e");
+                name = name.replace(/è/gi, "e");
+                name = name.replace(/ê/gi, "e");
+                name = name.replace(/ę/gi, "e");
+                name = name.replace(/ë/gi, "e");
+                name = name.replace(/í/gi, "i");
+                name = name.replace(/î/gi, "i");
+                name = name.replace(/ï/gi, "i");
+                name = name.replace(/ñ/gi, "n");
+                name = name.replace(/ó/gi, "o");
+                name = name.replace(/ô/gi, "o");
+                name = name.replace(/ö/gi, "o");
+                name = name.replace(/š/gi, "s");
+                name = name.replace(/ü/gi, "u");
+                name = name.replace(/ú/gi, "u");
+                name = name.replace(/ú/gi, "u");
+                name = name.replace(/ù/gi, "u");
+                
+                if (dob.length === 9) {
+                    if (dob.charAt(1) === '/') {
+                        dob = "0" + dob;
+                    } else {
+                        dob = dob.substring(0, 3) + '0' + dob.substring(3);
+                    }
+                } else if (dob.length === 8) {
+                    dob = "0" + dob;
+                    dob = dob.substring(0, 3) + '0' + dob.substring(3);
                 }
-                this.getPlayerStats(players[0]);
-            })
-            .catch(() => {
-                this.setState({ requestFailed: true });
-            })
-            .then(() => {
-                this.toggleSpinner();
-            })
+
+                let uriTemplate = "https://api-football-v1.p.rapidapi.com/v2/players/search/{searchTerm}";
+                let uri = uriTemplate.replace("{searchTerm}", name);
+                fetch(uri, {
+                    "method": "GET",
+                    "headers": {
+                        "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+                        "x-rapidapi-key": "1dabf1c3d7msh55afa5567b7c88cp15c795jsn3e75701730e9"
+                    }
+                })
+                    .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    let players = data.api.players;
+                    if (players.length > 0) {
+                        players = players.filter((item) => {
+                            let itemDob = item.birth_date;
+                            if (itemDob !== null) {
+                                itemDob = itemDob.substring(3, 6) + itemDob.substring(0, 3) + itemDob.substring(6, 10);
+                            }
+                            return dob === itemDob;
+                        })
+                    }
+                    this.getPlayerStats(players[0], id, isCompare);
+                })
+                .catch(() => {
+                    this.setState({ requestFailed: true });
+                });
+            } else {
+                this.props.checkedPlayer({[id]: null});
+            }
+        }
     }
 
-    getPlayerStats = (player) => {
+    getPlayerStats = (player, id, isCompare) => {
         let uriTemplate = "https://api-football-v1.p.rapidapi.com/v2/players/player/{id}";
         let uri = uriTemplate.replace("{id}", player.player_id);
         fetch(uri, {
@@ -293,33 +309,44 @@ class ResultTable extends Component {
                 "x-rapidapi-key": "1dabf1c3d7msh55afa5567b7c88cp15c795jsn3e75701730e9"
             }
         })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            if (isCompare) {
+                this.props.checkedPlayer({[id]: data.api.players});
+            } else {
                 this.setState({ playerStat: data.api.players });
-            })
-            .catch(() => {
-                this.setState({ requestFailed: true });
-            })
+            }
+        })
+        .catch(() => {
+            this.setState({ requestFailed: true });
+        })
+        .then(() => {
+            if (!isCompare) {
+                this.toggleSpinner1();
+            } else {
+                this.toggleSpinner2();
+            }
+        });
     }
 
     toggleModal = () => {
         this.setState({ modalOpen: false, playerStat: [], requestFailed: false })
     }
 
-    toggleSpinner = () => {
-        this.setState({ showToggle: !this.state.showToggle });
+    toggleSpinner1 = () => {
+        this.setState({ showToggle1: !this.state.showToggle1 });
+    }
+
+    toggleSpinner2 = () => {
+        this.setState({ showToggle2: !this.state.showToggle2 });
     }
 
     handleHeart = () => {
         if(!this.props.signedIn) {
             this.props.callback1();
         }
-    }
-
-    handleCheck = (name, dob, image, id) => {
-        this.props.checkedPlayer({[id]: {name: name, dob: dob, image: image}});
     }
 
     render() {
@@ -349,18 +376,30 @@ class ResultTable extends Component {
                 </Modal>
             )
         }
+        if (this.state.maxPlayers) {
+            modal = (
+                <Modal isOpen={this.state.modalOpen} toggle={this.toggleModal}>
+                    <ModalBody>
+                        You can only add a maximum of 4 players at a time!
+                    </ModalBody>
+                    <ModalFooter>
+                        <button className="btn" onClick={this.toggleModal}>Close</button>
+                    </ModalFooter>
+                </Modal>
+            )
+        }
 
         let allRows = this.props.rowData.map((item) => {
             return (
                 <tr className="data-row" key={item.sofifa_id}>
-                    <th className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}>{this.props.rowData.indexOf(item) + 1}</th>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}><img src={"https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png"} alt={item.short_name} className="player-img" /></td>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}>{item.long_name + "  "}{this.state.showToggle && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className="fa-lg" /> : null}</td>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}>{item.nationality}</td>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}>{item.club}</td>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)}>{this.playerPosition(item.player_positions)}</td>
+                    <th className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}>{this.props.rowData.indexOf(item) + 1}</th>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}><img src={"https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png"} alt={item.short_name} className="player-img" /></td>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}>{item.long_name + "  "}{this.state.showToggle1 && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</td>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}>{item.nationality}</td>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}>{item.club}</td>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}>{this.playerPosition(item.player_positions)}</td>
                     <td>
-                        <div><input type="checkbox" onChange={() => this.handleCheck(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id)} /> Add to Compare</div>
+                        <div><input type="checkbox" checked={this.props.checkedIds.includes(item.sofifa_id)} onChange={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, true)} /> Add to Compare {this.state.showToggle2 && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</div>
                         <div><FontAwesomeIcon icon={faHeart} className="fa-lg liked change-pointer" onClick={this.handleHeart} /> Mark Favorite</div>
                     </td>
                 </tr>

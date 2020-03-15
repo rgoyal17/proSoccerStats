@@ -11,7 +11,6 @@ class SearchForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.callback(this.state);
-        //this.setState({name: '', nationality: 'DEFAULT', club: 'DEFAULT', position: 'DEFAULT', foot: 'DEFAULT', age: '' });
     }
 
     handleChange = (event) => {
@@ -34,6 +33,12 @@ class SearchForm extends Component {
                 return {age: value};
             }
         });
+    }
+
+    handleReset = (event) => {
+        event.preventDefault();
+        this.setState({name: '', nationality: 'DEFAULT', club: 'DEFAULT', position: 'DEFAULT', foot: 'DEFAULT', age: ''});
+        this.props.callback({name: '', nationality: 'DEFAULT', club: 'DEFAULT', position: 'DEFAULT', foot: 'DEFAULT', age: ''});
     }
 
     render() {
@@ -373,7 +378,7 @@ class SearchForm extends Component {
                     </Col>
                 </FormGroup>
                 <button className="btn" onClick={this.handleSubmit}>Search</button>
-                <button className="btn" id="reset-btn">Reset</button>
+                <button className="btn" id="reset-btn" onClick={this.handleReset}>Reset</button>
             </Form>
         );
     }
