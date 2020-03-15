@@ -271,7 +271,7 @@ class ResultTable extends Component {
                     "method": "GET",
                     "headers": {
                         "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-                        "x-rapidapi-key": "1dabf1c3d7msh55afa5567b7c88cp15c795jsn3e75701730e9"
+                        "x-rapidapi-key": "412b0a9c15msh4961dd39429a85dp15bf14jsnfa15192381aa"
                     }
                 })
                     .then((response) => {
@@ -287,8 +287,16 @@ class ResultTable extends Component {
                             }
                             return dob === itemDob;
                         })
+                        this.getPlayerStats(players[0], id, isCompare);
+                    } else {
+                        if (isCompare) {
+                            this.setState({ requestFailed: true, modalOpen: true });
+                            this.toggleSpinner2();
+                        } else {
+                            this.setState({ requestFailed: true});
+                            this.toggleSpinner1();
+                        }
                     }
-                    this.getPlayerStats(players[0], id, isCompare);
                 })
                 .catch(() => {
                     this.setState({ requestFailed: true });
@@ -306,7 +314,7 @@ class ResultTable extends Component {
             "method": "GET",
             "headers": {
                 "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-                "x-rapidapi-key": "1dabf1c3d7msh55afa5567b7c88cp15c795jsn3e75701730e9"
+                "x-rapidapi-key": "412b0a9c15msh4961dd39429a85dp15bf14jsnfa15192381aa"
             }
         })
         .then((response) => {
@@ -475,7 +483,7 @@ class PlayerCard extends Component {
             })
             return {
                 teamFilteredData: teamData, leagueFilteredData: leagueData, seasonFilteredData: seasonData,
-                team: value, league: teamData[0].team_name, season: leagueData[0].season
+                team: value, league: teamData[0].league, season: leagueData[0].season
             };
         });
     }
@@ -549,6 +557,10 @@ class PlayerCard extends Component {
         if (this.state.seasonFilteredData.length !== 0) {
             data = (
                 <div>
+                    <div className="row">
+                        <div className="col field">Season Rating:</div>
+                        <div className="col">{this.state.seasonFilteredData[0].rating !== null && this.state.seasonFilteredData[0].rating !== undefined ? (this.state.seasonFilteredData[0].rating.length > 4 ? this.state.seasonFilteredData[0].rating.substring(0, 4) : this.state.seasonFilteredData[0].rating) : 0}</div>
+                    </div>
                     <div className="row">
                         <div className="col field">Matches played:</div>
                         <div className="col">{this.state.seasonFilteredData[0].games.appearences}</div>
@@ -632,19 +644,19 @@ class PlayerCard extends Component {
                     </div>
                     <div className="row card-form">
                         <Label className="col field" for="team">Team:</Label>
-                        <Input className="col" type="select" name="team" id="team" onChange={this.handleTeam}>
+                        <Input className="col" type="select" name="team" id="team" onChange={this.handleTeam} value={this.state.team}>
                             {allTeamOptions}
                         </Input>
                     </div>
                     <div className="row card-form">
                         <Label className="col field" for="league">League:</Label>
-                        <Input className="col" type="select" name="league" id="league" onChange={this.handleLeague}>
+                        <Input className="col" type="select" name="league" id="league" onChange={this.handleLeague} value={this.state.league}>
                             {allLeagueOptions}
                         </Input>
                     </div>
                     <div className="row card-form">
                         <Label className="col field" for="season">Season:</Label>
-                        <Input className="col" type="select" name="season" id="season" onChange={this.handleSeason}>
+                        <Input className="col" type="select" name="season" id="season" onChange={this.handleSeason} value={this.state.season}>
                             {allSeasonOptions}
                         </Input>
                     </div>

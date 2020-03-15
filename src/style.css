@@ -213,12 +213,17 @@ footer {
 }
 
 .better {
-    color: green;
+    color: rgb(38, 177, 38);
     font-weight: 700;
 }
  
 .worse {
     color: red;
+    font-weight: 700;
+}
+
+.med {
+    color: rgb(156, 156, 156);
     font-weight: 700;
 }
  

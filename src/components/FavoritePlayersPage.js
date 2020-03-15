@@ -153,10 +153,6 @@ class FavoritePlayersPage extends Component {
     }
 }
  
-class FavouriteTable extends Component {
- 
-}
- 
 class FavouriteTableHead extends Component {
     render() {
         

@@ -3,7 +3,7 @@ import NavBar from './navigation/NavBar';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from './HomePage';
 import ComparePlayersPage from './ComparePlayersPage';
-import FavoritePlayesPage from './FavoritePlayesPage';
+import FavoritePlayersPage from './FavoritePlayersPage';
 import SignInPage from './SignInPage';
 import firebase from 'firebase/app';
 
@@ -54,6 +54,14 @@ class App extends Component {
         this.setState({ compareStats: copy, checkedIds: copy1 });
     }
 
+    removePlayer = (index) => {
+        let copy1 = this.state.compareStats;
+        copy1.splice(index, 1);
+        let copy2 = this.state.checkedIds;
+        copy2.splice(index, 1);
+        this.setState({compareStats : copy1, checkedIds: copy2});
+    }
+
     render() {
 
         let signinModal = null;
@@ -70,8 +78,8 @@ class App extends Component {
                 </header>
                 <Switch>
                     <Route exact path='/' render={(props) => <HomePage {...props} signedIn={this.state.signedIn} callback={this.toggleSignInModal} checkedPlayer={this.updateCheckedPlayers} checkedIds={this.state.checkedIds} statsArr={this.state.compareStats} />} />
-                    <Route path='/compare' render={(props) => <ComparePlayersPage {...props} playersToCompare={this.state.compareStats} />} />
-                    <Route path='/favorites' component={FavoritePlayesPage} />
+                    <Route path='/compare' render={(props) => <ComparePlayersPage {...props} playersToCompare={this.state.compareStats} removePlayer={this.removePlayer} />} />
+                    <Route path='/favorites' component={FavoritePlayersPage} />
                     <Redirect to='/' />
                 </Switch>
                 {signinModal}
