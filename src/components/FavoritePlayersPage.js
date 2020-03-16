@@ -6,7 +6,7 @@ class FavoritePlayersPage extends Component {
 
         let content = <FavoriteTable user={this.props.user} firebaseData={this.props.firebaseData} />;
         if (this.props.user === null) {
-            content = <Alert color="warning compare-error">Please sign in to add and view your favorite players!</Alert>;
+            content = <Alert color="warning" className="error-message">Please sign in to add and view your favorite players!</Alert>;
         }
 
         return (
@@ -19,6 +19,7 @@ class FavoritePlayersPage extends Component {
 
 class FavoriteTable extends Component {
 
+    // creates badges based on player's position
     playerPosition = (position) => {
         let posArr = position.split(", ");
         let allBadges = posArr.map((pos) => {
@@ -38,7 +39,7 @@ class FavoriteTable extends Component {
     render() {
 
         if (this.props.firebaseData.length === 0) {
-            return <Alert color="warning compare-error">No players to view! You can mark players favorite from the home page.</Alert>;
+            return <Alert color="warning" className="error-message">No players to view! You can mark players favorite from the home page.</Alert>;
         } else {
 
             let rows = this.props.firebaseData.map((item, index) => {
@@ -58,9 +59,9 @@ class FavoriteTable extends Component {
 
             return (
                 <div>
-                    <p className="headings">Here is your list of favorite players</p>
-                    <div>
-                        <table className="table col-lg-10 col-xl-9 compare-table">
+                    <h1>Here is your list of favorite players</h1>
+                    <div className="player-table col-11 col-xl-10">
+                        <table className="table">
                             <FavouriteTableHead cols={["#", "Image", "Name", "Country", "Club", "Preffered Position(s)"]} />
                             <tbody>
                                 {rows}

@@ -3,71 +3,17 @@
 }
 
 main {
-    margin-top: 75px;
+    margin-top: 110px;
     background-color: #fffff5;
 }
 
-/* home page */
+/* common style */
 
-#home-main {
-    padding-right: 1%;
-}
-
-#navbar {
-    background-color: #ffedc2;
-    padding: 0;
-    border: 1px solid #cbba83;
-}
-
-#logo-img {
-    padding: 10px;
-    height: 75px;
-    width: 75px;
-}
-
-.navbar-text {
-    color: black;
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
-.eachtab {
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 1.2rem;
-}
-
-.nav-item {
-    padding-left: 10px;
-}
-
-#navbar-brand {
-    padding: 0;
-}
-
-.activeLink {
+h1 {
+    text-align: center;
+    font-size: x-large;
     font-weight: bold;
-}
-
-.eachtab:hover {
-    text-decoration: none;
-    color: rgba(0, 0, 0, 0.6);
-}
-
-#search-feature {
-    padding: 20px 10px 10px 40px;
-    background-color: #ffedc2;
-    border: 1px solid #cbba83;
-}
-
-#searchtext {
-    margin-bottom: 10px;
-    font-weight: 600;
-    font-size: 18px;
-    color: #72602a;
-}
-
-#search-btn {
-    margin-right: 5%;
+    padding: 1%;
 }
 
 .btn {
@@ -77,56 +23,16 @@ main {
     transition: none;
 }
 
-#reset-btn {
-    margin-left: 5%;
-}
-
-.btn:hover:enabled {
-    background-color: #fffff5;
+.player-table {
     border: 1px solid #cbba83;
-    color: black;
-}
-
-.results {
-    padding: 15px;
-}
-
-.entries {
-    text-align: right;
-}
-
-#info {
-    font-size: large;
-}
-
-.result-table {
-    border: 1px solid #cbba83;
-    overflow-x:auto
+    overflow-x:auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
 }
 
 thead {
     background-color: #cbba83;
-}
-
-td a {
-    color: black;
-}
-
-.data-row:hover {
-    background-color: white;
-}
-
-.change-pointer:hover {
-    cursor: pointer;
-}
-
-.player-img {
-    height: 75px;
-    width: 75px;
-}
-
-.card-form {
-    margin: 2%;
 }
 
 #striker-badge {
@@ -157,13 +63,145 @@ td a {
     font-size: medium;
 }
 
+.change-pointer:hover {
+    cursor: pointer;
+}
+
+/* navbar */
+
+.navbar {
+    background-color: #ffedc2;
+    padding: 0;
+    border: 1px solid #cbba83;
+}
+
+#logo-img {
+    padding: 10px 10px 10px 10px;
+    height: 75px;
+    width: 75px;
+}
+
+.navbar-text {
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.eachtab {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 1.2rem;
+}
+
+.nav-item {
+    padding-left: 10px;
+}
+
+.navbar-brand {
+    padding: 0;
+}
+
+.activeLink {
+    font-weight: bold;
+}
+
+.eachtab:hover {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+/* home page */
+
+#home-main {
+    padding-right: 1%;
+}
+
+#search-feature {
+    padding: 20px 20px 10px 40px;
+    background-color: #ffedc2;
+    border: 1px solid #cbba83;
+}
+
+#searchtext {
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #72602a;
+}
+
+#search-btn {
+    margin-right: 5%;
+}
+
+#reset-btn {
+    margin-left: 5%;
+}
+
+.btn:hover:enabled {
+    background-color: #fffff5;
+    border: 1px solid #cbba83;
+    color: black;
+}
+
+.results {
+    padding: 15px;
+    padding-left: 30px;
+}
+
+#searchresults {
+    font-weight: 600;
+}
+
+#limit-text {
+    padding: 0;
+    padding-top: 1%;
+}
+
+.entries {
+    text-align: left;
+}
+
+#info {
+    font-size: large;
+}
+
+.data-row:hover {
+    background-color: white;
+}
+
+.player-img {
+    height: 75px;
+    width: 75px;
+}
+
+.features {
+    padding: 3%;
+}
+
+.card-form {
+    margin: 2%;
+}
+
 .card-header {
     text-align: center;
     font-size: x-large;
 }
 
+#card-img {
+    text-align: center;
+}
+
+#card-img img {
+    height: 250px;
+    width: 280px;
+}
+
 .field {
     font-weight: 600;
+}
+
+.input-row {
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
 
 .not-liked {
@@ -190,88 +228,6 @@ td a {
     margin-right: 1%;
 }
 
-footer {
-    display: none;
-}
-
-/* compare player page */
-
-.compare-error {
-    text-align: center;
-    padding: 1%;
-    font-size: larger;
-}
-
-.remove-player {
-    font-size: xx-large;
-    vertical-align: 100%;
-}
-
-#first-row {
-    padding-top: 0;
-}
-
-.compare-input {
-    margin-right: 50%;
-}
-
-.better {
-    color: rgb(38, 177, 38);
-    font-weight: 700;
-}
- 
-.worse {
-    color: red;
-    font-weight: 700;
-}
-
-.med {
-    color: rgb(156, 156, 156);
-    font-weight: 700;
-}
- 
-.equal {
-    color: black;
-    font-weight: 400;
-}
- 
-.headings {
-    text-align: center;
-    font-size: x-large;
-    font-weight: bold;
-    padding-top: 1%;
-}
- 
-.subheading {
-    font-size: large;
-    font-weight: 500;
-}
-
-.compare-table {
-    border: 1px solid #cbba83;
-    overflow-x:auto;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.cross1 {
-    position: absolute;
-    top: 5%;
-    right: 60%;
-}
-
-.cross2 {
-    position: absolute;
-    top: 5%;
-    right: 25%;
-}
-
-/* sign in page */
-
-#signin-modal {
-    margin-bottom: 5%;
-}
-
 .modal-header {
     display: flex;
     justify-content: center;
@@ -289,13 +245,63 @@ footer {
     font-size: xx-large;
 }
 
-/* favorite player page */
-
-.addition {
-    margin-left: 40%;
-    margin-right: 40%;
+footer {
+    display: none;
 }
 
+/* compare player page */
+
+.error-message {
+    text-align: center;
+    padding: 1%;
+    font-size: larger;
+}
+
+.remove-player {
+    font-size: xx-large;
+    vertical-align: 100%;
+}
+
+#first-row {
+    padding-top: 0;
+}
+
+.better {
+    color: rgb(38, 177, 38);
+    font-weight: 700;
+}
+ 
+.worse {
+    color: red;
+    font-weight: 700;
+}
+
+.med {
+    color: rgb(156, 156, 156);
+    font-weight: 700;
+}
+ 
+.subheading {
+    font-size: large;
+    font-weight: 500;
+}
+
+.compare-img {
+    height: 100%;
+    width: 73%;
+}
+
+@media (min-width: 398px) {
+
+    main {
+        margin-top: 75px;
+    }
+
+    .compare-img {
+        height: 100%;
+        width: 3.7em;
+    }
+}
 
 @media (min-width: 598px) {
 
@@ -305,9 +311,19 @@ footer {
         margin-bottom: 20px;
     }
 
-    .sign-in {
-        margin-left: 30%;
-        margin-right: 30%;
+    .entries {
+        text-align: right;
+    }
+
+    #limit-text {
+        display: inline-block;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .compare-img {
+        height: 100%;
+        width: 3.7em;
     }
 
 }
@@ -320,6 +336,12 @@ footer {
         text-align: center;
         line-height: 5px;
     }
+
+    .compare-img {
+        height: 100%;
+        width: 5.6em;
+    }
+
 }
 
 @media (min-width: 992px) {
@@ -342,5 +364,14 @@ footer {
     
     .form-group {
         padding: 10px 0px;
+    }
+
+    .compare-input {
+        margin-right: 30%;
+    }
+
+    .compare-img {
+        height: 100%;
+        width: 8.8em;
     }
 }

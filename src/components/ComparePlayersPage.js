@@ -22,6 +22,7 @@ class CompareTable extends Component {
         this.update();
     }
 
+    // updates the state based on players to compare
     update = () => {
         let data = this.props.playersToCompare;
         if (data.length >= 2) {
@@ -74,6 +75,7 @@ class CompareTable extends Component {
         }
     }
 
+    // handle team change
     handleTeam = (event) => {
         let elem = event.target;
         let value = elem.value;
@@ -131,6 +133,7 @@ class CompareTable extends Component {
         });
     }
 
+    // handle league change
     handleLeague = (event) => {
         let elem = event.target;
         let value = elem.value;
@@ -188,6 +191,7 @@ class CompareTable extends Component {
         });
     }
 
+    // handle season
     handleSeason = (event) => {
         let elem = event.target;
         let value = elem.value;
@@ -225,6 +229,7 @@ class CompareTable extends Component {
         });
     }
 
+    // handle removing a player
     handleRemove = (index) => {
         this.props.removePlayer(index);
         this.update();
@@ -234,7 +239,7 @@ class CompareTable extends Component {
 
         if (this.props.playersToCompare.length < 2 || Object.keys(this.state).length === 0) {
             return (
-                <Alert color="warning compare-error">Please add at least two players to compare!</Alert>
+                <Alert color="warning" className="error-message">Please add at least two players to compare!</Alert>
             );
         } else if (this.state.allData.length >= 2) {
             let finalData = this.state.filteredData;
@@ -244,7 +249,7 @@ class CompareTable extends Component {
                 let value = Object.values(item)[0][0];
                 return (
                     <td key={value.player_id} id="first-row">
-                        <img src={"https://cdn.sofifa.org/players/10/20/" + key + ".png"} alt={value.player_name} />
+                        <img src={"https://cdn.sofifa.org/players/10/20/" + key + ".png"} alt={value.player_name} className="compare-img" />
                         <span role="button" className="change-pointer remove-player" onClick={() => this.handleRemove(index)}>&times;</span>
                     </td>
                 )
@@ -374,6 +379,7 @@ class CompareTable extends Component {
                 )
             });
 
+            // initialize max and min of each statistic (this is to show max as green and min as red in the table)
             let ratingMax = finalData[0].rating !== null && finalData[0].rating !== undefined ? Number(finalData[0].rating) : 0;
             let ratingMin = ratingMax;
             let matchesMax = finalData[0].games.appearences !== null && finalData[0].games.appearences !== undefined ? Number(finalData[0].games.appearences) : 0;
@@ -401,6 +407,7 @@ class CompareTable extends Component {
             let cardsMax = finalData[0].cards.yellow !== null && finalData[0].cards.yellow !== undefined && finalData[0].cards.red !== null && finalData[0].cards.red !== undefined ? Number(finalData[0].cards.yellow) + Number(finalData[0].cards.red) : 0;
             let cardsMin = cardsMax;
 
+            // assign actual values for max and min of each statistic
             finalData.forEach((item) => {
                 if (item.rating !== null && item.rating !== undefined && item.rating > ratingMax) {
                     ratingMax = item.rating;
@@ -614,104 +621,106 @@ class CompareTable extends Component {
 
             return (
                 <div>
-                    <p className="headings">Compare Players</p>
-                    <table className="table col-10 compare-table">
-                        <TableHeader playersToCompare={this.state.allData} />
-                        <tbody>
-                            <tr>
-                                <td className="field"></td>
-                                {imgRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Name:</td>
-                                {nameRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Age:</td>
-                                {ageRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Birth Date:</td>
-                                {dobRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Nationality:</td>
-                                {nationalityRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Height:</td>
-                                {heightRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Weight:</td>
-                                {weightRow}
-                            </tr>
-                            <tr>
-                                <td className="field"><Label for="team">Team:</Label></td>
-                                {teamRow}
-                            </tr>
-                            <tr>
-                                <td className="field"><Label for="league">League:</Label></td>
-                                {leagueRow}
-                            </tr>
-                            <tr>
-                                <td className="field"><Label for="season">Season:</Label></td>
-                                {seasonRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Season Rating:</td>
-                                {ratingRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Matches Played:</td>
-                                {matchesRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Minutes Played:</td>
-                                {minutesRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Goals Scored:</td>
-                                {goalsRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Assists:</td>
-                                {assistsRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Shots(On Target):</td>
-                                {shotsRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Passes:</td>
-                                {passesRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Tackles:</td>
-                                {tacklesRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Interceptions:</td>
-                                {interceptionsRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Duels(Won):</td>
-                                {duelsRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Dribbles(Success):</td>
-                                {dribblesRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Fouls:</td>
-                                {foulsRow}
-                            </tr>
-                            <tr>
-                                <td className="field">Cards(Red):</td>
-                                {cardsRow}
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h1>Compare Players</h1>
+                    <div className="player-table col-11 col-xl-10">
+                        <table className="table">
+                            <TableHeader playersToCompare={this.state.allData} />
+                            <tbody>
+                                <tr>
+                                    <td className="field"></td>
+                                    {imgRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Name:</td>
+                                    {nameRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Age:</td>
+                                    {ageRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Birth Date:</td>
+                                    {dobRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Nationality:</td>
+                                    {nationalityRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Height:</td>
+                                    {heightRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Weight:</td>
+                                    {weightRow}
+                                </tr>
+                                <tr>
+                                    <td className="field"><Label for="team">Team:</Label></td>
+                                    {teamRow}
+                                </tr>
+                                <tr>
+                                    <td className="field"><Label for="league">League:</Label></td>
+                                    {leagueRow}
+                                </tr>
+                                <tr>
+                                    <td className="field"><Label for="season">Season:</Label></td>
+                                    {seasonRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Season Rating:</td>
+                                    {ratingRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Matches Played:</td>
+                                    {matchesRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Minutes Played:</td>
+                                    {minutesRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Goals Scored:</td>
+                                    {goalsRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Assists:</td>
+                                    {assistsRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Shots(On Target):</td>
+                                    {shotsRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Passes:</td>
+                                    {passesRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Tackles:</td>
+                                    {tacklesRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Interceptions:</td>
+                                    {interceptionsRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Duels(Won):</td>
+                                    {duelsRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Dribbles(Success):</td>
+                                    {dribblesRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Fouls:</td>
+                                    {foulsRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Cards(Red):</td>
+                                    {cardsRow}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             )
         } else {

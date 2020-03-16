@@ -9,11 +9,11 @@ class NavBar extends Component {
     render() {
         return (
             <div>
-                <Navbar expand="lg" id="navbar" className="fixed-top">
+                <Navbar expand="lg" className="fixed-top">
                     <NavbarToggler data-target="#search-feature" data-toggle="collapse">
                         <FontAwesomeIcon icon={faSearch} className="fa-lg" />
                     </NavbarToggler>
-                    <NavbarBrand id="navbar-brand">
+                    <NavbarBrand>
                         <img src="./img/logo.png" alt="site logo" id="logo-img" />
                         <NavbarText>PRO SOCCER STATS</NavbarText>
                     </NavbarBrand>

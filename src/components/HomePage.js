@@ -25,11 +25,12 @@ class HomePage extends Component {
                 filteredPlayerData: data
             })
         })
-            .catch((error) => {
-                console.log(error);
-            });
+        .catch((error) => {
+            console.log(error);
+        });
     }
 
+    // filters players based on search filters
     filterPlayers = (info) => {
         let filteredArray = this.state.allPlayerData;
         if (info.name !== '') {
@@ -150,8 +151,10 @@ class HomePage extends Component {
                             <div className="col entries">
                                 <Form>
                                     <FormGroup row>
-                                        <Label className="col-8" for="entires">Limit Entries Per Page:</Label>
-                                        <div className="col-4">
+                                        <div className="col-sm-7 col-5" id="limit-text">
+                                            <Label for="entires">Limit Entries Per Page:</Label>
+                                        </div>
+                                        <div className="col-sm-5 col-7">
                                             <Input type="select" name="entires" id="entries" onChange={this.handleEntries}>
                                                 <option value="10">10 Entries</option>
                                                 <option value="25">25 Entries</option>
@@ -166,7 +169,7 @@ class HomePage extends Component {
                             </div>
                         </div>
                         <p id="info">Click on any row of the table to view additional inforamtion about that player!</p>
-                        <div className="result-table">
+                        <div className="player-table">
                             <ResultTable rowData={this.state.filteredPlayerData} entries={this.state.numEntries} begin={this.state.start} signedIn={this.props.signedIn} callback1={this.props.callback} checkedPlayer={this.props.checkedPlayer} checkedIds={this.props.checkedIds} statsArr={this.props.statsArr} user={this.props.user} firebaseData={this.props.firebaseData} />
                         </div>
                         <Form id="top-btn"><button className="btn" onClick={this.handleTop}>Back to Top</button></Form>
@@ -198,15 +201,7 @@ class ResultTable extends Component {
         };
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.props.firebaseData);
-    //     let allIds = [];
-    //     this.props.firebaseData.forEach((item) => {
-    //         allIds.push(Object.values(item)[0].playerId);
-    //     });
-    //     this.setState({ likedIds: allIds });
-    // }
-
+    // creates badges based on player's position
     playerPosition = (position) => {
         let posArr = position.split(", ");
         let allBadges = posArr.map((pos) => {
@@ -223,6 +218,7 @@ class ResultTable extends Component {
         return allBadges;
     }
 
+    // finds a player using an api
     findPlayer = (name, dob, image, id, isCompare) => {
 
         if (isCompare && !this.props.checkedIds.includes(id) && this.props.statsArr.length >= 4) {
@@ -285,39 +281,40 @@ class ResultTable extends Component {
                         "x-rapidapi-key": "412b0a9c15msh4961dd39429a85dp15bf14jsnfa15192381aa"
                     }
                 })
-                    .then((response) => {
-                        return response.json();
-                    })
-                    .then((data) => {
-                        let players = data.api.players;
-                        if (players.length > 0) {
-                            players = players.filter((item) => {
-                                let itemDob = item.birth_date;
-                                if (itemDob !== null) {
-                                    itemDob = itemDob.substring(3, 6) + itemDob.substring(0, 3) + itemDob.substring(6, 10);
-                                }
-                                return dob === itemDob;
-                            })
-                            this.getPlayerStats(players[0], id, isCompare);
-                        } else {
-                            if (isCompare) {
-                                this.setState({ requestFailed: true, modalOpen: true });
-                                this.toggleSpinner2();
-                            } else {
-                                this.setState({ requestFailed: true });
-                                this.toggleSpinner1();
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    let players = data.api.players;
+                    if (players.length > 0) {
+                        players = players.filter((item) => {
+                            let itemDob = item.birth_date;
+                            if (itemDob !== null) {
+                                itemDob = itemDob.substring(3, 6) + itemDob.substring(0, 3) + itemDob.substring(6, 10);
                             }
+                            return dob === itemDob;
+                        })
+                        this.getPlayerStats(players[0], id, isCompare);
+                    } else {
+                        if (isCompare) {
+                            this.setState({ requestFailed: true, modalOpen: true });
+                            this.toggleSpinner2();
+                        } else {
+                            this.setState({ requestFailed: true });
+                            this.toggleSpinner1();
                         }
-                    })
-                    .catch(() => {
-                        this.setState({ requestFailed: true });
-                    });
+                    }
+                })
+                .catch(() => {
+                    this.setState({ requestFailed: true });
+                });
             } else {
                 this.props.checkedPlayer({ [id]: null });
             }
         }
     }
 
+    // gets the player's statistics
     getPlayerStats = (player, id, isCompare) => {
         let uriTemplate = "https://api-football-v1.p.rapidapi.com/v2/players/player/{id}";
         let uri = uriTemplate.replace("{id}", player.player_id);
@@ -328,26 +325,26 @@ class ResultTable extends Component {
                 "x-rapidapi-key": "412b0a9c15msh4961dd39429a85dp15bf14jsnfa15192381aa"
             }
         })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                if (isCompare) {
-                    this.props.checkedPlayer({ [id]: data.api.players });
-                } else {
-                    this.setState({ playerStat: data.api.players });
-                }
-            })
-            .catch(() => {
-                this.setState({ requestFailed: true });
-            })
-            .then(() => {
-                if (!isCompare) {
-                    this.toggleSpinner1();
-                } else {
-                    this.toggleSpinner2();
-                }
-            });
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            if (isCompare) {
+                this.props.checkedPlayer({ [id]: data.api.players });
+            } else {
+                this.setState({ playerStat: data.api.players });
+            }
+        })
+        .catch(() => {
+            this.setState({ requestFailed: true });
+        })
+        .then(() => {
+            if (!isCompare) {
+                this.toggleSpinner1();
+            } else {
+                this.toggleSpinner2();
+            }
+        });
     }
 
     toggleModal = () => {
@@ -445,8 +442,8 @@ class ResultTable extends Component {
                     <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}>{item.club}</td>
                     <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}>{this.playerPosition(item.player_positions)}</td>
                     <td>
-                        <div><input type="checkbox" checked={this.props.checkedIds.includes(item.sofifa_id)} onChange={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, true)} /> Add to Compare {this.state.showToggle2 && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</div>
-                        <div><FontAwesomeIcon icon={faHeart} className={this.likedIds.includes(item.sofifa_id) ? "fa-lg liked change-pointer" : "fa-lg not-liked change-pointer"} onClick={() => this.handleHeart(item.sofifa_id, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.short_name, item.nationality, item.club, item.player_positions)} /> Mark Favorite</div>
+                        <div className="features"><input type="checkbox" checked={this.props.checkedIds.includes(item.sofifa_id)} onChange={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, true)} /> Add to Compare {this.state.showToggle2 && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</div>
+                        <div className="features"><FontAwesomeIcon icon={faHeart} role="button" className={this.likedIds.includes(item.sofifa_id) ? "fa-lg liked change-pointer" : "fa-lg not-liked change-pointer"} onClick={() => this.handleHeart(item.sofifa_id, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.short_name, item.nationality, item.club, item.player_positions)} /> Mark Favorite</div>
                     </td>
                 </tr>
             );
@@ -653,7 +650,9 @@ class PlayerCard extends Component {
 
         return (
             <Card>
-                <CardImg top width="100%" src={this.props.picture} alt={this.state.allData[0].player_name} />
+                <div id="card-img">
+                    <CardImg top width="100%" src={this.props.picture} alt={this.state.allData[0].player_name} />
+                </div>
                 <CardHeader>{this.state.allData[0].player_name}</CardHeader>
                 <CardBody>
                     <div className="row">
@@ -680,19 +679,19 @@ class PlayerCard extends Component {
                         <div className="col field">Weight:</div>
                         <div className="col">{this.state.allData[0].weight}</div>
                     </div>
-                    <div className="row card-form">
+                    <div className="row input-row">
                         <Label className="col field" for="team">Team:</Label>
                         <Input className="col" type="select" name="team" id="team" onChange={this.handleTeam} value={this.state.team}>
                             {allTeamOptions}
                         </Input>
                     </div>
-                    <div className="row card-form">
+                    <div className="row input-row">
                         <Label className="col field" for="league">League:</Label>
                         <Input className="col" type="select" name="league" id="league" onChange={this.handleLeague} value={this.state.league}>
                             {allLeagueOptions}
                         </Input>
                     </div>
-                    <div className="row card-form">
+                    <div className="row input-row">
                         <Label className="col field" for="season">Season:</Label>
                         <Input className="col" type="select" name="season" id="season" onChange={this.handleSeason} value={this.state.season}>
                             {allSeasonOptions}

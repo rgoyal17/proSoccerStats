@@ -58,6 +58,7 @@ class App extends Component {
         this.setState({ showSignInModal: !this.state.showSignInModal });
     }
 
+    // reads data from firebase database and filters only current user's data
     getData = (uid) => {
         this.playerRef = firebase.database().ref('playerInfo');
         this.playerRef.on('value', (snapshot) => {
@@ -79,6 +80,7 @@ class App extends Component {
         });
     }
 
+    // updates the list of checked players
     updateCheckedPlayers = (playerObj) => {
         let copy = this.state.compareStats;
         let copy1 = this.state.checkedIds;
@@ -101,6 +103,7 @@ class App extends Component {
         this.setState({ compareStats: copy, checkedIds: copy1 });
     }
 
+    // removes player from compare table
     removePlayer = (index) => {
         let copy1 = this.state.compareStats;
         copy1.splice(index, 1);
@@ -116,7 +119,7 @@ class App extends Component {
             signinModal = (
                 <div>
                     <Modal isOpen={this.state.showSignInModal} toggle={this.toggleSignInModal}>
-                        <div className="change-pointer close" onClick={this.toggleSignInModal}>&times;</div>
+                        <div role="button" className="change-pointer close" onClick={this.toggleSignInModal}>&times;</div>
                         <div id="signin-modal">
                             <ModalHeader>Sign In</ModalHeader>
                             <ModalBody>
