@@ -14,6 +14,7 @@ class HomePage extends Component {
             allPlayerData: [],
             filteredPlayerData: [],
             numEntries: 10,
+            entries: 10,
             start: 0
         };
     }
@@ -108,9 +109,9 @@ class HomePage extends Component {
         let elem = event.target;
         let value = elem.value;
         if (value === "All") {
-            this.setState({ numEntries: this.state.filteredPlayerData.length });
+            this.setState({ numEntries: this.state.filteredPlayerData.length, entries: value });
         } else {
-            this.setState({ numEntries: value });
+            this.setState({ numEntries: value, entries: value });
         }
     }
 
@@ -132,6 +133,10 @@ class HomePage extends Component {
         });
     }
 
+    handleReset = () => {
+        this.setState({ filteredPlayerData: this.state.allPlayerData, numEntries: 10, entries: 10, start: 0 });
+    }
+
     render() {
         const nextDisable = Number(this.state.start) + Number(this.state.numEntries) >= Number(this.state.filteredPlayerData.length);
         const prevDisable = Number(this.state.start) - Number(this.state.numEntries) < 0;
@@ -141,7 +146,7 @@ class HomePage extends Component {
                 <div className="row">
                     <div className="col-lg-4 col-xl-3 collapse show" id="search-feature">
                         <p id="searchtext">Enter values here to search for a player!</p>
-                        <SearchForm data={this.state.allPlayerData} callback={this.filterPlayers} />
+                        <SearchForm data={this.state.allPlayerData} callback={this.filterPlayers} reset={this.handleReset} />
                     </div>
                     <div className="col-lg-8 col-xl-9 results">
                         <div className="row">
@@ -155,7 +160,7 @@ class HomePage extends Component {
                                             <Label for="entires">Limit Entries Per Page:</Label>
                                         </div>
                                         <div className="col-sm-5 col-7">
-                                            <Input type="select" name="entires" id="entries" onChange={this.handleEntries}>
+                                            <Input type="select" name="entires" id="entries" onChange={this.handleEntries} value={this.state.entries}>
                                                 <option value="10">10 Entries</option>
                                                 <option value="25">25 Entries</option>
                                                 <option value="50">50 Entries</option>
@@ -173,7 +178,7 @@ class HomePage extends Component {
                             <ResultTable rowData={this.state.filteredPlayerData} entries={this.state.numEntries} begin={this.state.start} signedIn={this.props.signedIn} callback1={this.props.callback} checkedPlayer={this.props.checkedPlayer} checkedIds={this.props.checkedIds} statsArr={this.props.statsArr} user={this.props.user} firebaseData={this.props.firebaseData} />
                         </div>
                         <Form id="top-btn"><button className="btn" onClick={this.handleTop}>Back to Top</button></Form>
-                        <Form className="flex-container">
+                        <Form className="scroll-buttons">
                             <button className="btn" id="prev-btn" onClick={this.handlePrev} disabled={prevDisable}>{"Prev "}{this.state.numEntries === this.state.filteredPlayerData.length ? null : this.state.numEntries}</button>
                             <button className="btn" onClick={this.handleNext} disabled={nextDisable}>{"Next "}{this.state.numEntries === this.state.filteredPlayerData.length ? null : this.state.numEntries}</button>
                         </Form>

@@ -109,6 +109,11 @@ thead {
     color: rgba(0, 0, 0, 0.6);
 }
 
+.signin-tab {
+    padding: 15px;
+    margin-right: 5%;
+}
+
 /* home page */
 
 #home-main {
@@ -218,7 +223,7 @@ thead {
     margin-top: 10px;
 }
 
-.flex-container {
+.scroll-buttons {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
@@ -351,6 +356,10 @@ footer {
     }
 
     .nav-item:hover {
+        background-color: #fffff5;
+    }
+
+    .signin-tab:hover {
         background-color: #fffff5;
     }
 

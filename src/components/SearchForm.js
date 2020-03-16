@@ -38,7 +38,7 @@ class SearchForm extends Component {
     handleReset = (event) => {
         event.preventDefault();
         this.setState({name: '', nationality: 'DEFAULT', club: 'DEFAULT', position: 'DEFAULT', foot: 'DEFAULT', age: ''});
-        this.props.callback({name: '', nationality: 'DEFAULT', club: 'DEFAULT', position: 'DEFAULT', foot: 'DEFAULT', age: ''});
+        this.props.reset();
     }
 
     render() {
