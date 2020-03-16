@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import NavBar from './navigation/NavBar';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import HomePage from './HomePage';
 import ComparePlayersPage from './ComparePlayersPage';
 import FavoritePlayersPage from './FavoritePlayersPage';
-import SignInPage from './SignInPage';
 import firebase from 'firebase/app';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 class App extends Component {
 
@@ -15,21 +16,67 @@ class App extends Component {
             showSignInModal: false,
             signedIn: false,
             checkedIds: [],
-            compareStats: []
+            compareStats: [],
+            user: null,
+            firebaseData: []
         };
+    }
+
+    uiConfig = {
+        signInOptions: [
+            {
+                provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                requireDisplayName: false
+            },
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID
+        ],
+        credentialHelper: 'none',
+        signInFlow: 'popup'
+    }
+
+    componentDidMount() {
+        this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if (firebaseUser) {
+                this.getData(firebaseUser.uid);
+                this.setState({ signedIn: true, showSignInModal: false, user: firebaseUser });
+            } else {
+                this.setState({signedIn: false, user: null, firebaseData: []});
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        this.authUnRegFunc();
+        this.playerRef.off();
     }
 
     handleLogOut = () => {
         firebase.auth().signOut();
-        this.setState({signedIn: false});
     }
 
     toggleSignInModal = () => {
-        this.setState({showSignInModal: !this.state.showSignInModal});
+        this.setState({ showSignInModal: !this.state.showSignInModal });
     }
 
-    toggleSignIn = () => {
-        this.setState({signedIn: true, showSignInModal: false});
+    getData = (uid) => {
+        this.playerRef = firebase.database().ref('playerInfo');
+        this.playerRef.on('value', (snapshot) => {
+            let data = snapshot.val();
+            if (data !== null && data !== undefined) {
+                let playerKeys = Object.keys(data);
+                let playerArray = playerKeys.map((key) => {
+                    let playerObj = data[key];
+                    playerObj.firebaseId = key;
+                    return playerObj;
+                });
+                let filteredArray = playerArray.filter((item) => {
+                    return Object.keys(item)[0] === uid;
+                })
+                this.setState({ firebaseData: filteredArray });
+            } else {
+                this.setState({ firebaseData: [] });
+            }
+        });
     }
 
     updateCheckedPlayers = (playerObj) => {
@@ -59,7 +106,7 @@ class App extends Component {
         copy1.splice(index, 1);
         let copy2 = this.state.checkedIds;
         copy2.splice(index, 1);
-        this.setState({compareStats : copy1, checkedIds: copy2});
+        this.setState({ compareStats: copy1, checkedIds: copy2 });
     }
 
     render() {
@@ -67,8 +114,18 @@ class App extends Component {
         let signinModal = null;
         if (this.state.showSignInModal) {
             signinModal = (
-                <SignInPage open={this.state.showSignInModal} callback={this.toggleSignInModal} toggleSignIn={this.toggleSignIn} />
-            )
+                <div>
+                    <Modal isOpen={this.state.showSignInModal} toggle={this.toggleSignInModal}>
+                        <div className="change-pointer close" onClick={this.toggleSignInModal}>&times;</div>
+                        <div id="signin-modal">
+                            <ModalHeader>Sign In</ModalHeader>
+                            <ModalBody>
+                                <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()} />
+                            </ModalBody>
+                        </div>
+                    </Modal>
+                </div>
+            );
         }
 
         return (
@@ -77,9 +134,9 @@ class App extends Component {
                     <NavBar callback={this.state.signedIn ? this.handleLogOut : this.toggleSignInModal} signedIn={this.state.signedIn} />
                 </header>
                 <Switch>
-                    <Route exact path='/' render={(props) => <HomePage {...props} signedIn={this.state.signedIn} callback={this.toggleSignInModal} checkedPlayer={this.updateCheckedPlayers} checkedIds={this.state.checkedIds} statsArr={this.state.compareStats} />} />
+                    <Route exact path='/' render={(props) => <HomePage {...props} signedIn={this.state.signedIn} callback={this.toggleSignInModal} checkedPlayer={this.updateCheckedPlayers} checkedIds={this.state.checkedIds} statsArr={this.state.compareStats} user={this.state.user} firebaseData={this.state.firebaseData} />} />
                     <Route path='/compare' render={(props) => <ComparePlayersPage {...props} playersToCompare={this.state.compareStats} removePlayer={this.removePlayer} />} />
-                    <Route path='/favorites' component={FavoritePlayersPage} />
+                    <Route path='/favorites' render={(props) => <FavoritePlayersPage {...props} user={this.state.user} firebaseData={this.state.firebaseData} />} />
                     <Redirect to='/' />
                 </Switch>
                 {signinModal}

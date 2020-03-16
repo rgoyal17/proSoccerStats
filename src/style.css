@@ -166,8 +166,12 @@ td a {
     font-weight: 600;
 }
 
+.not-liked {
+    color: lightgray;
+}
+
 .liked {
-    color:lightgray;
+    color: red;
 }
 
 #top-btn {
@@ -192,11 +196,10 @@ footer {
 
 /* compare player page */
 
-#compare-error {
+.compare-error {
     text-align: center;
     padding: 1%;
     font-size: larger;
-    /* font-weight: bold; */
 }
 
 .remove-player {

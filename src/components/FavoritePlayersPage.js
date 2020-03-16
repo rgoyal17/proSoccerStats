@@ -1,174 +1,94 @@
 import React, { Component } from 'react';
- 
- 
+import { Alert, Badge } from 'reactstrap';
+
 class FavoritePlayersPage extends Component {
     render() {
+
+        let content = <FavoriteTable user={this.props.user} firebaseData={this.props.firebaseData} />;
+        if (this.props.user === null) {
+            content = <Alert color="warning compare-error">Please sign in to add and view your favorite players!</Alert>;
+        }
+
         return (
             <main>
-                {/*only show when player is not signed in*/}
-                {/* <p className="headings">Please sign in to see your favourite players</p>  */}
-                <p className="headings">Here is your list of favourite players</p>
-                <div>
-                    <table className="table col-lg-10 col-xl-9 compare-table">
-                        <FavouriteTableHead cols={["#", "Image", "Name", "Country", "Club", "Preffered Position(s)", "Date Added"]}/>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><img src={"https://cdn.sofifa.org/players/10/20/158023.png"} alt="Player1" /></td>
-                                <td>Lionel Andres Messi Cuccittini</td>
-                                <td>Argentina</td>
-                                <td>FC Barcelona</td>
-                                <td>
-                                    {/* Add badges here. Same as is done in HomePage */}
-                                    <span class="badge striker-badge">RW</span>
-                                    <span class="badge striker-badge">CF</span>
-                                    <span class="badge striker-badge">ST</span>
-                                </td>
-                                <td>Added on 13th March 2019</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><img src={"https://cdn.sofifa.org/players/10/20/20801.png"} alt="Player2" /></td>
-                                <td>Cristiano Ronaldo dos Santos Aveiro</td>
-                                <td>Portugal</td>
-                                <td>Juventus</td>
-                                <td>
-                                    <span class="badge striker-badge">LW</span>
-                                    <span class="badge striker-badge">ST</span>
-                                </td>
-                                <td>Added on 13th March 2019</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><img src={"https://cdn.sofifa.org/players/10/20/231747.png"} alt="Player3" /></td>
-                                <td>Kylian Mbappé</td>
-                                <td>France</td>
-                                <td>Paris Saint-German</td>
-                                <td>
-                                    <span class="badge striker-badge">RW</span>
-                                    <span class="badge striker-badge">ST</span>
-                                </td>
-                                <td>Added on 13th March 2019</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><img src={"https://cdn.sofifa.org/players/10/20/192985.png"} alt="Player4" /></td>
-                                <td>Kevin De Bruyne</td>
-                                <td>Belgium</td>
-                                <td>Manchester City</td>
-                                <td>
-                                    <span class="badge striker-badge">CAM</span>
-                                    <span class="badge striker-badge">CM</span>
-                                </td>
-                                <td>Added on 13th March 2019</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><img src={"https://cdn.sofifa.org/players/10/20/195864.png"} alt="Player5" /></td>
-                                <td>Paul Pogba</td>
-                                <td>France</td>
-                                <td>Manchester United</td>
-                                <td>
-                                    <span class="badge striker-badge">CM</span>
-                                    <span class="badge striker-badge">CDM</span>
-                                </td>
-                                <td>Added on 13th March 2019</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td><img src={"https://cdn.sofifa.org/players/10/20/200145.png"} alt="Player6" /></td>
-                                <td>Carlos Henrique Venancio Casimiro</td>
-                                <td>Brazil</td>
-                                <td>Real Madrid</td>
-                                <td>
-                                    <span class="badge striker-badge">CDM</span>
-                                </td>
-                                <td>Added on 13th March 2019</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td><img src={"https://cdn.sofifa.org/players/10/20/212218.png"} alt="Player7" /></td>
-                                <td>Aymeric Laporte</td>
-                                <td>France</td>
-                                <td>Manchester City</td>
-                                <td>
-                                    <span class="badge striker-badge">CB</span>
-                                    <span class="badge striker-badge">LB</span>
-                                </td>
-                                <td>Added on 13th March 2019</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td><img src={"https://cdn.sofifa.org/players/10/20/203376.png"} alt="Player8" /></td>
-                                <td>Virgil van Dijk</td>
-                                <td>Netherlands</td>
-                                <td>Liverpool</td>
-                                <td>
-                                    <span class="badge striker-badge">CB</span>
-                                </td>
-                                <td>Added on 13th March 2019</td>
-                            </tr>
-                            <tr>
-                                <td>9</td>
-                                <td><img src={"https://cdn.sofifa.org/players/10/20/235243.png"} alt="Player9" /></td>
-                                <td>Matthijs de Ligt</td>
-                                <td>Netherlands</td>
-                                <td>Juventus</td>
-                                <td>
-                                    <span class="badge striker-badge">CB</span>
-                                </td>
-                                <td>Added on 13th March 2019</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td><img src={"https://cdn.sofifa.org/players/10/20/212622.png"} alt="Player10" /></td>
-                                <td>Joshua Kimmich</td>
-                                <td>Germany</td>
-                                <td>FC Bayern München</td>
-                                <td>
-                                    <span class="badge striker-badge">RB</span>
-                                    <span class="badge striker-badge">CDM</span>
-                                </td>
-                                <td>Added on 13th March 2019</td>
-                            </tr>
-                            <tr>
-                                <td>11</td>
-                                <td><img src={"https://cdn.sofifa.org/players/10/20/200389.png"} alt="Player11" /></td>
-                                <td>Jan Oblak</td>
-                                <td>Slovenia</td>
-                                <td>Atlético Madrid</td>
-                                <td>
-                                    <span class="badge striker-badge">GK</span>
-                                </td>
-                                <td>Added on 13th March 2019</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div className="addition">
-                        <button> Add a Favourite Player</button>
-                    </div>
-                </div>
-             </main>
+                {content}
+            </main>
         );
     }
 }
- 
+
+class FavoriteTable extends Component {
+
+    playerPosition = (position) => {
+        let posArr = position.split(", ");
+        let allBadges = posArr.map((pos) => {
+            if (pos === "GK") {
+                return <Badge id="gk-badge" key={pos}>{pos}</Badge>;
+            } else if (pos.includes("M")) {
+                return <Badge id="mid-badge" key={pos}>{pos}</Badge>;
+            } else if (pos.includes("B")) {
+                return <Badge id="def-badge" key={pos}>{pos}</Badge>;
+            } else {
+                return <Badge id="striker-badge" key={pos}>{pos}</Badge>;
+            }
+        });
+        return allBadges;
+    }
+
+    render() {
+
+        if (this.props.firebaseData.length === 0) {
+            return <Alert color="warning compare-error">No players to view! You can mark players favorite from the home page.</Alert>;
+        } else {
+
+            let rows = this.props.firebaseData.map((item, index) => {
+                let key = Object.keys(item)[0];
+                let data = item[key];
+                return (
+                    <tr>
+                        <td>{index + 1}</td>
+                        <td><img src={data.image} alt={data.name} /></td>
+                        <td>{data.name}</td>
+                        <td>{data.country}</td>
+                        <td>{data.club}</td>
+                        <td>{this.playerPosition(data.positions)}</td>
+                    </tr>
+                );
+            });
+
+            return (
+                <div>
+                    <p className="headings">Here is your list of favorite players</p>
+                    <div>
+                        <table className="table col-lg-10 col-xl-9 compare-table">
+                            <FavouriteTableHead cols={["#", "Image", "Name", "Country", "Club", "Preffered Position(s)"]} />
+                            <tbody>
+                                {rows}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        }
+    }
+}
+
 class FavouriteTableHead extends Component {
     render() {
-        
+
         let thArray = this.props.cols.map((colNameString) => {
             return <th scope="col">{colNameString}</th>
         })
- 
+
         let thead = (
             <thead>
                 <tr>
                     {thArray}
                 </tr>
-             </thead>                            
+            </thead>
         )
         return (thead);
     }
 }
- 
+
 export default FavoritePlayersPage;

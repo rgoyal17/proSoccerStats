@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import SearchForm from './SearchForm';
 import * as d3 from 'd3';
-import { Badge, Form, FormGroup, Label, Input, Modal, ModalBody, ModalFooter, Card, CardImg, CardHeader, CardBody} from 'reactstrap';
+import { Badge, Form, FormGroup, Label, Input, Modal, ModalBody, ModalFooter, Card, CardImg, CardHeader, CardBody } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner, faHeart } from '@fortawesome/free-solid-svg-icons';
 import 'd3';
+import firebase from 'firebase/app';
 
 class HomePage extends Component {
     constructor(props) {
@@ -24,9 +25,9 @@ class HomePage extends Component {
                 filteredPlayerData: data
             })
         })
-        .catch((error) => {
-            console.log(error);
-        });
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     filterPlayers = (info) => {
@@ -166,7 +167,7 @@ class HomePage extends Component {
                         </div>
                         <p id="info">Click on any row of the table to view additional inforamtion about that player!</p>
                         <div className="result-table">
-                            <ResultTable rowData={this.state.filteredPlayerData} entries={this.state.numEntries} begin={this.state.start} signedIn={this.props.signedIn} callback1={this.props.callback} checkedPlayer={this.props.checkedPlayer} checkedIds={this.props.checkedIds} statsArr={this.props.statsArr} />
+                            <ResultTable rowData={this.state.filteredPlayerData} entries={this.state.numEntries} begin={this.state.start} signedIn={this.props.signedIn} callback1={this.props.callback} checkedPlayer={this.props.checkedPlayer} checkedIds={this.props.checkedIds} statsArr={this.props.statsArr} user={this.props.user} firebaseData={this.props.firebaseData} />
                         </div>
                         <Form id="top-btn"><button className="btn" onClick={this.handleTop}>Back to Top</button></Form>
                         <Form className="flex-container">
@@ -192,9 +193,19 @@ class ResultTable extends Component {
             playerId: '',
             showToggle1: false,
             showToggle2: false,
-            maxPlayers: false
+            maxPlayers: false,
+            removed: false
         };
     }
+
+    // componentDidUpdate() {
+    //     console.log(this.props.firebaseData);
+    //     let allIds = [];
+    //     this.props.firebaseData.forEach((item) => {
+    //         allIds.push(Object.values(item)[0].playerId);
+    //     });
+    //     this.setState({ likedIds: allIds });
+    // }
 
     playerPosition = (position) => {
         let posArr = position.split(", ");
@@ -215,7 +226,7 @@ class ResultTable extends Component {
     findPlayer = (name, dob, image, id, isCompare) => {
 
         if (isCompare && !this.props.checkedIds.includes(id) && this.props.statsArr.length >= 4) {
-            this.setState({ maxPlayers: true, modalOpen: true});
+            this.setState({ maxPlayers: true, modalOpen: true });
         } else {
             if (!isCompare) {
                 this.setState({ modalOpen: true, picture: image, playerId: id });
@@ -253,7 +264,7 @@ class ResultTable extends Component {
                 name = name.replace(/ú/gi, "u");
                 name = name.replace(/ú/gi, "u");
                 name = name.replace(/ù/gi, "u");
-                
+
                 if (dob.length === 9) {
                     if (dob.charAt(1) === '/') {
                         dob = "0" + dob;
@@ -275,34 +286,34 @@ class ResultTable extends Component {
                     }
                 })
                     .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    let players = data.api.players;
-                    if (players.length > 0) {
-                        players = players.filter((item) => {
-                            let itemDob = item.birth_date;
-                            if (itemDob !== null) {
-                                itemDob = itemDob.substring(3, 6) + itemDob.substring(0, 3) + itemDob.substring(6, 10);
-                            }
-                            return dob === itemDob;
-                        })
-                        this.getPlayerStats(players[0], id, isCompare);
-                    } else {
-                        if (isCompare) {
-                            this.setState({ requestFailed: true, modalOpen: true });
-                            this.toggleSpinner2();
+                        return response.json();
+                    })
+                    .then((data) => {
+                        let players = data.api.players;
+                        if (players.length > 0) {
+                            players = players.filter((item) => {
+                                let itemDob = item.birth_date;
+                                if (itemDob !== null) {
+                                    itemDob = itemDob.substring(3, 6) + itemDob.substring(0, 3) + itemDob.substring(6, 10);
+                                }
+                                return dob === itemDob;
+                            })
+                            this.getPlayerStats(players[0], id, isCompare);
                         } else {
-                            this.setState({ requestFailed: true});
-                            this.toggleSpinner1();
+                            if (isCompare) {
+                                this.setState({ requestFailed: true, modalOpen: true });
+                                this.toggleSpinner2();
+                            } else {
+                                this.setState({ requestFailed: true });
+                                this.toggleSpinner1();
+                            }
                         }
-                    }
-                })
-                .catch(() => {
-                    this.setState({ requestFailed: true });
-                });
+                    })
+                    .catch(() => {
+                        this.setState({ requestFailed: true });
+                    });
             } else {
-                this.props.checkedPlayer({[id]: null});
+                this.props.checkedPlayer({ [id]: null });
             }
         }
     }
@@ -317,26 +328,26 @@ class ResultTable extends Component {
                 "x-rapidapi-key": "412b0a9c15msh4961dd39429a85dp15bf14jsnfa15192381aa"
             }
         })
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            if (isCompare) {
-                this.props.checkedPlayer({[id]: data.api.players});
-            } else {
-                this.setState({ playerStat: data.api.players });
-            }
-        })
-        .catch(() => {
-            this.setState({ requestFailed: true });
-        })
-        .then(() => {
-            if (!isCompare) {
-                this.toggleSpinner1();
-            } else {
-                this.toggleSpinner2();
-            }
-        });
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                if (isCompare) {
+                    this.props.checkedPlayer({ [id]: data.api.players });
+                } else {
+                    this.setState({ playerStat: data.api.players });
+                }
+            })
+            .catch(() => {
+                this.setState({ requestFailed: true });
+            })
+            .then(() => {
+                if (!isCompare) {
+                    this.toggleSpinner1();
+                } else {
+                    this.toggleSpinner2();
+                }
+            });
     }
 
     toggleModal = () => {
@@ -351,9 +362,31 @@ class ResultTable extends Component {
         this.setState({ showToggle2: !this.state.showToggle2 });
     }
 
-    handleHeart = () => {
-        if(!this.props.signedIn) {
+    handleHeart = (id, img, name, country, club, pos) => {
+        if (!this.props.signedIn) {
             this.props.callback1();
+        } else {
+            if (this.likedIds.includes(id)) {
+                let firebaseId = '';
+                this.props.firebaseData.forEach((item) => {
+                    if (Object.values(item)[0].playerId === id) {
+                        firebaseId = Object.values(item)[1];
+                    }
+                });
+                firebase.database().ref('playerInfo/' + firebaseId).remove();
+            } else {
+                let player = {
+                    [this.props.user.uid]: {
+                        playerId: id,
+                        image: img,
+                        name: name,
+                        country: country,
+                        club: club,
+                        positions: pos
+                    }
+                }
+                firebase.database().ref('playerInfo').push(player);
+            }
         }
     }
 
@@ -379,7 +412,7 @@ class ResultTable extends Component {
                         <PlayerCard stats={this.state.playerStat} picture={this.state.picture} />
                     </ModalBody>
                     <ModalFooter>
-                    <button className="btn" onClick={this.toggleModal}>Close</button>
+                        <button className="btn" onClick={this.toggleModal}>Close</button>
                     </ModalFooter>
                 </Modal>
             )
@@ -397,6 +430,11 @@ class ResultTable extends Component {
             )
         }
 
+        this.likedIds = [];
+        this.props.firebaseData.forEach((item) => {
+            this.likedIds.push(Object.values(item)[0].playerId);
+        });
+
         let allRows = this.props.rowData.map((item) => {
             return (
                 <tr className="data-row" key={item.sofifa_id}>
@@ -408,11 +446,11 @@ class ResultTable extends Component {
                     <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}>{this.playerPosition(item.player_positions)}</td>
                     <td>
                         <div><input type="checkbox" checked={this.props.checkedIds.includes(item.sofifa_id)} onChange={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, true)} /> Add to Compare {this.state.showToggle2 && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</div>
-                        <div><FontAwesomeIcon icon={faHeart} className="fa-lg liked change-pointer" onClick={this.handleHeart} /> Mark Favorite</div>
+                        <div><FontAwesomeIcon icon={faHeart} className={this.likedIds.includes(item.sofifa_id) ? "fa-lg liked change-pointer" : "fa-lg not-liked change-pointer"} onClick={() => this.handleHeart(item.sofifa_id, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.short_name, item.nationality, item.club, item.player_positions)} /> Mark Favorite</div>
                     </td>
                 </tr>
             );
-        })
+        });
 
         return (
             <div>

@@ -19,6 +19,10 @@ class CompareTable extends Component {
     }
 
     componentDidMount() {
+        this.update();
+    }
+
+    update = () => {
         let data = this.props.playersToCompare;
         if (data.length >= 2) {
             let t1 = Object.values(data[0])[0][0].team_name;
@@ -223,14 +227,14 @@ class CompareTable extends Component {
 
     handleRemove = (index) => {
         this.props.removePlayer(index);
-        this.componentDidMount();
+        this.update();
     }
 
     render() {
 
         if (this.props.playersToCompare.length < 2 || Object.keys(this.state).length === 0) {
             return (
-                <Alert color="warning" id="compare-error">Please add at least two players to compare!</Alert>
+                <Alert color="warning compare-error">Please add at least two players to compare!</Alert>
             );
         } else if (this.state.allData.length >= 2) {
             let finalData = this.state.filteredData;
