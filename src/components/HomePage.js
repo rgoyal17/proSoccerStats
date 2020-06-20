@@ -438,17 +438,18 @@ class ResultTable extends Component {
         });
 
         let allRows = this.props.rowData.map((item) => {
+            let img = "https://futhead.cursecdn.com/static/img/20/players/" + item.sofifa_id + ".png";
             return (
                 <tr className="data-row" key={item.sofifa_id}>
-                    <th className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}>{this.props.rowData.indexOf(item) + 1}</th>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}><img src={"https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png"} alt={item.short_name} className="player-img" /></td>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}>{item.long_name + "  "}{this.state.showToggle1 && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</td>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}>{item.nationality}</td>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}>{item.club}</td>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, false)}>{this.playerPosition(item.player_positions)}</td>
+                    <th className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, false)}>{this.props.rowData.indexOf(item) + 1}</th>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, false)}><img src={img} alt={item.short_name} className="player-img" /></td>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, false)}>{item.long_name + "  "}{this.state.showToggle1 && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</td>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, false)}>{item.nationality}</td>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, false)}>{item.club}</td>
+                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, false)}>{this.playerPosition(item.player_positions)}</td>
                     <td>
-                        <div className="features"><input type="checkbox" checked={this.props.checkedIds.includes(item.sofifa_id)} onChange={() => this.findPlayer(item.short_name, item.dob, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.sofifa_id, true)} /> Add to Compare {this.state.showToggle2 && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</div>
-                        <div className="features"><FontAwesomeIcon icon={faHeart} role="button" className={this.likedIds.includes(item.sofifa_id) ? "fa-lg liked change-pointer" : "fa-lg not-liked change-pointer"} onClick={() => this.handleHeart(item.sofifa_id, "https://cdn.sofifa.org/players/10/20/" + item.sofifa_id + ".png", item.short_name, item.nationality, item.club, item.player_positions)} /> Mark Favorite</div>
+                        <div className="features"><input type="checkbox" checked={this.props.checkedIds.includes(item.sofifa_id)} onChange={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, true)} /> Add to Compare {this.state.showToggle2 && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</div>
+                        <div className="features"><FontAwesomeIcon icon={faHeart} role="button" className={this.likedIds.includes(item.sofifa_id) ? "fa-lg liked change-pointer" : "fa-lg not-liked change-pointer"} onClick={() => this.handleHeart(item.sofifa_id, img, item.short_name, item.nationality, item.club, item.player_positions)} /> Mark Favorite</div>
                     </td>
                 </tr>
             );

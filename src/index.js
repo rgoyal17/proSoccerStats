@@ -11,14 +11,13 @@ import 'firebase/database';
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-    apiKey: "AIzaSyCAU8s3rpHNf9o17nIlJNfts2fgrGAB7cI",
-    authDomain: "prosoccerstats-bb26e.firebaseapp.com",
-    databaseURL: "https://prosoccerstats-bb26e.firebaseio.com",
-    projectId: "prosoccerstats-bb26e",
-    storageBucket: "prosoccerstats-bb26e.appspot.com",
-    messagingSenderId: "910686527180",
-    appId: "1:910686527180:web:85b56cbb1f627fdb822c69",
-    measurementId: "G-HR4KRL3N8P"
+    apiKey: "AIzaSyDVC94Si2wfDFYhE4PovmbLyHqTBrTFwfo",
+    authDomain: "pro-soccer-stats.firebaseapp.com",
+    databaseURL: "https://pro-soccer-stats.firebaseio.com",
+    projectId: "pro-soccer-stats",
+    storageBucket: "pro-soccer-stats.appspot.com",
+    messagingSenderId: "155457021823",
+    appId: "1:155457021823:web:8085f76e27ab5294ba9c4a"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

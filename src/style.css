@@ -5,6 +5,7 @@
 main {
     margin-top: 110px;
     background-color: #fffff5;
+    min-height: calc(100vh - 187.2px - 77px);
 }
 
 /* common style */
@@ -260,6 +261,7 @@ footer {
     text-align: center;
     padding: 1%;
     font-size: larger;
+    margin-bottom: 0;
 }
 
 .remove-player {
@@ -337,9 +339,15 @@ footer {
 
     footer {
         display: block;
-        margin-top: 10px;
-        text-align: center;
+        padding-top: 50px;
+        padding-bottom: 40px;
         line-height: 5px;
+        text-align: center;
+        background-color: #cbba83;
+    }
+
+    #copyright {
+        margin-top: 30px;
     }
 
     .compare-img {
