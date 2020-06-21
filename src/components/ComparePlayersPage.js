@@ -249,7 +249,7 @@ class CompareTable extends Component {
                 let value = Object.values(item)[0][0];
                 return (
                     <td key={value.player_id} id="first-row">
-                        <img src={"https://cdn.sofifa.org/players/10/20/" + key + ".png"} alt={value.player_name} className="compare-img" />
+                        <img src={"https://futhead.cursecdn.com/static/img/20/players/" + key + ".png"} alt={value.player_name} className="compare-img" />
                         <span role="button" className="change-pointer remove-player" onClick={() => this.handleRemove(index)}>&times;</span>
                     </td>
                 )
