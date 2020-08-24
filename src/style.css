@@ -251,6 +251,12 @@ thead {
     font-size: xx-large;
 }
 
+#icon {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+
 footer {
     display: none;
 }

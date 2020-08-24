@@ -20,7 +20,8 @@ class HomePage extends Component {
     }
 
     componentDidMount() {
-        d3.csv("data.csv").then((data) => {
+        // load csv data
+        d3.csv("2021_data.csv").then((data) => {
             this.setState({
                 allPlayerData: data,
                 filteredPlayerData: data
@@ -38,7 +39,7 @@ class HomePage extends Component {
             let searchName = info.name.toLowerCase();
             let words = searchName.split(" ");
             filteredArray = filteredArray.filter((item) => {
-                let name = item.long_name;
+                let name = item.name;
 
                 name = name.replace(/á/gi, "a");
                 name = name.replace(/à/gi, "a");
@@ -87,7 +88,7 @@ class HomePage extends Component {
         }
         if (info.position !== 'DEFAULT') {
             filteredArray = filteredArray.filter((item) => {
-                return item.player_positions.includes(info.position);
+                return item.position.includes(info.position);
             });
         }
         if (info.foot !== 'DEFAULT') {
@@ -175,7 +176,10 @@ class HomePage extends Component {
                         </div>
                         <p id="info">Click on any row of the table to view additional inforamtion about that player!</p>
                         <div className="player-table">
-                            <ResultTable rowData={this.state.filteredPlayerData} entries={this.state.numEntries} begin={this.state.start} signedIn={this.props.signedIn} callback1={this.props.callback} checkedPlayer={this.props.checkedPlayer} checkedIds={this.props.checkedIds} statsArr={this.props.statsArr} user={this.props.user} firebaseData={this.props.firebaseData} />
+                            <ResultTable rowData={this.state.filteredPlayerData} entries={this.state.numEntries} begin={this.state.start}
+                                signedIn={this.props.signedIn} callback1={this.props.callback} checkedPlayer={this.props.checkedPlayer}
+                                checkedIds={this.props.checkedIds} statsArr={this.props.statsArr} user={this.props.user}
+                                firebaseUserData={this.props.firebaseUserData} firebasePlayerData={this.props.firebasePlayerData} />
                         </div>
                         <Form id="top-btn"><button className="btn" onClick={this.handleTop}>Back to Top</button></Form>
                         <Form className="scroll-buttons">
@@ -208,7 +212,7 @@ class ResultTable extends Component {
 
     // creates badges based on player's position
     playerPosition = (position) => {
-        let posArr = position.split(", ");
+        let posArr = position.split("|");
         let allBadges = posArr.map((pos) => {
             if (pos === "GK") {
                 return <Badge id="gk-badge" key={pos}>{pos}</Badge>;
@@ -227,96 +231,156 @@ class ResultTable extends Component {
     findPlayer = (name, dob, image, id, isCompare) => {
 
         if (isCompare && !this.props.checkedIds.includes(id) && this.props.statsArr.length >= 4) {
+            // new player added to compare but max limit of 4 reached
             this.setState({ maxPlayers: true, modalOpen: true });
         } else {
             if (!isCompare) {
+                // player row has been clicked
+                // modal needed to show player stats
                 this.setState({ modalOpen: true, picture: image, playerId: id });
-                this.toggleSpinner1();
             } else if (!this.props.checkedIds.includes(id)) {
+                // add to compare clicked (within limit)
+                // model not required because player is to be compared
                 this.setState({ playerId: id });
-                this.toggleSpinner2();
             }
 
             if (!isCompare || !this.props.checkedIds.includes(id)) {
-
-                name = name.replace(/Jr/gi, "");
-                name = name.replace(/á/gi, "a");
-                name = name.replace(/à/gi, "a");
-                name = name.replace(/ã/gi, "a");
-                name = name.replace(/â/gi, "a");
-                name = name.replace(/ä/gi, "a");
-                name = name.replace(/ć/gi, "c");
-                name = name.replace(/ç/gi, "c");
-                name = name.replace(/č/gi, "c");
-                name = name.replace(/é/gi, "e");
-                name = name.replace(/è/gi, "e");
-                name = name.replace(/ê/gi, "e");
-                name = name.replace(/ę/gi, "e");
-                name = name.replace(/ë/gi, "e");
-                name = name.replace(/í/gi, "i");
-                name = name.replace(/î/gi, "i");
-                name = name.replace(/ï/gi, "i");
-                name = name.replace(/ñ/gi, "n");
-                name = name.replace(/ó/gi, "o");
-                name = name.replace(/ô/gi, "o");
-                name = name.replace(/ö/gi, "o");
-                name = name.replace(/š/gi, "s");
-                name = name.replace(/ü/gi, "u");
-                name = name.replace(/ú/gi, "u");
-                name = name.replace(/ú/gi, "u");
-                name = name.replace(/ù/gi, "u");
-
-                if (dob.length === 9) {
-                    if (dob.charAt(1) === '/') {
-                        dob = "0" + dob;
+                // either player row clicked or new player added to compare (within limit)
+                if (this.props.firebasePlayerData != null && this.props.firebasePlayerData[id] !== undefined ) {
+                    // firebase data stores data for this player, so just update state and stop spinners
+                    if (isCompare) {
+                        this.props.checkedPlayer({ [id]: this.props.firebasePlayerData[id] });
                     } else {
+                        this.setState({ playerStat: this.props.firebasePlayerData[id] });
+                    }
+                } else {
+                    // firebase data does not store this player, so will have to call the api to get data
+                    if (!isCompare) {
+                        this.toggleSpinner1();
+                    } else {
+                        this.toggleSpinner2();
+                    }
+
+                    name = name.replace(/Jr/gi, "");
+                    name = name.replace(/á/gi, "a");
+                    name = name.replace(/à/gi, "a");
+                    name = name.replace(/ã/gi, "a");
+                    name = name.replace(/â/gi, "a");
+                    name = name.replace(/ä/gi, "a");
+                    name = name.replace(/ć/gi, "c");
+                    name = name.replace(/ç/gi, "c");
+                    name = name.replace(/č/gi, "c");
+                    name = name.replace(/é/gi, "e");
+                    name = name.replace(/è/gi, "e");
+                    name = name.replace(/ê/gi, "e");
+                    name = name.replace(/ę/gi, "e");
+                    name = name.replace(/ë/gi, "e");
+                    name = name.replace(/í/gi, "i");
+                    name = name.replace(/î/gi, "i");
+                    name = name.replace(/ï/gi, "i");
+                    name = name.replace(/ñ/gi, "n");
+                    name = name.replace(/ó/gi, "o");
+                    name = name.replace(/ô/gi, "o");
+                    name = name.replace(/ö/gi, "o");
+                    name = name.replace(/š/gi, "s");
+                    name = name.replace(/ü/gi, "u");
+                    name = name.replace(/ú/gi, "u");
+                    name = name.replace(/ú/gi, "u");
+                    name = name.replace(/ù/gi, "u");
+                    name = name.replace('\'', '%27');
+
+                    if (dob.length === 9) {
+                        if (dob.charAt(1) === '/') {
+                            dob = "0" + dob;
+                        } else {
+                            dob = dob.substring(0, 3) + '0' + dob.substring(3);
+                        }
+                    } else if (dob.length === 8) {
+                        dob = "0" + dob;
                         dob = dob.substring(0, 3) + '0' + dob.substring(3);
                     }
-                } else if (dob.length === 8) {
-                    dob = "0" + dob;
-                    dob = dob.substring(0, 3) + '0' + dob.substring(3);
-                }
-
-                let uriTemplate = "https://api-football-v1.p.rapidapi.com/v2/players/search/{searchTerm}";
-                let uri = uriTemplate.replace("{searchTerm}", name);
-                fetch(uri, {
-                    "method": "GET",
-                    "headers": {
-                        "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-                        "x-rapidapi-key": "412b0a9c15msh4961dd39429a85dp15bf14jsnfa15192381aa"
-                    }
-                })
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    let players = data.api.players;
-                    if (players.length > 0) {
-                        players = players.filter((item) => {
-                            let itemDob = item.birth_date;
-                            if (itemDob !== null) {
-                                itemDob = itemDob.substring(3, 6) + itemDob.substring(0, 3) + itemDob.substring(6, 10);
-                            }
-                            return dob === itemDob;
-                        })
-                        this.getPlayerStats(players[0], id, isCompare);
-                    } else {
-                        if (isCompare) {
-                            this.setState({ requestFailed: true, modalOpen: true });
-                            this.toggleSpinner2();
-                        } else {
-                            this.setState({ requestFailed: true });
-                            this.toggleSpinner1();
+                    let fetchHeader = {
+                        "method": "GET",
+                        "headers": {
+                            "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+                            "x-rapidapi-key": "412b0a9c15msh4961dd39429a85dp15bf14jsnfa15192381aa"
                         }
                     }
-                })
-                .catch(() => {
-                    this.setState({ requestFailed: true });
-                });
+
+                    // search with full name
+
+                    fetch("https://api-football-v1.p.rapidapi.com/v2/players/search/" + name, fetchHeader)
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((data) => {
+                        let players = this.dobFilter(data.api.players, dob);
+                        if (players.length > 0) {
+                            this.getPlayerStats(players[0], id, isCompare);
+                        } else {
+                            // try searching again with just first name
+                            fetch("https://api-football-v1.p.rapidapi.com/v2/players/search/" + name.split(" ")[0], fetchHeader)
+                            .then((response) => {
+                                return response.json();
+                            })
+                            .then((data) => {
+                                players = this.dobFilter(data.api.players, dob);
+                                if (players.length > 0) {
+                                    this.getPlayerStats(players[0], id, isCompare);
+                                } else {
+                                    // try searching with just last name
+                                    let splitArr = name.split(" ");
+                                    fetch("https://api-football-v1.p.rapidapi.com/v2/players/search/" + splitArr[splitArr.length - 1], fetchHeader)
+                                    .then((response) => {
+                                        return response.json();
+                                    })
+                                    .then((data) => {
+                                        players = this.dobFilter(data.api.players, dob);
+                                        if (players.length > 0) {
+                                            this.getPlayerStats(players[0], id, isCompare);
+                                        } else {
+                                            if (isCompare) {
+                                                // modal required to show error message
+                                                this.setState({ requestFailed: true, modalOpen: true });
+                                                // stop compare spinner
+                                                this.toggleSpinner2();
+                                            } else {
+                                                // modal already open (above)
+                                                this.setState({ requestFailed: true });
+                                                // stop first spinner
+                                                this.toggleSpinner1();
+                                            }
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                    .catch(() => {
+                        if (!isCompare) {
+                            this.toggleSpinner1();
+                        } else {
+                            this.toggleSpinner2();
+                        }
+                        this.setState({ requestFailed: true });
+                    });
+                }
             } else {
+                // unchecking the player from add to compare
                 this.props.checkedPlayer({ [id]: null });
             }
         }
+    }
+
+    dobFilter = (players, dob) => {
+        players = players.filter((item) => {
+            let itemDob = item.birth_date;
+            if (itemDob !== null) {
+                itemDob = itemDob.substring(3, 6) + itemDob.substring(0, 3) + itemDob.substring(6, 10);
+            }
+            return dob === itemDob;
+        })
+        return players;
     }
 
     // gets the player's statistics
@@ -334,6 +398,8 @@ class ResultTable extends Component {
             return response.json();
         })
         .then((data) => {
+            // add player data to firebase and update state
+            firebase.database().ref('playerData/' + id).set(data.api.players);
             if (isCompare) {
                 this.props.checkedPlayer({ [id]: data.api.players });
             } else {
@@ -369,113 +435,115 @@ class ResultTable extends Component {
             this.props.callback1();
         } else {
             if (this.likedIds.includes(id)) {
-                let firebaseId = '';
-                this.props.firebaseData.forEach((item) => {
-                    if (Object.values(item)[0].playerId === id) {
-                        firebaseId = Object.values(item)[1];
-                    }
-                });
-                firebase.database().ref('playerInfo/' + firebaseId).remove();
+                // unlike player
+                firebase.database().ref('UserLikedPlayers/' + this.props.user.uid + '/' + id).remove();
             } else {
+                // update database to add liked player
                 let player = {
-                    [this.props.user.uid]: {
-                        playerId: id,
                         image: img,
                         name: name,
                         country: country,
                         club: club,
                         positions: pos
-                    }
                 }
-                firebase.database().ref('playerInfo').push(player);
+                firebase.database().ref('UserLikedPlayers/' + this.props.user.uid + '/' + id).set(player);
             }
         }
     }
 
     render() {
 
-        let modal = <div></div>;
-        if (this.state.requestFailed) {
-            modal = (
-                <Modal isOpen={this.state.modalOpen} toggle={this.toggleModal}>
-                    <ModalBody>
-                        Sorry! Stats for this player are currently not available.
-                    </ModalBody>
-                    <ModalFooter>
-                        <button className="btn" onClick={this.toggleModal}>Close</button>
-                    </ModalFooter>
-                </Modal>
-            )
-        }
-        if (this.state.playerStat.length !== 0) {
-            modal = (
-                <Modal isOpen={this.state.modalOpen} toggle={this.toggleModal}>
-                    <ModalBody>
-                        <PlayerCard stats={this.state.playerStat} picture={this.state.picture} />
-                    </ModalBody>
-                    <ModalFooter>
-                        <button className="btn" onClick={this.toggleModal}>Close</button>
-                    </ModalFooter>
-                </Modal>
-            )
-        }
-        if (this.state.maxPlayers) {
-            modal = (
-                <Modal isOpen={this.state.modalOpen} toggle={this.toggleModal}>
-                    <ModalBody>
-                        You can only add a maximum of 4 players at a time!
-                    </ModalBody>
-                    <ModalFooter>
-                        <button className="btn" onClick={this.toggleModal}>Close</button>
-                    </ModalFooter>
-                </Modal>
-            )
-        }
+        if (Object.keys(this.props.firebasePlayerData).length > 0) {
 
-        this.likedIds = [];
-        this.props.firebaseData.forEach((item) => {
-            this.likedIds.push(Object.values(item)[0].playerId);
-        });
+            let modal = <div></div>;
+            if (this.state.requestFailed) {
+                modal = (
+                    <Modal isOpen={this.state.modalOpen} toggle={this.toggleModal}>
+                        <ModalBody>
+                            Sorry! Stats for this player are currently not available.
+                        </ModalBody>
+                        <ModalFooter>
+                            <button className="btn" onClick={this.toggleModal}>Close</button>
+                        </ModalFooter>
+                    </Modal>
+                )
+            }
+            if (this.state.playerStat.length !== 0) {
+                modal = (
+                    <Modal isOpen={this.state.modalOpen} toggle={this.toggleModal}>
+                        <ModalBody>
+                            <PlayerCard stats={this.state.playerStat} picture={this.state.picture} />
+                        </ModalBody>
+                        <ModalFooter>
+                            <button className="btn" onClick={this.toggleModal}>Close</button>
+                        </ModalFooter>
+                    </Modal>
+                )
+            }
+            if (this.state.maxPlayers) {
+                modal = (
+                    <Modal isOpen={this.state.modalOpen} toggle={this.toggleModal}>
+                        <ModalBody>
+                            You can only add a maximum of 4 players at a time!
+                        </ModalBody>
+                        <ModalFooter>
+                            <button className="btn" onClick={this.toggleModal}>Close</button>
+                        </ModalFooter>
+                    </Modal>
+                )
+            }
 
-        let allRows = this.props.rowData.map((item) => {
-            let img = "https://futhead.cursecdn.com/static/img/20/players/" + item.sofifa_id + ".png";
+            this.likedIds = [];
+            this.props.firebaseUserData.forEach((item) => {
+                this.likedIds.push(item.player_id);
+            });
+
+            let allRows = this.props.rowData.map((item) => {
+                let img = "https://futhead.cursecdn.com/static/img/20/players/" + item.player_id + ".png";
+                return (
+                    <tr className="data-row" key={item.player_id}>
+                        <th className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, img, item.player_id, false)}>{this.props.rowData.indexOf(item) + 1}</th>
+                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, img, item.player_id, false)}><img src={img} alt={item.name} className="player-img" /></td>
+                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, img, item.player_id, false)}>{item.name + "  "}{this.state.showToggle1 && this.state.playerId === item.player_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</td>
+                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, img, item.player_id, false)}>{item.nationality}</td>
+                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, img, item.player_id, false)}>{item.club}</td>
+                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, img, item.player_id, false)}>{this.playerPosition(item.position)}</td>
+                        <td>
+                            <div className="features"><input type="checkbox" checked={this.props.checkedIds.includes(item.player_id)} onChange={() => this.findPlayer(item.name, item.dob, img, item.player_id, true)} /> Add to Compare {this.state.showToggle2 && this.state.playerId === item.player_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</div>
+                            <div className="features"><FontAwesomeIcon icon={faHeart} role="button" className={this.likedIds.includes(item.player_id) ? "fa-lg liked change-pointer" : "fa-lg not-liked change-pointer"} onClick={() => this.handleHeart(item.player_id, img, item.name, item.nationality, item.club, item.position)} /> Mark Favorite</div>
+                        </td>
+                    </tr>
+                );
+            });
+
             return (
-                <tr className="data-row" key={item.sofifa_id}>
-                    <th className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, false)}>{this.props.rowData.indexOf(item) + 1}</th>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, false)}><img src={img} alt={item.short_name} className="player-img" /></td>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, false)}>{item.long_name + "  "}{this.state.showToggle1 && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</td>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, false)}>{item.nationality}</td>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, false)}>{item.club}</td>
-                    <td className="change-pointer" onClick={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, false)}>{this.playerPosition(item.player_positions)}</td>
-                    <td>
-                        <div className="features"><input type="checkbox" checked={this.props.checkedIds.includes(item.sofifa_id)} onChange={() => this.findPlayer(item.short_name, item.dob, img, item.sofifa_id, true)} /> Add to Compare {this.state.showToggle2 && this.state.playerId === item.sofifa_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</div>
-                        <div className="features"><FontAwesomeIcon icon={faHeart} role="button" className={this.likedIds.includes(item.sofifa_id) ? "fa-lg liked change-pointer" : "fa-lg not-liked change-pointer"} onClick={() => this.handleHeart(item.sofifa_id, img, item.short_name, item.nationality, item.club, item.player_positions)} /> Mark Favorite</div>
-                    </td>
-                </tr>
+                <div>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Country</th>
+                                <th scope="col">Club</th>
+                                <th scope="col">Preferred Position(s)</th>
+                                <th scope="col">Features</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            {allRows.slice(this.props.begin, Number(this.props.begin) + Number(this.props.entries))}
+                        </tbody>
+                    </table>
+                    {modal}
+                </div>
             );
-        });
-
-        return (
-            <div>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Image</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Country</th>
-                            <th scope="col">Club</th>
-                            <th scope="col">Preferred Position(s)</th>
-                            <th scope="col">Features</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
-                        {allRows.slice(this.props.begin, Number(this.props.begin) + Number(this.props.entries))}
-                    </tbody>
-                </table>
-                {modal}
-            </div>
-        );
+        } else {
+            return (
+                <div id="icon">
+                    <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" />
+                </div>
+            );
+        }
     }
 }
 
@@ -563,7 +631,7 @@ class PlayerCard extends Component {
         // get player's teams
         let allTeams = [];
         this.state.allData.forEach(function (item) {
-            if (!allTeams.includes(item.team_name) && item.team_name !== null) {
+            if (!allTeams.includes(item.team_name) && item.team_name !== null && item.team_name !== undefined) {
                 allTeams.push(item.team_name);
             }
         })
@@ -574,7 +642,7 @@ class PlayerCard extends Component {
         // get player's leagues
         let allLeagues = [];
         this.state.teamFilteredData.forEach(function (item) {
-            if (!allLeagues.includes(item.league) && item.league !== null) {
+            if (!allLeagues.includes(item.league) && item.league !== null && item.league !== undefined) {
                 allLeagues.push(item.league);
             }
         })
@@ -585,7 +653,7 @@ class PlayerCard extends Component {
         // get player's seasons
         let allSeasons = [];
         this.state.leagueFilteredData.forEach(function (item) {
-            if (!allSeasons.includes(item.season) && item.season !== null) {
+            if (!allSeasons.includes(item.season) && item.season !== null && item.season !== undefined) {
                 allSeasons.push(item.season);
             }
         })

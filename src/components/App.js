@@ -15,10 +15,11 @@ class App extends Component {
         this.state = {
             showSignInModal: false,
             signedIn: false,
-            checkedIds: [],
-            compareStats: [],
+            checkedIds: [],     // id's that are added to add to compare
+            compareStats: [],   // store stats for each player
             user: null,
-            firebaseData: []
+            firebaseUserData: [],   // user's liked players
+            firebasePlayerData: {}  // player stats database
         };
     }
 
@@ -35,12 +36,23 @@ class App extends Component {
     }
 
     componentDidMount() {
+        // load firebase player data
+        this.playerRef = firebase.database().ref('playerData');
+        this.playerRef.on('value', (snapshot) => {
+            let data = snapshot.val();
+            if (data !== null && data !== undefined) {
+                this.setState({ firebasePlayerData: data });
+            } else {
+                this.setState({ firebasePlayerData: {} });
+            }
+        });
+
         this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
                 this.getData(firebaseUser.uid);
                 this.setState({ signedIn: true, showSignInModal: false, user: firebaseUser });
             } else {
-                this.setState({signedIn: false, user: null, firebaseData: []});
+                this.setState({signedIn: false, user: null, firebaseUserData: []});
             }
         });
     }
@@ -58,24 +70,22 @@ class App extends Component {
         this.setState({ showSignInModal: !this.state.showSignInModal });
     }
 
-    // reads data from firebase database and filters only current user's data
+    // reads user data from firebase database
     getData = (uid) => {
-        this.playerRef = firebase.database().ref('playerInfo');
+        this.playerRef = firebase.database().ref('UserLikedPlayers/' + uid);
         this.playerRef.on('value', (snapshot) => {
             let data = snapshot.val();
             if (data !== null && data !== undefined) {
+                // convert data from an object to an array
                 let playerKeys = Object.keys(data);
                 let playerArray = playerKeys.map((key) => {
                     let playerObj = data[key];
-                    playerObj.firebaseId = key;
+                    playerObj.player_id = key;
                     return playerObj;
                 });
-                let filteredArray = playerArray.filter((item) => {
-                    return Object.keys(item)[0] === uid;
-                })
-                this.setState({ firebaseData: filteredArray });
+                this.setState({ firebaseUserData: playerArray });
             } else {
-                this.setState({ firebaseData: [] });
+                this.setState({ firebaseUserData: [] });
             }
         });
     }
@@ -137,9 +147,11 @@ class App extends Component {
                     <NavBar callback={this.state.signedIn ? this.handleLogOut : this.toggleSignInModal} signedIn={this.state.signedIn} />
                 </header>
                 <Switch>
-                    <Route exact path='/' render={(props) => <HomePage {...props} signedIn={this.state.signedIn} callback={this.toggleSignInModal} checkedPlayer={this.updateCheckedPlayers} checkedIds={this.state.checkedIds} statsArr={this.state.compareStats} user={this.state.user} firebaseData={this.state.firebaseData} />} />
+                    <Route exact path='/' render={(props) => <HomePage {...props} signedIn={this.state.signedIn} callback={this.toggleSignInModal}
+                        checkedPlayer={this.updateCheckedPlayers} checkedIds={this.state.checkedIds} statsArr={this.state.compareStats}
+                        user={this.state.user} firebaseUserData={this.state.firebaseUserData} firebasePlayerData={this.state.firebasePlayerData} />} />
                     <Route path='/compare' render={(props) => <ComparePlayersPage {...props} playersToCompare={this.state.compareStats} removePlayer={this.removePlayer} />} />
-                    <Route path='/favorites' render={(props) => <FavoritePlayersPage {...props} user={this.state.user} firebaseData={this.state.firebaseData} />} />
+                    <Route path='/favorites' render={(props) => <FavoritePlayersPage {...props} user={this.state.user} firebaseUserData={this.state.firebaseUserData} />} />
                     <Redirect to='/' />
                 </Switch>
                 {signinModal}

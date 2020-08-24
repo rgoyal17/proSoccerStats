@@ -4,7 +4,7 @@ import { Alert, Badge } from 'reactstrap';
 class FavoritePlayersPage extends Component {
     render() {
 
-        let content = <FavoriteTable user={this.props.user} firebaseData={this.props.firebaseData} />;
+        let content = <FavoriteTable user={this.props.user} firebaseUserData={this.props.firebaseUserData} />;
         if (this.props.user === null) {
             content = <Alert color="warning" className="error-message">Please sign in to add and view your favorite players!</Alert>;
         }
@@ -21,7 +21,7 @@ class FavoriteTable extends Component {
 
     // creates badges based on player's position
     playerPosition = (position) => {
-        let posArr = position.split(", ");
+        let posArr = position.split("|");
         let allBadges = posArr.map((pos) => {
             if (pos === "GK") {
                 return <Badge id="gk-badge" key={pos}>{pos}</Badge>;
@@ -38,21 +38,20 @@ class FavoriteTable extends Component {
 
     render() {
 
-        if (this.props.firebaseData.length === 0) {
+        if (this.props.firebaseUserData.length === 0) {
             return <Alert color="warning" className="error-message">No players to view! You can mark players favorite from the home page.</Alert>;
         } else {
 
-            let rows = this.props.firebaseData.map((item, index) => {
-                let key = Object.keys(item)[0];
-                let data = item[key];
+            let rows = this.props.firebaseUserData.map((item, index) => {
+                let key = item.player_id;
                 return (
-                    <tr>
+                    <tr key={key}>
                         <td>{index + 1}</td>
-                        <td><img src={data.image} alt={data.name} /></td>
-                        <td>{data.name}</td>
-                        <td>{data.country}</td>
-                        <td>{data.club}</td>
-                        <td>{this.playerPosition(data.positions)}</td>
+                        <td><img src={item.image} alt={item.name} /></td>
+                        <td>{item.name}</td>
+                        <td>{item.country}</td>
+                        <td>{item.club}</td>
+                        <td>{this.playerPosition(item.positions)}</td>
                     </tr>
                 );
             });
@@ -78,7 +77,7 @@ class FavouriteTableHead extends Component {
     render() {
 
         let thArray = this.props.cols.map((colNameString) => {
-            return <th scope="col">{colNameString}</th>
+            return <th scope="col" key={colNameString}>{colNameString}</th>
         })
 
         let thead = (

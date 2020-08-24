@@ -332,27 +332,15 @@ class SearchForm extends Component {
                         <Input type="select" name="position" id="position" value={this.state.position} onChange={this.handleChange}>
                             <option value="DEFAULT">Choose Position...</option>
                             <option value="CF">Centre Forward</option>
-                            <option value="RF">Right Forward</option>
-                            <option value="LF">Left Forward</option>
                             <option value="ST">Striker</option>
-                            <option value="RS">Right Striker</option>
-                            <option value="LS">Left Striker</option>
                             <option value="RW">Right Winger</option>
                             <option value="LW">Left Winger</option>
                             <option value="CAM">Centre Attacking Midfielder</option>
-                            <option value="RAM">Right Attacking Midfielder</option>
-                            <option value="LAM">Left Attacking Midfielder</option>
                             <option value="CM">Centre Midfielder</option>
-                            <option value="RCM">Right Centre Midfielder</option>
-                            <option value="LCM">Left Centre Midfielder</option>
                             <option value="RM">Right Midfielder</option>
                             <option value="LM">Left Midfielder</option>
                             <option value="CDM">Centre Defensive Midfielder</option>
-                            <option value="RDM">Right Defensive Midfielder</option>
-                            <option value="LDM">Left Defensive Midfielder</option>
                             <option value="CB">Centre Back</option>
-                            <option value="RCB">Right Centre Back</option>
-                            <option value="LCB">Left Centre Back</option>
                             <option value="RB">Right Back</option>
                             <option value="LB">Left Back</option>
                             <option value="RWB">Right Wing Back</option>
