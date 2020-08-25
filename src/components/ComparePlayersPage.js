@@ -283,7 +283,7 @@ class CompareTable extends Component {
                 let values = Object.values(item)[0];
                 let allTeams = [];
                 values.forEach((player) => {
-                    if (!allTeams.includes(player.team_name) && player.team_name !== null) {
+                    if (!allTeams.includes(player.team_name) && player.team_name !== null && player.team_name !== undefined) {
                         allTeams.push(player.team_name);
                     }
                 });
@@ -406,6 +406,10 @@ class CompareTable extends Component {
             let foulsMin = foulsMax;
             let cardsMax = finalData[0].cards.yellow !== null && finalData[0].cards.yellow !== undefined && finalData[0].cards.red !== null && finalData[0].cards.red !== undefined ? Number(finalData[0].cards.yellow) + Number(finalData[0].cards.red) : 0;
             let cardsMin = cardsMax;
+            let savedMax = finalData[0].goals.saves !== null && finalData[0].goals.saves !== undefined ? Number(finalData[0].goals.saves) : 0;
+            let savedMin = savedMax;
+            let concededMax = finalData[0].goals.conceded !== null && finalData[0].goals.conceded !== undefined ? Number(finalData[0].goals.conceded) : 0;
+            let concededMin = concededMax;
 
             // assign actual values for max and min of each statistic
             finalData.forEach((item) => {
@@ -486,6 +490,18 @@ class CompareTable extends Component {
                 }
                 if (item.cards.yellow !== null && item.cards.yellow !== undefined && item.cards.red !== null && item.cards.red !== undefined && (item.cards.yellow + item.cards.red) < cardsMin) {
                     cardsMin = item.cards.yellow + item.cards.red;
+                }
+                if (item.goals.saves !== null && item.goals.saves !== undefined && item.goals.saves > savedMax) {
+                    savedMax = item.goals.saves;
+                }
+                if (item.goals.saves !== null && item.goals.saves !== undefined && item.goals.saves < savedMin) {
+                    savedMin = item.goals.saves;
+                }
+                if (item.goals.conceded !== null && item.goals.conceded !== undefined && item.goals.conceded > concededMax) {
+                    concededMax = item.goals.conceded;
+                }
+                if (item.goals.conceded !== null && item.goals.conceded !== undefined && item.goals.conceded < concededMin) {
+                    concededMin = item.goals.conceded;
                 }
             });
 
@@ -619,6 +635,26 @@ class CompareTable extends Component {
                 return <td key={item.player_id} className={val}>{(item.cards.yellow + item.cards.red) + "(" + item.cards.red + ")"}</td>
             });
 
+            let savedRow = finalData.map((item) => {
+                let val = 'med';
+                if (item.goals.saves !== null && item.goals.saves !== undefined && item.goals.saves === Number(savedMax)) {
+                    val = 'better';
+                } else if (item.goals.saves !== null && item.goals.saves !== undefined && item.goals.saves === Number(savedMin)) {
+                    val = 'worse';
+                }
+                return <td key={item.player_id} className={val}>{item.goals.saves}</td>
+            });
+
+            let concededRow = finalData.map((item) => {
+                let val = 'med';
+                if (item.goals.conceded !== null && item.goals.conceded !== undefined && item.goals.conceded === Number(concededMin)) {
+                    val = 'better';
+                } else if (item.goals.conceded !== null && item.goals.conceded !== undefined && item.goals.conceded === Number(concededMax)) {
+                    val = 'worse';
+                }
+                return <td key={item.player_id} className={val}>{item.goals.conceded}</td>
+            });
+
             return (
                 <div>
                     <h1>Compare Players</h1>
@@ -717,6 +753,14 @@ class CompareTable extends Component {
                                 <tr>
                                     <td className="field">Cards(Red):</td>
                                     {cardsRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Goals Saved:</td>
+                                    {savedRow}
+                                </tr>
+                                <tr>
+                                    <td className="field">Goals Conceded::</td>
+                                    {concededRow}
                                 </tr>
                             </tbody>
                         </table>

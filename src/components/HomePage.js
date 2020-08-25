@@ -718,6 +718,14 @@ class PlayerCard extends Component {
                         <div className="col field">Cards(Yellow/Red):</div>
                         <div className="col">{this.state.seasonFilteredData[0].cards.yellow + "/" + this.state.seasonFilteredData[0].cards.red}</div>
                     </div>
+                    <div className="row">
+                        <div className="col field">Goals Saved:</div>
+                        <div className="col">{this.state.seasonFilteredData[0].goals.saves}</div>
+                    </div>
+                    <div className="row">
+                        <div className="col field">Goals Conceded:</div>
+                        <div className="col">{this.state.seasonFilteredData[0].goals.conceded}</div>
+                    </div>
                 </div>
             );
         }
