@@ -40,32 +40,7 @@ class HomePage extends Component {
             let words = searchName.split(" ");
             filteredArray = filteredArray.filter((item) => {
                 let name = item.name;
-
-                name = name.replace(/á/gi, "a");
-                name = name.replace(/à/gi, "a");
-                name = name.replace(/ã/gi, "a");
-                name = name.replace(/â/gi, "a");
-                name = name.replace(/ä/gi, "a");
-                name = name.replace(/ć/gi, "c");
-                name = name.replace(/ç/gi, "c");
-                name = name.replace(/č/gi, "c");
-                name = name.replace(/é/gi, "e");
-                name = name.replace(/è/gi, "e");
-                name = name.replace(/ê/gi, "e");
-                name = name.replace(/ę/gi, "e");
-                name = name.replace(/ë/gi, "e");
-                name = name.replace(/í/gi, "i");
-                name = name.replace(/î/gi, "i");
-                name = name.replace(/ï/gi, "i");
-                name = name.replace(/ñ/gi, "n");
-                name = name.replace(/ó/gi, "o");
-                name = name.replace(/ô/gi, "o");
-                name = name.replace(/ö/gi, "o");
-                name = name.replace(/š/gi, "s");
-                name = name.replace(/ü/gi, "u");
-                name = name.replace(/ú/gi, "u");
-                name = name.replace(/ú/gi, "u");
-                name = name.replace(/ù/gi, "u");
+                name = this.cleanName(name);
 
                 let containsAllWords = true;
                 for (let i = 0; i < words.length; i++) {
@@ -104,6 +79,37 @@ class HomePage extends Component {
             });
         }
         this.setState({ filteredPlayerData: filteredArray, numEntries: 10, start: 0 });
+    }
+
+    // replace weird characters
+    cleanName = (name) => {
+        name = name.replace(/á/gi, "a");
+        name = name.replace(/à/gi, "a");
+        name = name.replace(/ã/gi, "a");
+        name = name.replace(/â/gi, "a");
+        name = name.replace(/ä/gi, "a");
+        name = name.replace(/ć/gi, "c");
+        name = name.replace(/ç/gi, "c");
+        name = name.replace(/č/gi, "c");
+        name = name.replace(/é/gi, "e");
+        name = name.replace(/è/gi, "e");
+        name = name.replace(/ê/gi, "e");
+        name = name.replace(/ę/gi, "e");
+        name = name.replace(/ë/gi, "e");
+        name = name.replace(/í/gi, "i");
+        name = name.replace(/î/gi, "i");
+        name = name.replace(/ï/gi, "i");
+        name = name.replace(/ñ/gi, "n");
+        name = name.replace(/ó/gi, "o");
+        name = name.replace(/ô/gi, "o");
+        name = name.replace(/ö/gi, "o");
+        name = name.replace(/š/gi, "s");
+        name = name.replace(/ü/gi, "u");
+        name = name.replace(/ú/gi, "u");
+        name = name.replace(/ú/gi, "u");
+        name = name.replace(/ù/gi, "u");
+        name = name.replace('\'', '%27');
+        return name;
     }
 
     handleEntries = (event) => {
@@ -179,7 +185,8 @@ class HomePage extends Component {
                             <ResultTable rowData={this.state.filteredPlayerData} entries={this.state.numEntries} begin={this.state.start}
                                 signedIn={this.props.signedIn} callback1={this.props.callback} checkedPlayer={this.props.checkedPlayer}
                                 checkedIds={this.props.checkedIds} statsArr={this.props.statsArr} user={this.props.user}
-                                firebaseUserData={this.props.firebaseUserData} firebasePlayerData={this.props.firebasePlayerData} />
+                                firebaseUserData={this.props.firebaseUserData} firebasePlayerData={this.props.firebasePlayerData}
+                                cleanName={this.cleanName} />
                         </div>
                         <Form id="top-btn"><button className="btn" onClick={this.handleTop}>Back to Top</button></Form>
                         <Form className="scroll-buttons">
@@ -228,7 +235,7 @@ class ResultTable extends Component {
     }
 
     // finds a player using an api
-    findPlayer = (name, dob, image, id, isCompare) => {
+    async findPlayer(name, dob, nationality, image, id, isCompare) {
 
         if (isCompare && !this.props.checkedIds.includes(id) && this.props.statsArr.length >= 4) {
             // new player added to compare but max limit of 4 reached
@@ -261,33 +268,7 @@ class ResultTable extends Component {
                         this.toggleSpinner2();
                     }
 
-                    name = name.replace(/Jr/gi, "");
-                    name = name.replace(/á/gi, "a");
-                    name = name.replace(/à/gi, "a");
-                    name = name.replace(/ã/gi, "a");
-                    name = name.replace(/â/gi, "a");
-                    name = name.replace(/ä/gi, "a");
-                    name = name.replace(/ć/gi, "c");
-                    name = name.replace(/ç/gi, "c");
-                    name = name.replace(/č/gi, "c");
-                    name = name.replace(/é/gi, "e");
-                    name = name.replace(/è/gi, "e");
-                    name = name.replace(/ê/gi, "e");
-                    name = name.replace(/ę/gi, "e");
-                    name = name.replace(/ë/gi, "e");
-                    name = name.replace(/í/gi, "i");
-                    name = name.replace(/î/gi, "i");
-                    name = name.replace(/ï/gi, "i");
-                    name = name.replace(/ñ/gi, "n");
-                    name = name.replace(/ó/gi, "o");
-                    name = name.replace(/ô/gi, "o");
-                    name = name.replace(/ö/gi, "o");
-                    name = name.replace(/š/gi, "s");
-                    name = name.replace(/ü/gi, "u");
-                    name = name.replace(/ú/gi, "u");
-                    name = name.replace(/ú/gi, "u");
-                    name = name.replace(/ù/gi, "u");
-                    name = name.replace('\'', '%27');
+                    name = this.props.cleanName(name);
 
                     if (dob.length === 9) {
                         if (dob.charAt(1) === '/') {
@@ -299,71 +280,39 @@ class ResultTable extends Component {
                         dob = "0" + dob;
                         dob = dob.substring(0, 3) + '0' + dob.substring(3);
                     }
-                    let fetchHeader = {
-                        "method": "GET",
-                        "headers": {
-                            "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-                            "x-rapidapi-key": "412b0a9c15msh4961dd39429a85dp15bf14jsnfa15192381aa"
+
+                    let playerFound = false;
+                    if (name.length > 3) {
+                        // search with full name
+                        playerFound = await this.searchAPI(name, dob, nationality, id, isCompare);
+                        if (!playerFound) {
+                            let splitArr = name.split(" ");
+                            if (splitArr.length > 1) {
+                                if (splitArr[0].length > 3) {
+                                    // try searching again with just first name
+                                    playerFound = await this.searchAPI(splitArr[0], dob, nationality, id, isCompare);
+                                }
+                                if ((splitArr[0].length <= 3 || !playerFound) && (splitArr[splitArr.length - 1].length > 3)) {
+                                    // try searching with just last name
+                                    playerFound = await this.searchAPI(splitArr[splitArr.length - 1], dob, nationality, id, isCompare);
+                                }
+                            }
                         }
                     }
-
-                    // search with full name
-
-                    fetch("https://api-football-v1.p.rapidapi.com/v2/players/search/" + name, fetchHeader)
-                    .then((response) => {
-                        return response.json();
-                    })
-                    .then((data) => {
-                        let players = this.dobFilter(data.api.players, dob);
-                        if (players.length > 0) {
-                            this.getPlayerStats(players[0], id, isCompare);
-                        } else {
-                            // try searching again with just first name
-                            fetch("https://api-football-v1.p.rapidapi.com/v2/players/search/" + name.split(" ")[0], fetchHeader)
-                            .then((response) => {
-                                return response.json();
-                            })
-                            .then((data) => {
-                                players = this.dobFilter(data.api.players, dob);
-                                if (players.length > 0) {
-                                    this.getPlayerStats(players[0], id, isCompare);
-                                } else {
-                                    // try searching with just last name
-                                    let splitArr = name.split(" ");
-                                    fetch("https://api-football-v1.p.rapidapi.com/v2/players/search/" + splitArr[splitArr.length - 1], fetchHeader)
-                                    .then((response) => {
-                                        return response.json();
-                                    })
-                                    .then((data) => {
-                                        players = this.dobFilter(data.api.players, dob);
-                                        if (players.length > 0) {
-                                            this.getPlayerStats(players[0], id, isCompare);
-                                        } else {
-                                            if (isCompare) {
-                                                // modal required to show error message
-                                                this.setState({ requestFailed: true, modalOpen: true });
-                                                // stop compare spinner
-                                                this.toggleSpinner2();
-                                            } else {
-                                                // modal already open (above)
-                                                this.setState({ requestFailed: true });
-                                                // stop first spinner
-                                                this.toggleSpinner1();
-                                            }
-                                        }
-                                    })
-                                }
-                            })
-                        }
-                    })
-                    .catch(() => {
-                        if (!isCompare) {
-                            this.toggleSpinner1();
-                        } else {
+                    if (!playerFound) {
+                        // couldn't find the player after all the tries, so we show an error message
+                        if (isCompare) {
+                            // modal required to show error message
+                            this.setState({ requestFailed: true, modalOpen: true });
+                            // stop compare spinner
                             this.toggleSpinner2();
+                        } else {
+                            // modal already open (above)
+                            this.setState({ requestFailed: true });
+                            // stop first spinner
+                            this.toggleSpinner1();
                         }
-                        this.setState({ requestFailed: true });
-                    });
+                    }
                 }
             } else {
                 // unchecking the player from add to compare
@@ -372,13 +321,45 @@ class ResultTable extends Component {
         }
     }
 
-    dobFilter = (players, dob) => {
+    // call the search endpoint of the api to search for a player
+    async searchAPI(name, dob, nationality, id, isCompare) {
+        try {
+            let uriTemplate = "https://api-football-v1.p.rapidapi.com/v2/players/search/{name}";
+            let uri = uriTemplate.replace("{name}", name);
+            let response = await fetch(uri, {
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+                    "x-rapidapi-key": "412b0a9c15msh4961dd39429a85dp15bf14jsnfa15192381aa"
+                }
+            })
+            let data = await response.json();
+            let players = this.dobFilter(data.api.players, dob, nationality);
+            if (players.length > 0) {
+                this.getPlayerStats(players[0], id, isCompare);
+                return true;
+            } else {
+                return false;
+            }
+        } catch {
+            if (!isCompare) {
+                this.toggleSpinner1();
+            } else {
+                this.toggleSpinner2();
+            }
+            this.setState({ requestFailed: true });
+            return false;
+        }
+    }
+
+    // filter players based on their DOB and nationality
+    dobFilter = (players, dob, nationality) => {
         players = players.filter((item) => {
             let itemDob = item.birth_date;
             if (itemDob !== null) {
                 itemDob = itemDob.substring(3, 6) + itemDob.substring(0, 3) + itemDob.substring(6, 10);
             }
-            return dob === itemDob;
+            return dob === itemDob && item.nationality === nationality;
         })
         return players;
     }
@@ -502,14 +483,14 @@ class ResultTable extends Component {
                 let img = "https://futhead.cursecdn.com/static/img/20/players/" + item.player_id + ".png";
                 return (
                     <tr className="data-row" key={item.player_id}>
-                        <th className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, img, item.player_id, false)}>{this.props.rowData.indexOf(item) + 1}</th>
-                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, img, item.player_id, false)}><img src={img} alt={item.name} className="player-img" /></td>
-                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, img, item.player_id, false)}>{item.name + "  "}{this.state.showToggle1 && this.state.playerId === item.player_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</td>
-                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, img, item.player_id, false)}>{item.nationality}</td>
-                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, img, item.player_id, false)}>{item.club}</td>
-                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, img, item.player_id, false)}>{this.playerPosition(item.position)}</td>
+                        <th className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, item.nationality, img, item.player_id, false)}>{this.props.rowData.indexOf(item) + 1}</th>
+                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, item.nationality, img, item.player_id, false)}><img src={img} alt={item.name} className="player-img" /></td>
+                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, item.nationality, img, item.player_id, false)}>{item.name + "  "}{this.state.showToggle1 && this.state.playerId === item.player_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</td>
+                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, item.nationality, img, item.player_id, false)}>{item.nationality}</td>
+                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, item.nationality, img, item.player_id, false)}>{item.club}</td>
+                        <td className="change-pointer" onClick={() => this.findPlayer(item.name, item.dob, item.nationality, img, item.player_id, false)}>{this.playerPosition(item.position)}</td>
                         <td>
-                            <div className="features"><input type="checkbox" checked={this.props.checkedIds.includes(item.player_id)} onChange={() => this.findPlayer(item.name, item.dob, img, item.player_id, true)} /> Add to Compare {this.state.showToggle2 && this.state.playerId === item.player_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</div>
+                            <div className="features"><input type="checkbox" checked={this.props.checkedIds.includes(item.player_id)} onChange={() => this.findPlayer(item.name, item.dob, item.nationality, img, item.player_id, true)} /> Add to Compare {this.state.showToggle2 && this.state.playerId === item.player_id ? <FontAwesomeIcon icon={faSpinner} className=" fa-spin fa-lg" /> : null}</div>
                             <div className="features"><FontAwesomeIcon icon={faHeart} role="button" className={this.likedIds.includes(item.player_id) ? "fa-lg liked change-pointer" : "fa-lg not-liked change-pointer"} onClick={() => this.handleHeart(item.player_id, img, item.name, item.nationality, item.club, item.position)} /> Mark Favorite</div>
                         </td>
                     </tr>
