@@ -219,7 +219,8 @@ class ResultTable extends Component {
     }
 
     componentDidMount() {
-        d3.csv("api-key.csv").then((data) => {
+        d3.csv("APIkey.csv").then((data) => {
+            console.log(data)
             this.setState({apiKey: data.columns[0]});
         })
         .catch((error) => {
@@ -443,6 +444,7 @@ class ResultTable extends Component {
     }
 
     render() {
+        console.log(this.state.apiKey)
         if (Object.keys(this.props.firebasePlayerData).length > 0) {
 
             let modal = <div></div>;
