@@ -213,8 +213,18 @@ class ResultTable extends Component {
             showToggle1: false,
             showToggle2: false,
             maxPlayers: false,
-            removed: false
+            removed: false,
+            apiKey: ""
         };
+    }
+
+    componentDidMount() {
+        d3.csv("api-key.csv").then((data) => {
+            this.setState({apiKey: data.columns[0]});
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     }
 
     // creates badges based on player's position
@@ -330,7 +340,7 @@ class ResultTable extends Component {
                 "method": "GET",
                 "headers": {
                     "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-                    "x-rapidapi-key": "412b0a9c15msh4961dd39429a85dp15bf14jsnfa15192381aa"
+                    "x-rapidapi-key": ""
                 }
             })
             let data = await response.json();
@@ -348,7 +358,7 @@ class ResultTable extends Component {
                 this.toggleSpinner2();
             }
             this.setState({ requestFailed: true });
-            return false;
+            return true;
         }
     }
 
@@ -372,7 +382,7 @@ class ResultTable extends Component {
             "method": "GET",
             "headers": {
                 "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-                "x-rapidapi-key": "412b0a9c15msh4961dd39429a85dp15bf14jsnfa15192381aa"
+                "x-rapidapi-key": this.state.apiKey
             }
         })
         .then((response) => {
@@ -433,7 +443,6 @@ class ResultTable extends Component {
     }
 
     render() {
-
         if (Object.keys(this.props.firebasePlayerData).length > 0) {
 
             let modal = <div></div>;
