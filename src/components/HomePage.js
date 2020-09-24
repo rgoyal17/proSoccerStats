@@ -340,7 +340,7 @@ class ResultTable extends Component {
                 "method": "GET",
                 "headers": {
                     "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-                    "x-rapidapi-key": ""
+                    "x-rapidapi-key": this.state.apiKey
                 }
             })
             let data = await response.json();
