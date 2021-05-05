@@ -161,7 +161,7 @@ class App extends Component {
                         <p>Contact information: <a href="mailto:rishabhgoyal555@gmail.com">rishabhgoyal555@gmail.com</a></p>
                         <p>Data sources: <cite><a href="https://www.kaggle.com/stefanoleone992/fifa-20-complete-player-dataset">FIFA 2020 dataset from Kaggle</a></cite> and <cite><a href="https://rapidapi.com/api-sports/api/api-football">Football Player API</a></cite></p>
                     </address>
-                    <p id="copyright">&copy; 2020 UW INFO340</p>
+                    <p id="copyright">&copy;UW INFO340</p>
                 </footer>
             </div>
         );
