@@ -8,3 +8,5 @@ datasets from Kaggle. Incorporated concepts/tools like ES6, bootstrap, react-rou
 - Used Google Firebase for hosting application, data storage, and user authentication
 
 The app can be viewed at <https://pro-soccer-stats.firebaseapp.com/>
+
+<img width="1426" alt="Screenshot 2024-06-07 at 2 26 04 PM" src="https://github.com/rgoyal17/proSoccerStats/assets/55811460/a7890572-3397-430e-bad7-eef4af893d9b">
